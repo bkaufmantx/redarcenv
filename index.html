@@ -116,8 +116,8 @@
       margin-bottom: 1rem;
     }
 
-    /* ── Blocker banner ── */
-    .blocker-banner {
+    /* ── Zak action banner (unified) ── */
+    .zak-banner {
       background: #fff8e1;
       border: 1.5px solid #f39c12;
       border-radius: 10px;
@@ -127,21 +127,32 @@
       gap: 1rem;
       align-items: flex-start;
     }
-    .blocker-icon { font-size: 1.5rem; flex-shrink: 0; }
-    .blocker-body h3 {
+    /* Inline variant — sits inside a phase card */
+    .zak-banner.inline {
+      margin: 1.25rem 0 0;
+      border-radius: 8px;
+    }
+    .zak-icon {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .zak-icon svg {
+      display: block;
+    }
+    .zak-body h3 {
       font-size: 1rem;
       font-weight: 700;
       color: #b7770d;
       margin-bottom: .3rem;
     }
-    .blocker-body p { font-size: .88rem; color: var(--gray-700); }
-    .blocker-steps {
+    .zak-body p { font-size: .88rem; color: var(--gray-700); }
+    .zak-steps {
       margin-top: .75rem;
       display: flex;
       flex-direction: column;
       gap: .4rem;
     }
-    .blocker-step {
+    .zak-step {
       display: flex;
       align-items: flex-start;
       gap: .6rem;
@@ -352,7 +363,7 @@
       .hero { padding: 1.5rem; }
       .phase-header { padding: 1rem; }
       .phase-body { padding: 0 1rem 1.25rem; }
-      .blocker-banner { padding: 1rem; }
+      .zak-banner { padding: 1rem; }
       .comments-section { padding: 1.5rem; }
     }
   </style>
@@ -385,23 +396,28 @@
     <div class="updated">📅 Last updated: June 8, 2026 &nbsp;·&nbsp; Next milestone: Zak grants Brian CRM data access + answers 4 quote tool questions</div>
   </div>
 
-  <!-- ── BLOCKER ── -->
-  <div class="section-title">⚠️ Current Blocker — Action Needed from Zak</div>
-  <div class="blocker-banner">
-    <div class="blocker-icon">🔒</div>
-    <div class="blocker-body">
+  <!-- ── ZAK ACTION: CRM ACCESS ── -->
+  <div class="section-title">Action Required from Zak</div>
+  <div class="zak-banner">
+    <div class="zak-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="11,2 21,2 30,11 30,21 21,30 11,30 2,21 2,11" stroke="#c0392b" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
+        <text x="16" y="21" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#c0392b">!</text>
+      </svg>
+    </div>
+    <div class="zak-body">
       <h3>Brian can't see CRM records yet — Zoho data sharing is set to "Private"</h3>
       <p>The MCP connector is live and authenticated. But Brian's Zoho account only shows records he owns (none). All of Zak's records are invisible until one of these is changed:</p>
-      <div class="blocker-steps">
-        <div class="blocker-step">
+      <div class="zak-steps">
+        <div class="zak-step">
           <div class="step-badge">A</div>
           <div><strong>Make Brian an Administrator</strong> — Setup → Users &amp; Control → Users → Brian → Edit Profile → Administrator<span class="step-rec">Recommended</span></div>
         </div>
-        <div class="blocker-step">
+        <div class="zak-step">
           <div class="step-badge">B</div>
           <div><strong>Change Data Sharing to Public Read Only</strong> — Setup → Security Control → Data Sharing Settings → set each module to "Public Read Only"</div>
         </div>
-        <div class="blocker-step">
+        <div class="zak-step">
           <div class="step-badge">C</div>
           <div><strong>Assign Brian the Administrator Role</strong> — Setup → Users &amp; Control → Users → Brian → Edit Role → Administrator</div>
         </div>
@@ -519,13 +535,36 @@
           </div>
         </div>
 
-        <div class="section-title" style="margin-top:1.5rem">🙋 4 Questions for Zak — Needed Before Phase 3</div>
-        <ul class="task-list">
-          <li><span class="task-icon">❓</span><div class="task-text"><strong>What do Pricing Levels A, B, and C mean?</strong><div class="task-note">Are these discount tiers, flat rate tables, or something else? This is the primary pricing input to the quote tool.</div></div></li>
-          <li><span class="task-icon">❓</span><div class="task-text"><strong>Who are your actual waste carriers?</strong><div class="task-note">The Carrier field currently shows FedEx/UPS/DHL — consumer shippers. Need the real hazmat carrier list so we can rebuild this field correctly.</div></div></li>
-          <li><span class="task-icon">❓</span><div class="task-text"><strong>Can you share the item code list from Larry's Creator app?</strong><div class="task-note">Item codes don't exist anywhere in Zoho. They're the foundation of Phase 3. Even a spreadsheet export would unblock us.</div></div></li>
-          <li><span class="task-icon">❓</span><div class="task-text"><strong>How do you currently link a quote to a specific generator site?</strong><div class="task-note">Quotes in Zoho connect to Accounts and Contacts — but not to individual Generators. Do you work around this manually? How?</div></div></li>
-        </ul>
+        <div class="zak-banner inline">
+          <div class="zak-icon">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="11,2 21,2 30,11 30,21 21,30 11,30 2,21 2,11" stroke="#c0392b" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
+              <text x="16" y="21" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#c0392b">!</text>
+            </svg>
+          </div>
+          <div class="zak-body">
+            <h3>4 Questions for Zak — Needed Before Phase 3</h3>
+            <p>We can't design the quote tool logic without these answers. Each one is a specific input the tool will need to function.</p>
+            <div class="zak-steps">
+              <div class="zak-step">
+                <div class="step-badge">1</div>
+                <div><strong>What do Pricing Levels A, B, and C mean?</strong> — Are these discount tiers, flat rates, or something else? This is the primary pricing input to the quote tool.</div>
+              </div>
+              <div class="zak-step">
+                <div class="step-badge">2</div>
+                <div><strong>Who are your actual waste carriers?</strong> — The Carrier field currently shows FedEx/UPS/DHL. Need the real hazmat carrier list to rebuild it correctly.</div>
+              </div>
+              <div class="zak-step">
+                <div class="step-badge">3</div>
+                <div><strong>Can you share the item code list from Larry's Creator app?</strong> — Item codes don't exist anywhere in Zoho. Even a spreadsheet export would unblock Phase 3.</div>
+              </div>
+              <div class="zak-step">
+                <div class="step-badge">4</div>
+                <div><strong>How do you currently tie a quote to a specific generator site?</strong> — Quotes in Zoho connect to Accounts and Contacts, but not to individual Generators. Do you do this manually?</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
