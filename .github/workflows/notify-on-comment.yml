@@ -43,3 +43,50 @@ jobs:
                 </p>
               </div>
             </div>
+
+      - name: Send Google Chat notification
+        if: ${{ secrets.GOOGLE_CHAT_WEBHOOK != '' }}
+        run: |
+          curl -s -X POST "${{ secrets.GOOGLE_CHAT_WEBHOOK }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "cards": [{
+                "header": {
+                  "title": "RedArc Project Dashboard",
+                  "subtitle": "New comment posted"
+                },
+                "sections": [{
+                  "widgets": [
+                    {
+                      "keyValue": {
+                        "topLabel": "Task",
+                        "content": "${{ github.event.issue.title }}"
+                      }
+                    },
+                    {
+                      "keyValue": {
+                        "topLabel": "From",
+                        "content": "${{ github.event.comment.user.login }}"
+                      }
+                    },
+                    {
+                      "textParagraph": {
+                        "text": "${{ github.event.comment.body }}"
+                      }
+                    },
+                    {
+                      "buttons": [{
+                        "textButton": {
+                          "text": "VIEW COMMENT",
+                          "onClick": {
+                            "openLink": {
+                              "url": "${{ github.event.comment.html_url }}"
+                            }
+                          }
+                        }
+                      }]
+                    }
+                  ]
+                }]
+              }]
+            }'
