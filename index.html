@@ -378,11 +378,11 @@
     <div class="progress-wrap">
       <div class="progress-label">
         <span>Overall progress</span>
-        <span>Phase 1 of 3 — ~30% complete</span>
+        <span>Phase 1 of 3 — ~40% complete</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width: 30%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
     </div>
-    <div class="updated">📅 Last updated: June 8, 2026 &nbsp;·&nbsp; Next milestone: Zak grants Brian CRM data access</div>
+    <div class="updated">📅 Last updated: June 8, 2026 &nbsp;·&nbsp; Next milestone: Zak grants Brian CRM data access + answers 4 quote tool questions</div>
   </div>
 
   <!-- ── BLOCKER ── -->
@@ -497,7 +497,35 @@
             <h4>ℹ️ Larry's Creator app fingerprints</h4>
             <code>Platform_Generator_ID</code> and <code>Platform_Record_ID</code> fields exist on both Generators and Accounts — cross-references to the third-party app.
           </div>
+          <div class="finding-card flag">
+            <h4>⚠️ Carrier field has wrong values</h4>
+            The Carrier picklist shows FedEx, UPS, USPS, DHL, BlueDart — consumer shippers. RedArc uses hazmat carriers. This needs to be rebuilt with real carrier names.
+          </div>
+          <div class="finding-card flag">
+            <h4>⚠️ Item codes not in Zoho at all</h4>
+            Products module is 100% stock Zoho — no custom fields, no waste codes, no pricing. Item codes almost certainly live only in Larry's Creator app.
+          </div>
+          <div class="finding-card good">
+            <h4>✅ EPA regulatory tiers mapped</h4>
+            Generator Status captures VSQG / SQG / LQG — the three EPA quantity tiers. This + Generator Category will drive quote routing logic.
+          </div>
+          <div class="finding-card good">
+            <h4>✅ Pricing tiers exist</h4>
+            Pricing Level A / B / C / N/A is on every Account. Need Zak to define what each letter means in dollar terms.
+          </div>
+          <div class="finding-card good">
+            <h4>✅ 16 industry verticals mapped</h4>
+            Market field covers pharma, manufacturing, electroplating, oil &amp; gas, chemical mfg, healthcare labs, and more — will drive item code selection.
+          </div>
         </div>
+
+        <div class="section-title" style="margin-top:1.5rem">🙋 4 Questions for Zak — Needed Before Phase 3</div>
+        <ul class="task-list">
+          <li><span class="task-icon">❓</span><div class="task-text"><strong>What do Pricing Levels A, B, and C mean?</strong><div class="task-note">Are these discount tiers, flat rate tables, or something else? This is the primary pricing input to the quote tool.</div></div></li>
+          <li><span class="task-icon">❓</span><div class="task-text"><strong>Who are your actual waste carriers?</strong><div class="task-note">The Carrier field currently shows FedEx/UPS/DHL — consumer shippers. Need the real hazmat carrier list so we can rebuild this field correctly.</div></div></li>
+          <li><span class="task-icon">❓</span><div class="task-text"><strong>Can you share the item code list from Larry's Creator app?</strong><div class="task-note">Item codes don't exist anywhere in Zoho. They're the foundation of Phase 3. Even a spreadsheet export would unblock us.</div></div></li>
+          <li><span class="task-icon">❓</span><div class="task-text"><strong>How do you currently link a quote to a specific generator site?</strong><div class="task-note">Quotes in Zoho connect to Accounts and Contacts — but not to individual Generators. Do you work around this manually? How?</div></div></li>
+        </ul>
 
       </div>
     </div>
