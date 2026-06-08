@@ -243,11 +243,34 @@
     .badge-pending { background: var(--gray-200);    color: var(--gray-500); }
 
     .phase-chevron {
-      font-size: .8rem;
+      font-size: .75rem;
       color: var(--gray-500);
       transition: transform .2s;
+      flex-shrink: 0;
+      width: 16px;
+      text-align: center;
     }
     .phase-card.open .phase-chevron { transform: rotate(90deg); }
+
+    /* ── Per-task comments ── */
+    .task-comment-btn {
+      margin-top: .4rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      font-size: .75rem;
+      color: var(--blue);
+      background: none;
+      border: 1px solid var(--blue-light);
+      border-radius: 6px;
+      padding: 2px 8px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .task-comment-btn:hover { background: var(--blue-light); }
+    .task-comment-btn.has-comments { color: var(--green); border-color: var(--green-light); }
+    .task-comment-btn.has-comments:hover { background: var(--green-light); }
+    .task-comments-area { margin-top: .5rem; }
 
     .phase-body {
       display: none;
@@ -300,32 +323,6 @@
     .finding-card h4 { font-weight: 600; margin-bottom: .3rem; font-size: .85rem; }
     .findings-toggle:hover { opacity: .75; }
 
-    /* ── Comments section ── */
-    .comments-section {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem 2.5rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,.06);
-    }
-    .comments-section h2 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: .5rem;
-    }
-    .comments-section .comments-intro {
-      font-size: .85rem;
-      color: var(--gray-500);
-      margin-bottom: 1.5rem;
-    }
-    .comments-note {
-      background: var(--blue-light);
-      border-radius: 8px;
-      padding: .85rem 1.1rem;
-      font-size: .82rem;
-      color: var(--gray-700);
-      margin-bottom: 1.25rem;
-      border-left: 3px solid var(--blue);
-    }
 
     /* ── Progress bar ── */
     .progress-wrap {
@@ -434,12 +431,12 @@
     <div class="phase-card open" id="phase1">
       <div class="phase-header" onclick="togglePhase('phase1')">
         <div class="phase-num active">1</div>
+        <span class="phase-chevron">▶</span>
         <div class="phase-title-wrap">
           <div class="phase-title">Phase 1 — Access &amp; Orientation</div>
           <div class="phase-subtitle">Understand the full system before touching anything</div>
         </div>
         <span class="phase-status-badge badge-active">In Progress</span>
-        <span class="phase-chevron">▶</span>
       </div>
       <div class="phase-body">
 
@@ -449,6 +446,8 @@
             <div class="task-text">
               <strong>Fix Zoho OAuth / MCP Connector</strong>
               <div class="task-note">New refresh token generated with full CRM scopes. FleetView connector reconnected. All 21 read-only tools set to "Always allow."</div>
+              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'fix-oauth-mcp-connector')">💬 Comment</button>
+              <div class="task-comments-area"></div>
             </div>
           </li>
           <li>
@@ -456,6 +455,8 @@
             <div class="task-text">
               <strong>Full Module Inventory</strong>
               <div class="task-note">50+ modules catalogued — standard, custom (Generators), linking, Books-synced, and integration modules.</div>
+              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'full-module-inventory')">💬 Comment</button>
+              <div class="task-comments-area"></div>
             </div>
           </li>
           <li>
@@ -463,6 +464,8 @@
             <div class="task-text">
               <strong>Field Inventory — Generators, Accounts, Quotes, Contacts</strong>
               <div class="task-note">35 Generator fields, 64 Account fields, 37 Quote fields, 64 Contact fields documented. Key custom fields identified for quote tool.</div>
+              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'field-inventory-generators-accounts-quotes-contacts')">💬 Comment</button>
+              <div class="task-comments-area"></div>
             </div>
           </li>
           <li>
@@ -470,6 +473,8 @@
             <div class="task-text">
               <strong>Get Real Record Counts</strong>
               <div class="task-note">Blocked — waiting on Zak to grant data sharing access. All modules currently return 0 records.</div>
+              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'get-real-record-counts')">💬 Comment</button>
+              <div class="task-comments-area"></div>
             </div>
           </li>
           <li>
@@ -477,6 +482,8 @@
             <div class="task-text">
               <strong>Walk Through a Live Quote Creation with Zak</strong>
               <div class="task-note">Need Zak on a call — document every trigger, input, tool touched, and output. Understand exactly where Larry's Creator app enters the picture.</div>
+              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'walk-through-live-quote-creation')">💬 Comment</button>
+              <div class="task-comments-area"></div>
             </div>
           </li>
           <li>
@@ -484,6 +491,8 @@
             <div class="task-text">
               <strong>Quoted Items Subform — Field Inventory</strong>
               <div class="task-note">Still need to pull line item field structure from the Quotes subform.</div>
+              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'quoted-items-subform-field-inventory')">💬 Comment</button>
+              <div class="task-comments-area"></div>
             </div>
           </li>
         </ul>
@@ -595,19 +604,19 @@
     <div class="phase-card" id="phase2">
       <div class="phase-header" onclick="togglePhase('phase2')">
         <div class="phase-num pending">2</div>
+        <span class="phase-chevron">▶</span>
         <div class="phase-title-wrap">
           <div class="phase-title">Phase 2 — Clean House &amp; Stabilize</div>
           <div class="phase-subtitle">CRM is reliable; Brian + Claude can query it fluently</div>
         </div>
         <span class="phase-status-badge badge-pending">Not Started</span>
-        <span class="phase-chevron">▶</span>
       </div>
       <div class="phase-body">
         <ul class="task-list">
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Surface duplicate contacts &amp; accounts</strong><div class="task-note">Run deduplication queries. Review every match with Brian before anything is merged — no destructive changes without sign-off.</div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Clarify duplicate module situation</strong><div class="task-note">Resolve the double Sales Orders / POs / Invoices and the two Generators X Contacts linking modules with Zak.</div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Establish CRM as single source of truth</strong><div class="task-note">Map every place data currently lives. Reconfigure so data enters through CRM and syncs outward.</div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Fix the Zoho Desk / Custom Module access gap</strong><div class="task-note">Diagnose why Desk can't see the Generators module. Likely a profile/permission config — no code required.</div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Surface duplicate contacts &amp; accounts</strong><div class="task-note">Run deduplication queries. Review every match with Brian before anything is merged — no destructive changes without sign-off.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'surface-duplicate-contacts-accounts')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Clarify duplicate module situation</strong><div class="task-note">Resolve the double Sales Orders / POs / Invoices and the two Generators X Contacts linking modules with Zak.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'clarify-duplicate-module-situation')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Establish CRM as single source of truth</strong><div class="task-note">Map every place data currently lives. Reconfigure so data enters through CRM and syncs outward.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'establish-crm-single-source-of-truth')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Fix the Zoho Desk / Custom Module access gap</strong><div class="task-note">Diagnose why Desk can't see the Generators module. Likely a profile/permission config — no code required.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'fix-zoho-desk-custom-module-access-gap')">💬 Comment</button><div class="task-comments-area"></div></div></li>
         </ul>
       </div>
     </div>
@@ -616,18 +625,18 @@
     <div class="phase-card" id="phase3">
       <div class="phase-header" onclick="togglePhase('phase3')">
         <div class="phase-num pending">3</div>
+        <span class="phase-chevron">▶</span>
         <div class="phase-title-wrap">
           <div class="phase-title">Phase 3 — Build the Quote Tool</div>
           <div class="phase-subtitle">Zak gets time back; double-entry is eliminated</div>
         </div>
         <span class="phase-status-badge badge-pending">Not Started</span>
-        <span class="phase-chevron">▶</span>
       </div>
       <div class="phase-body">
         <ul class="task-list">
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Claude-powered quote generation from CRM</strong><div class="task-note">Input job parameters → Claude pulls client data via MCP → applies item codes and pricing → outputs structured draft quote. Start with one quote type.</div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Document all routing rules &amp; item codes</strong><div class="task-note">Capture directly from Zak or by reverse-engineering the Creator app. Encode as structured logic in the Claude tool.</div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Run new tool in parallel with Larry's app</strong><div class="task-note">Compare outputs on same inputs. Nothing switches off until Zak explicitly approves the handoff.</div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Claude-powered quote generation from CRM</strong><div class="task-note">Input job parameters → Claude pulls client data via MCP → applies item codes and pricing → outputs structured draft quote. Start with one quote type.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'claude-powered-quote-generation')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Document all routing rules &amp; item codes</strong><div class="task-note">Capture directly from Zak or by reverse-engineering the Creator app. Encode as structured logic in the Claude tool.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'document-routing-rules-item-codes')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Run new tool in parallel with Larry's app</strong><div class="task-note">Compare outputs on same inputs. Nothing switches off until Zak explicitly approves the handoff.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'run-parallel-with-larrys-app')">💬 Comment</button><div class="task-comments-area"></div></div></li>
         </ul>
         <div class="findings-grid" style="margin-top: 1rem">
           <div class="finding-card info">
@@ -648,22 +657,9 @@
 
   </div><!-- /phases -->
 
-  <!-- ── COMMENTS ── -->
-  <div class="comments-section">
-    <h2>💬 Comments &amp; Discussion</h2>
-    <p class="comments-intro">Leave a note, flag a question, or update status. Zak — this is where you can weigh in on priorities, flag anything that's wrong, or give Brian the go-ahead on next steps.</p>
-    <div class="comments-note">
-      <strong>How to comment:</strong> You'll need a free GitHub account. Click "Sign in with GitHub" below to post. All comments are saved permanently and visible to anyone with this link.
-    </div>
-    <script
-      src="https://utteranc.es/client.js"
-      repo="bkaufmantx/redarcenv"
-      issue-term="title"
-      label="discussion"
-      theme="github-light"
-      crossorigin="anonymous"
-      async>
-    </script>
+  <!-- ── HOW COMMENTS WORK ── -->
+  <div style="background:var(--blue-light);border-radius:10px;padding:1rem 1.5rem;margin-bottom:2rem;font-size:.82rem;color:var(--gray-700);border-left:3px solid var(--blue);">
+    <strong>💬 How to leave comments:</strong> Click the "Comment" button on any task above. You'll need a free GitHub account — <a href="https://github.com/signup" target="_blank" style="color:var(--blue);">sign up here</a> if you don't have one. Each task has its own comment thread. Comments are saved permanently.
   </div>
 
 </div><!-- /container -->
@@ -684,6 +680,30 @@
     const open = body.style.display !== 'none';
     body.style.display = open ? 'none' : 'block';
     chevron.style.transform = open ? '' : 'rotate(90deg)';
+  }
+
+  function toggleTaskComment(btn, taskSlug) {
+    const area = btn.nextElementSibling; // .task-comments-area
+    if (area.dataset.loaded) {
+      // Toggle visibility if already loaded
+      const visible = area.style.display !== 'none';
+      area.style.display = visible ? 'none' : 'block';
+      btn.textContent = visible ? '💬 Comment' : '💬 Hide comments';
+      return;
+    }
+    // Lazy-load Utterances for this specific task
+    area.dataset.loaded = 'true';
+    area.style.display = 'block';
+    btn.textContent = '💬 Hide comments';
+    const script = document.createElement('script');
+    script.src = 'https://utteranc.es/client.js';
+    script.setAttribute('repo', 'bkaufmantx/redarcenv');
+    script.setAttribute('issue-term', 'task: ' + taskSlug);
+    script.setAttribute('label', 'task-comment');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
+    area.appendChild(script);
   }
 </script>
 
