@@ -731,23 +731,28 @@
 
       <!-- Option 2: Google Chat -->
       <div style="border:1px solid #eef0f3;border-radius:8px;padding:1rem 1.25rem;">
-        <div style="font-weight:700;font-size:.88rem;margin-bottom:.6rem;color:#1a202c;">Option B — Google Chat notification</div>
+        <div style="font-weight:700;font-size:.88rem;margin-bottom:.35rem;color:#1a202c;">Option B — Google Chat notification</div>
+        <p style="font-size:.8rem;color:#7f8c8d;margin-bottom:.75rem;">This uses a <strong>shared space</strong> — one Chat room both you and Brian are in. When a comment is posted on the dashboard, a message appears in that space for both of you. Zak sets it up, sends Brian one URL, and Brian activates it.</p>
         <div style="display:flex;flex-direction:column;gap:.6rem;">
           <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
             <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">1</div>
-            <div>Open <strong>Google Chat</strong> and go to the space you want notifications in (or create a new one — e.g. "RedArc Project")</div>
+            <div>Open <strong>Google Chat</strong> and create a new space — name it something like <strong>"RedArc Project"</strong>. This will be your shared project channel.</div>
           </div>
           <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
             <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">2</div>
-            <div>Click the space name at the top → <strong>Apps &amp; integrations</strong> → <strong>Webhooks</strong> → <strong>Add webhook</strong></div>
+            <div>Invite Brian: click the space name at the top → <strong>Add people &amp; bots</strong> → type <strong>bkaufman@redarcenv.com</strong></div>
           </div>
           <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
             <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">3</div>
-            <div>Name it <strong>RedArc Dashboard</strong>, click <strong>Save</strong>, then copy the webhook URL it gives you</div>
+            <div>Click the space name → <strong>Apps &amp; integrations</strong> → <strong>Webhooks</strong> → <strong>Add webhook</strong></div>
           </div>
           <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
             <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">4</div>
-            <div>Send the webhook URL to Brian — he'll add it and every new comment will post a message directly into that Chat space</div>
+            <div>Name the webhook <strong>RedArc Dashboard</strong> → click <strong>Save</strong> → copy the long URL it generates</div>
+          </div>
+          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
+            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">5</div>
+            <div>Send that URL to Brian — he'll activate it in about 30 seconds. From that point, every comment on this dashboard posts a notification into the shared space for both of you.</div>
           </div>
         </div>
       </div>
