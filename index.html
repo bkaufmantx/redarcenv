@@ -409,8 +409,9 @@
       </svg>
     </div>
     <div class="zak-body">
-      <h3>Brian can't see CRM records yet — Zoho data sharing is set to "Private"</h3>
-      <p>The MCP connector is live and authenticated. But Brian's Zoho account only shows records he owns (none). All of Zak's records are invisible until one of these is changed:</p>
+      <h3>Two things are blocking full CRM visibility</h3>
+      <p>The MCP connector is live and authenticated. But there are two separate issues: <strong>(1)</strong> Zoho CRM is newly set up and not yet fully populated — most operational data still lives in Larry's Creator app, not in Zoho. <strong>(2)</strong> Brian's Zoho account can only see records he owns, not Zak's. Both need to be addressed to move forward.</p>
+      <p style="margin-top:.5rem;font-size:.82rem;color:var(--gray-700);">For the permissions issue, choose one of the following:</p>
       <div class="zak-steps">
         <div class="zak-step">
           <div class="step-badge">A</div>
@@ -588,7 +589,7 @@
             </svg>
           </div>
           <div class="zak-body">
-            <h3>4 Questions for Zak — Needed Before Phase 3</h3>
+            <h3>5 Questions for Zak — Needed Before Phase 3</h3>
             <p>We can't design the quote tool logic without these answers. Each one is a specific input the tool will need to function.</p>
             <div class="zak-steps">
               <div class="zak-step">
@@ -617,6 +618,13 @@
                 <div>
                   <strong>How do you currently tie a quote to a specific generator site?</strong> — Quotes in Zoho connect to Accounts and Contacts, but not to individual Generators. Do you do this manually?
                   <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'question-quote-to-generator-link')">💬 Comment</button><div class="task-comments-area"></div></div>
+                </div>
+              </div>
+              <div class="zak-step">
+                <div class="step-badge">5</div>
+                <div>
+                  <strong>Can Brian get read-only access to Larry's Creator app?</strong> — Most of RedArc's operational data (clients, generators, jobs, item codes) still lives in the Creator app, not in Zoho. Brian needs visibility into it to understand the full picture and eventually migrate data or replicate its logic.
+                  <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'question-read-access-to-larrys-creator-app')">💬 Comment</button><div class="task-comments-area"></div></div>
                 </div>
               </div>
             </div>
