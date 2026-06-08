@@ -7,8 +7,11 @@ on:
 jobs:
   send-notification:
     runs-on: ubuntu-latest
+    env:
+      HAS_CHAT_WEBHOOK: ${{ secrets.GOOGLE_CHAT_WEBHOOK != '' }}
     steps:
       - name: Send email notification
+        continue-on-error: true
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -45,7 +48,8 @@ jobs:
             </div>
 
       - name: Send Google Chat notification
-        if: ${{ secrets.GOOGLE_CHAT_WEBHOOK != '' }}
+        if: env.HAS_CHAT_WEBHOOK == 'true'
+        continue-on-error: true
         run: |
           curl -s -X POST "${{ secrets.GOOGLE_CHAT_WEBHOOK }}" \
             -H "Content-Type: application/json" \
