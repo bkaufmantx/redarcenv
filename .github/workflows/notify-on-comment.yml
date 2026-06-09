@@ -19,7 +19,7 @@ jobs:
           secure: true
           username: ${{ secrets.NOTIFY_EMAIL_USER }}
           password: ${{ secrets.NOTIFY_EMAIL_PASSWORD }}
-          to: bkaufman@redarcenv.com, zak@redarcenv.com
+          to: bkaufman@redarcenv.com, zwilson@redarcenv.com
           from: RedArc Project Dashboard <${{ secrets.NOTIFY_EMAIL_USER }}>
           subject: "💬 New comment on: ${{ github.event.issue.title }}"
           html_body: |
