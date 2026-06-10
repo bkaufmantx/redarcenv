@@ -368,6 +368,55 @@
           </div>
         </div>
 
+        <!-- Dedup Audit Findings -->
+        <div style="margin-top:1.5rem;">
+          <div onclick="toggleFindings('findings-dedup')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+            <span class="section-title" style="margin:0;">Platform Account Dedup Audit — June 10, 2026</span>
+            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
+              <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">558 total accounts</span>
+              <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">8 duplicate pairs</span>
+            </span>
+            <span id="findings-dedup-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+          </div>
+          <div id="findings-dedup" style="display:none;">
+
+            <div style="background:var(--blue-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--blue);">
+              Read-only audit run against Platform (Zoho Creator) via API — June 10, 2026. 558 accounts pulled across all pages. No records were changed. Two duplicate patterns identified: recent entry errors (data entry double-clicks) and legacy migration double-imports.
+            </div>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;">⚑ Category 1 — Recent Entry Errors (3 pairs, May 2026)</div>
+            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Two records created within seconds/minutes of each other — one has the data, the other is a shell. Safe to delete the shell after Zak confirms.</div>
+
+            <table class="audit-table" style="margin-bottom:1.25rem;">
+              <thead><tr><th>Account Name</th><th>Keep (ID)</th><th>Delete (ID)</th><th>Why</th></tr></thead>
+              <tbody>
+                <tr><td><strong>EXOS Aerospace Systems &amp; Technologies</strong></td><td><code>2232</code> — has address, Prospect - Open, Kristin Green</td><td><code>2233</code> — no address, no stage, created 29 sec later</td><td>Double-click on form submit</td></tr>
+                <tr><td><strong>Mann Made</strong></td><td><code>2231</code> — has address (Wylie, TX), Prospect - Open</td><td><code>2230</code> — no address, no stage, created 20 sec earlier</td><td>Double-click on form submit</td></tr>
+                <tr><td><strong>Floyd Peacock Company Inc.</strong></td><td><code>2226</code> — Customer stage (more complete)</td><td><code>2220</code> — Prospect, created 11 days earlier, no address on either</td><td>Re-entered when stage changed; needs Zak to confirm before delete</td></tr>
+              </tbody>
+            </table>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;">⚑ Category 2 — Legacy Migration Double-Import (5 pairs, Aug–Sep 2025)</div>
+            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Platform data was migrated from the legacy system in at least two batches: Aug 18, 2025 and Sep 15, 2025. Five companies were imported in both batches. The Sep 15 records have different Legacy IDs but the same company name/address.</div>
+
+            <table class="audit-table">
+              <thead><tr><th>Account Name</th><th>Aug 18 Import (ID)</th><th>Sep 15 Import (ID)</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Texas Air Systems</strong></td><td><code>1781</code> — Customer, has address (Irving TX), Legacy 27724</td><td><code>2188</code> — Prospect - Open, no address, no legacy ID</td><td>Stage conflict: older record is Customer, newer is Prospect — needs Zak</td></tr>
+                <tr><td><strong>ABF Freight System</strong></td><td><code>1878</code> — no address, no stage, legacy import shell</td><td><code>2150</code> — Customer, has address (Fort Smith AR)</td><td>Keep 2150 (more complete). Likely a vendor/carrier.</td></tr>
+                <tr><td><strong>Metroplex Clinical Research Center</strong></td><td><code>1761</code> — same address, Legacy 26348</td><td><code>2119</code> — same address (8144 Walnut Hill Ln, Dallas), Legacy 26427</td><td>Exact same address — clearest true duplicate in the set</td></tr>
+                <tr><td><strong>Texas Shred</strong></td><td><code>1759</code> — Vendor type, same address, Legacy 26251</td><td><code>2118</code> — no type, same address (Richardson TX), Legacy 26252</td><td>One flagged as Vendor. May be intentional — confirm with Zak.</td></tr>
+                <tr><td><strong>Texas Pain Physicians Corporate</strong></td><td><code>1692</code> — Customer, McEwen Rd Farmers Branch, Legacy 22583</td><td><code>2117</code> — no stage, LBJ Freeway Dallas, Legacy 22628</td><td>Different addresses — may be two locations, not a duplicate. Flag for Zak.</td></tr>
+              </tbody>
+            </table>
+
+            <div style="margin-top:1rem;background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);border-left:3px solid var(--green);">
+              <strong>✅ 542 accounts look clean</strong> — no duplicate name matches. No Generator-level dedup has been run yet (requires the same API audit against the Generators report). Contacts dedup also pending.
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div><!-- /phase 1 -->
 
