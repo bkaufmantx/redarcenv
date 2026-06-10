@@ -25,344 +25,118 @@
       --gray-900: #1a202c;
       --font: 'Inter', sans-serif;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: var(--font);
-      background: var(--gray-100);
-      color: var(--gray-900);
-      line-height: 1.6;
-    }
+    body { font-family: var(--font); background: var(--gray-100); color: var(--gray-900); line-height: 1.6; }
 
     /* ── Header ── */
-    header {
-      background: var(--gray-900);
-      color: white;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,.25);
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-      font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: .02em;
-    }
-    .logo-badge {
-      background: var(--red);
-      color: white;
-      border-radius: 6px;
-      padding: 3px 9px;
-      font-size: .8rem;
-      font-weight: 700;
-      letter-spacing: .05em;
-    }
-    .header-meta {
-      font-size: .78rem;
-      color: #aaa;
-    }
+    header { background: var(--gray-900); color: white; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+    .logo { display: flex; align-items: center; gap: .75rem; font-weight: 700; font-size: 1.05rem; letter-spacing: .02em; }
+    .logo-badge { background: var(--red); color: white; border-radius: 6px; padding: 3px 9px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; }
+    .header-meta { font-size: .78rem; color: #aaa; }
 
     /* ── Layout ── */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
-    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
     /* ── Hero banner ── */
-    .hero {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem 2.5rem;
-      margin-bottom: 2rem;
-      border-left: 5px solid var(--red);
-      box-shadow: 0 1px 4px rgba(0,0,0,.06);
-    }
-    .hero h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: .4rem;
-    }
-    .hero p {
-      color: var(--gray-500);
-      font-size: .95rem;
-      max-width: 680px;
-    }
-    .hero .updated {
-      margin-top: 1rem;
-      font-size: .78rem;
-      color: var(--gray-500);
-      display: flex;
-      align-items: center;
-      gap: .4rem;
-    }
+    .hero { background: white; border-radius: 12px; padding: 2rem 2.5rem; margin-bottom: 2rem; border-left: 5px solid var(--red); box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+    .hero h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: .4rem; }
+    .hero p { color: var(--gray-500); font-size: .95rem; max-width: 680px; }
+    .hero .updated { margin-top: 1rem; font-size: .78rem; color: var(--gray-500); display: flex; align-items: center; gap: .4rem; }
+    .progress-wrap { margin-top: 1.5rem; margin-bottom: .5rem; }
+    .progress-label { display: flex; justify-content: space-between; font-size: .78rem; color: var(--gray-500); margin-bottom: .4rem; }
+    .progress-bar { height: 8px; background: var(--gray-200); border-radius: 10px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--red) 0%, #e74c3c 100%); border-radius: 10px; transition: width .5s ease; }
 
     /* ── Section titles ── */
-    .section-title {
-      font-size: .7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      color: var(--gray-500);
-      margin-bottom: 1rem;
-    }
+    .section-title { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--gray-500); margin-bottom: 1rem; }
 
-    /* ── Zak action banner (unified) ── */
-    .zak-banner {
-      background: #fff8e1;
-      border: 1.5px solid #f39c12;
-      border-radius: 10px;
-      padding: 1.25rem 1.75rem;
-      margin-bottom: 2rem;
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-    /* Inline variant — sits inside a phase card */
-    .zak-banner.inline {
-      margin: 1.25rem 0 0;
-      border-radius: 8px;
-    }
-    .zak-icon {
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .zak-icon svg {
-      display: block;
-    }
-    .zak-body h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #b7770d;
-      margin-bottom: .3rem;
-    }
+    /* ── Zak action banner ── */
+    .zak-banner { background: #fff8e1; border: 1.5px solid #f39c12; border-radius: 10px; padding: 1.25rem 1.75rem; margin-bottom: 2rem; display: flex; gap: 1rem; align-items: flex-start; }
+    .zak-banner.inline { margin: 1.25rem 0 0; border-radius: 8px; }
+    .zak-icon { flex-shrink: 0; margin-top: 2px; }
+    .zak-icon svg { display: block; }
+    .zak-body h3 { font-size: 1rem; font-weight: 700; color: #b7770d; margin-bottom: .3rem; }
     .zak-body p { font-size: .88rem; color: var(--gray-700); }
-    .zak-steps {
-      margin-top: .75rem;
-      display: flex;
-      flex-direction: column;
-      gap: .4rem;
-    }
-    .zak-step {
-      display: flex;
-      align-items: flex-start;
-      gap: .6rem;
-      font-size: .85rem;
-      color: var(--gray-700);
-    }
-    .step-badge {
-      background: var(--yellow);
-      color: white;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .7rem;
-      font-weight: 700;
-      margin-top: 1px;
-    }
-    .step-rec {
-      font-size: .75rem;
-      background: #f39c12;
-      color: white;
-      border-radius: 4px;
-      padding: 1px 6px;
-      font-weight: 600;
-      margin-left: .3rem;
-    }
+    .zak-steps { margin-top: .75rem; display: flex; flex-direction: column; gap: .4rem; }
+    .zak-step { display: flex; align-items: flex-start; gap: .6rem; font-size: .85rem; color: var(--gray-700); }
+    .step-badge { background: var(--yellow); color: white; border-radius: 50%; width: 20px; height: 20px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; margin-top: 1px; }
 
     /* ── Phase cards ── */
-    .phases {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-    .phase-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.06);
-      overflow: hidden;
-    }
-    .phase-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.25rem 1.75rem;
-      cursor: pointer;
-      user-select: none;
-    }
+    .phases { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+    .phase-card { background: white; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.06); overflow: hidden; }
+    .phase-header { display: flex; align-items: center; gap: 1rem; padding: 1.25rem 1.75rem; cursor: pointer; user-select: none; }
     .phase-header:hover { background: var(--gray-100); }
-    .phase-num {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: .9rem;
-      flex-shrink: 0;
-    }
+    .phase-num { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem; flex-shrink: 0; }
     .phase-num.done    { background: var(--green-light); color: var(--green); }
     .phase-num.active  { background: var(--blue-light);  color: var(--blue);  }
     .phase-num.waiting { background: var(--yellow-light); color: var(--yellow); }
     .phase-num.pending { background: var(--gray-200);    color: var(--gray-500); }
-
     .phase-title-wrap { flex: 1; }
-    .phase-title {
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    .phase-subtitle {
-      font-size: .8rem;
-      color: var(--gray-500);
-    }
-    .phase-status-badge {
-      font-size: .72rem;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 20px;
-      letter-spacing: .04em;
-    }
+    .phase-title { font-weight: 600; font-size: 1rem; }
+    .phase-subtitle { font-size: .8rem; color: var(--gray-500); }
+    .phase-status-badge { font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: .04em; }
     .badge-done    { background: var(--green-light); color: var(--green); }
     .badge-active  { background: var(--blue-light);  color: var(--blue);  }
     .badge-waiting { background: var(--yellow-light); color: #b7770d; }
     .badge-pending { background: var(--gray-200);    color: var(--gray-500); }
-
-    .phase-chevron {
-      font-size: .75rem;
-      color: var(--gray-500);
-      transition: transform .2s;
-      flex-shrink: 0;
-      width: 16px;
-      text-align: center;
-    }
+    .phase-chevron { font-size: .75rem; color: var(--gray-500); transition: transform .2s; flex-shrink: 0; width: 16px; text-align: center; }
     .phase-card.open .phase-chevron { transform: rotate(90deg); }
-
-    /* ── Per-task comments ── */
-    .task-comment-btn {
-      margin-top: .4rem;
-      display: inline-flex;
-      align-items: center;
-      gap: .3rem;
-      font-size: .75rem;
-      color: var(--blue);
-      background: none;
-      border: 1px solid var(--blue-light);
-      border-radius: 6px;
-      padding: 2px 8px;
-      cursor: pointer;
-      transition: background .15s;
-    }
-    .task-comment-btn:hover { background: var(--blue-light); }
-    .task-comment-btn.has-comments { color: var(--green); border-color: var(--green-light); }
-    .task-comment-btn.has-comments:hover { background: var(--green-light); }
-    .task-comments-area { margin-top: .5rem; }
-
-    .phase-body {
-      display: none;
-      padding: 0 1.75rem 1.5rem;
-      border-top: 1px solid var(--gray-200);
-    }
+    .phase-body { display: none; padding: 0 1.75rem 1.5rem; border-top: 1px solid var(--gray-200); }
     .phase-card.open .phase-body { display: block; }
 
     /* ── Task list ── */
-    .task-list {
-      list-style: none;
-      margin-top: 1rem;
-    }
-    .task-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: .75rem;
-      padding: .5rem 0;
-      border-bottom: 1px solid var(--gray-200);
-      font-size: .88rem;
-    }
+    .task-list { list-style: none; margin-top: 1rem; }
+    .task-list li { display: flex; align-items: flex-start; gap: .75rem; padding: .5rem 0; border-bottom: 1px solid var(--gray-200); font-size: .88rem; }
     .task-list li:last-child { border-bottom: none; }
-    .task-icon {
-      margin-top: 2px;
-      flex-shrink: 0;
-      font-size: 1rem;
-    }
+    .task-icon { margin-top: 2px; flex-shrink: 0; font-size: 1rem; }
     .task-text { flex: 1; }
-    .task-note {
-      font-size: .78rem;
-      color: var(--gray-500);
-      margin-top: .15rem;
-    }
+    .task-note { font-size: .78rem; color: var(--gray-500); margin-top: .15rem; }
+    .task-comment-btn { margin-top: .4rem; display: inline-flex; align-items: center; gap: .3rem; font-size: .75rem; color: var(--blue); background: none; border: 1px solid var(--blue-light); border-radius: 6px; padding: 2px 8px; cursor: pointer; transition: background .15s; }
+    .task-comment-btn:hover { background: var(--blue-light); }
+    .task-comment-btn.has-comments { color: var(--green); border-color: var(--green-light); }
+    .task-comments-area { margin-top: .5rem; }
 
     /* ── Findings grid ── */
-    .findings-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: .75rem;
-      margin-top: 1rem;
-    }
-    .finding-card {
-      border-radius: 8px;
-      padding: 1rem;
-      font-size: .83rem;
-    }
+    .findings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: .75rem; margin-top: 1rem; }
+    .finding-card { border-radius: 8px; padding: 1rem; font-size: .83rem; }
     .finding-card.flag  { background: var(--red-muted);   border-left: 3px solid var(--red); }
     .finding-card.info  { background: var(--blue-light);  border-left: 3px solid var(--blue); }
     .finding-card.good  { background: var(--green-light); border-left: 3px solid var(--green); }
     .finding-card h4 { font-weight: 600; margin-bottom: .3rem; font-size: .85rem; }
-    .findings-toggle:hover { opacity: .75; }
 
+    /* ── Audit report table ── */
+    .audit-table { width: 100%; border-collapse: collapse; font-size: .83rem; margin-top: 1rem; }
+    .audit-table th { background: var(--gray-100); text-align: left; padding: .5rem .75rem; font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--gray-700); border-bottom: 2px solid var(--gray-300); }
+    .audit-table td { padding: .5rem .75rem; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
+    .audit-table tr:last-child td { border-bottom: none; }
+    .audit-table code { background: var(--gray-200); padding: 1px 5px; border-radius: 3px; font-size: .78rem; }
+    .badge-custom { background: var(--blue-light); color: var(--blue); font-size: .68rem; font-weight: 700; padding: 1px 6px; border-radius: 8px; }
+    .badge-gap { background: var(--red-muted); color: var(--red); font-size: .68rem; font-weight: 700; padding: 1px 6px; border-radius: 8px; }
+    .badge-ok { background: var(--green-light); color: var(--green); font-size: .68rem; font-weight: 700; padding: 1px 6px; border-radius: 8px; }
 
-    /* ── Progress bar ── */
-    .progress-wrap {
-      margin-top: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: .78rem;
-      color: var(--gray-500);
-      margin-bottom: .4rem;
-    }
-    .progress-bar {
-      height: 8px;
-      background: var(--gray-200);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--red) 0%, #e74c3c 100%);
-      border-radius: 10px;
-      transition: width .5s ease;
-    }
+    /* ── Archive section ── */
+    .archive-toggle { display: flex; align-items: center; gap: .75rem; cursor: pointer; user-select: none; padding: 1.25rem 1.75rem; background: white; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-top: 2.5rem; }
+    .archive-toggle:hover { background: var(--gray-100); }
+    .archive-label { font-size: .85rem; font-weight: 600; color: var(--gray-500); flex: 1; }
+    .archive-count { font-size: .72rem; background: var(--gray-200); color: var(--gray-500); padding: 2px 9px; border-radius: 10px; font-weight: 700; }
+    .archive-chevron { font-size: .75rem; color: var(--gray-500); transition: transform .2s; }
+    .archive-body { display: none; background: white; border-radius: 0 0 12px 12px; border-top: 1px solid var(--gray-200); margin-top: -12px; padding: 1.5rem 1.75rem; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+    .archive-body.open { display: block; }
+    .archive-item { padding: .75rem 0; border-bottom: 1px solid var(--gray-200); font-size: .85rem; }
+    .archive-item:last-child { border-bottom: none; }
+    .archive-item-header { display: flex; align-items: center; gap: .6rem; margin-bottom: .3rem; }
+    .archive-date { font-size: .72rem; color: var(--gray-500); }
+    .archive-q { font-weight: 600; color: var(--gray-700); }
+    .archive-a { font-size: .82rem; color: var(--gray-700); margin-top: .25rem; background: var(--gray-100); border-radius: 6px; padding: .6rem .85rem; border-left: 3px solid var(--gray-300); }
 
     /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: .75rem;
-      color: var(--gray-500);
-      padding: 2rem;
-    }
+    footer { text-align: center; font-size: .75rem; color: var(--gray-500); padding: 2rem; }
 
     @media (max-width: 600px) {
       .hero { padding: 1.5rem; }
       .phase-header { padding: 1rem; }
       .phase-body { padding: 0 1rem 1.25rem; }
       .zak-banner { padding: 1rem; }
-      .comments-section { padding: 1.5rem; }
     }
   </style>
 </head>
@@ -374,7 +148,7 @@
     <span class="logo-badge">REDARC</span>
     Zoho CRM + Quote Tool Project
   </div>
-  <div class="header-meta">Managed by SAR &nbsp;·&nbsp; Updated June 8, 2026</div>
+  <div class="header-meta">Managed by SAR &nbsp;·&nbsp; Updated June 10, 2026</div>
 </header>
 
 <!-- ── MAIN ── -->
@@ -387,17 +161,17 @@
     <div class="progress-wrap">
       <div class="progress-label">
         <span>Overall progress</span>
-        <span>Phase 1 of 3 — ~40% complete</span>
+        <span>Phase 1 of 3 — ~60% complete</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div>
     </div>
-    <div class="updated">📅 Last updated: June 8, 2026 &nbsp;·&nbsp; Next milestone: Zak grants Brian CRM data access + answers 4 quote tool questions</div>
+    <div class="updated">📅 Last updated: June 10, 2026 &nbsp;·&nbsp; Next milestone: Platform walkthrough with Zak — item codes, carriers, live quote creation</div>
   </div>
 
-  <!-- ── HOW COMMENTS WORK + NOTIFICATIONS ── -->
-  <div style="background:var(--blue-light);border-radius:10px;padding:1rem 1.5rem;margin-bottom:1rem;font-size:.82rem;color:var(--gray-700);border-left:3px solid var(--blue);display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
+  <!-- ── HOW COMMENTS WORK ── -->
+  <div style="background:var(--blue-light);border-radius:10px;padding:1rem 1.5rem;margin-bottom:1.5rem;font-size:.82rem;color:var(--gray-700);border-left:3px solid var(--blue);display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
     <div>
-      <strong>💬 How to leave comments:</strong> You'll need a free GitHub account — <a href="https://github.com/signup" target="_blank" style="color:var(--blue);">sign up here</a> if you don't have one. First-time only: click <strong>"Comment"</strong> on any task, then click <strong>"Sign in with GitHub"</strong> and authorize the Utterances app when prompted. After that, commenting is one click anywhere on the page. Comments are saved permanently.
+      <strong>💬 How to leave comments:</strong> You'll need a free GitHub account — <a href="https://github.com/signup" target="_blank" style="color:var(--blue);">sign up here</a> if you don't have one. Click <strong>"Comment"</strong> on any task, then sign in with GitHub and authorize the Utterances app. After that, commenting is one click anywhere.
     </div>
     <a href="https://github.com/bkaufmantx/redarcenv/subscription" target="_blank"
        style="display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap;background:white;border:1.5px solid var(--blue);color:var(--blue);border-radius:7px;padding:.4rem .9rem;font-size:.8rem;font-weight:600;text-decoration:none;flex-shrink:0;">
@@ -405,7 +179,7 @@
     </a>
   </div>
 
-  <!-- ── ZAK ACTION: CRM ACCESS ── -->
+  <!-- ── ZAK ACTION REQUIRED ── -->
   <div class="section-title">Action Required from Zak</div>
   <div class="zak-banner">
     <div class="zak-icon">
@@ -415,29 +189,28 @@
       </svg>
     </div>
     <div class="zak-body">
-      <h3>Two things are blocking full CRM visibility</h3>
-      <p>The MCP connector is live and authenticated. But there are two separate issues: <strong>(1)</strong> Zoho CRM is newly set up and not yet fully populated — most operational data still lives in Larry's Creator app, not in Zoho. <strong>(2)</strong> Brian's Zoho account can only see records he owns, not Zak's. Both need to be addressed to move forward.</p>
-      <p style="margin-top:.5rem;font-size:.82rem;color:var(--gray-700);">For the permissions issue, choose one of the following:</p>
+      <h3>Platform walkthrough needed to complete Phase 1</h3>
+      <p>Brian now has admin access to both Zoho CRM and Platform (Creator app). The CRM module/field audit is complete. To close out Phase 1, we need a short call where Zak walks through the following:</p>
       <div class="zak-steps">
         <div class="zak-step">
-          <div class="step-badge">A</div>
+          <div class="step-badge">1</div>
           <div>
-            <strong>Make Brian an Administrator</strong> — Setup → Users &amp; Control → Users → Brian → Edit Profile → Administrator<span class="step-rec">Recommended</span>
-            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'crm-access-option-a-make-brian-admin')">💬 Comment</button><div class="task-comments-area"></div></div>
+            <strong>Item code tour in Platform</strong> — Walk through how item codes are structured, how they map to waste streams, and how to export the full list (760 codes identified).
+            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'question-item-code-list-from-larry')">💬 Comment</button><div class="task-comments-area"></div></div>
           </div>
         </div>
         <div class="zak-step">
-          <div class="step-badge">B</div>
+          <div class="step-badge">2</div>
           <div>
-            <strong>Change Data Sharing to Public Read Only</strong> — Setup → Security Control → Data Sharing Settings → set each module to "Public Read Only"
-            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'crm-access-option-b-public-read-only')">💬 Comment</button><div class="task-comments-area"></div></div>
+            <strong>Actual waste carrier list</strong> — The Carrier field in Zoho has consumer shippers (FedEx/UPS/DHL). Walk Brian through who RedArc actually uses for hazmat transport so we can rebuild that picklist correctly.
+            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'question-actual-waste-carriers')">💬 Comment</button><div class="task-comments-area"></div></div>
           </div>
         </div>
         <div class="zak-step">
-          <div class="step-badge">C</div>
+          <div class="step-badge">3</div>
           <div>
-            <strong>Assign Brian the Administrator Role</strong> — Setup → Users &amp; Control → Users → Brian → Edit Role → Administrator
-            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'crm-access-option-c-admin-role')">💬 Comment</button><div class="task-comments-area"></div></div>
+            <strong>Live quote creation walkthrough</strong> — Create one real quote together in Platform (start to finish). Brian documents every step, input, and output. This is the blueprint for the quote tool.
+            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'walk-through-live-quote-creation')">💬 Comment</button><div class="task-comments-area"></div></div>
           </div>
         </div>
       </div>
@@ -465,17 +238,15 @@
           <li>
             <span class="task-icon">✅</span>
             <div class="task-text">
-              <strong>Fix Zoho OAuth / MCP Connector</strong>
-              <div class="task-note">New refresh token generated with full CRM scopes. FleetView connector reconnected. All 21 read-only tools set to "Always allow."</div>
-              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'fix-oauth-mcp-connector')">💬 Comment</button>
-              <div class="task-comments-area"></div>
+              <strong>MCP connectors configured</strong>
+              <div class="task-note">Zoho CRM, Desk, and Projects connectors live. Brian confirmed admin access to CRM and Platform (June 5–10, 2026).</div>
             </div>
           </li>
           <li>
             <span class="task-icon">✅</span>
             <div class="task-text">
-              <strong>Full Module Inventory</strong>
-              <div class="task-note">50+ modules catalogued — standard, custom (Generators), linking, Books-synced, and integration modules.</div>
+              <strong>CRM module inventory — 61 modules catalogued</strong>
+              <div class="task-note">Full module list pulled via MCP. Key modules: Generators (custom), Accounts, Contacts, Quotes, Deals. Duplicate modules flagged (Sales Orders, POs, Invoices appear twice; two Generators×Contacts linking tables).</div>
               <button class="task-comment-btn" onclick="toggleTaskComment(this, 'full-module-inventory')">💬 Comment</button>
               <div class="task-comments-area"></div>
             </div>
@@ -483,26 +254,26 @@
           <li>
             <span class="task-icon">✅</span>
             <div class="task-text">
-              <strong>Field Inventory — Generators, Accounts, Quotes, Contacts</strong>
-              <div class="task-note">35 Generator fields, 64 Account fields, 37 Quote fields, 64 Contact fields documented. Key custom fields identified for quote tool.</div>
+              <strong>CRM field inventory — Generators, Accounts, Quotes</strong>
+              <div class="task-note">Generators: 38 fields (22 custom) — EPA ID, site addresses, Generator Type, Platform sync ID, 3 contact role lookups. Accounts: 67 fields (27 custom) — pricing tier, Platform sync ID, QuickBooks ID, onboarding flags. Quotes: 43 fields (0 custom) — no Generator lookup field. Gap confirmed.</div>
               <button class="task-comment-btn" onclick="toggleTaskComment(this, 'field-inventory-generators-accounts-quotes-contacts')">💬 Comment</button>
               <div class="task-comments-area"></div>
             </div>
           </li>
           <li>
-            <span class="task-icon">⏳</span>
+            <span class="task-icon">✅</span>
             <div class="task-text">
-              <strong>Get Real Record Counts</strong>
-              <div class="task-note">Blocked — waiting on Zak to grant data sharing access. All modules currently return 0 records.</div>
-              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'get-real-record-counts')">💬 Comment</button>
+              <strong>Platform (Creator app) structure explored</strong>
+              <div class="task-note">Profiles = waste stream + generator + destination. 760 item codes in 20+ categories (ADM, ALT, NON, etc.). Vendor pricing per item code per container size. Pricing tiers (A/B/C) confirmed as 30/38/45% gross margin.</div>
+              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'platform-structure-explored')">💬 Comment</button>
               <div class="task-comments-area"></div>
             </div>
           </li>
           <li>
             <span class="task-icon">⏳</span>
             <div class="task-text">
-              <strong>Walk Through a Live Quote Creation with Zak</strong>
-              <div class="task-note">Need Zak on a call — document every trigger, input, tool touched, and output. Understand exactly where Larry's Creator app enters the picture.</div>
+              <strong>Live quote creation walkthrough with Zak</strong>
+              <div class="task-note">Need Zak on a call — walk through one real quote in Platform start to finish. Document every trigger, input, tool touched, output, and handoff.</div>
               <button class="task-comment-btn" onclick="toggleTaskComment(this, 'walk-through-live-quote-creation')">💬 Comment</button>
               <div class="task-comments-area"></div>
             </div>
@@ -510,135 +281,106 @@
           <li>
             <span class="task-icon">⏳</span>
             <div class="task-text">
-              <strong>Quoted Items Subform — Field Inventory</strong>
-              <div class="task-note">Still need to pull line item field structure from the Quotes subform.</div>
-              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'quoted-items-subform-field-inventory')">💬 Comment</button>
+              <strong>Item code export from Platform</strong>
+              <div class="task-note">760 item codes identified in Platform. Need Zak's tour before export — understanding context first per Zak's guidance.</div>
+              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'question-item-code-list-from-larry')">💬 Comment</button>
               <div class="task-comments-area"></div>
             </div>
           </li>
         </ul>
 
-        <div class="findings-toggle" onclick="toggleFindings()" style="margin-top:1.5rem; display:flex; align-items:center; gap:.5rem; cursor:pointer; user-select:none;">
-          <span class="section-title" style="margin:0">Key Findings So Far</span>
-          <span style="display:flex; gap:.35rem; align-items:center; margin-left:.25rem;">
-            <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">3 good</span>
-            <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">5 flagged</span>
-            <span style="background:var(--blue-light);color:var(--blue);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">1 info</span>
-          </span>
-          <span id="findings-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+        <!-- CRM Audit Findings -->
+        <div style="margin-top:1.5rem;">
+          <div class="findings-toggle" onclick="toggleFindings('findings-crm')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+            <span class="section-title" style="margin:0;">CRM Audit Findings</span>
+            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
+              <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">5 good</span>
+              <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">4 flagged</span>
+            </span>
+            <span id="findings-crm-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+          </div>
+          <div id="findings-crm" style="display:none;">
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:.5rem;">✅ Good</div>
+            <div class="findings-grid" style="margin-top:0;">
+              <div class="finding-card good">
+                <h4>Generators module is solid</h4>
+                22 custom fields — EPA ID, site + mailing addresses, Generator Type (multi-select), three named contact roles (EHS, Scheduling, Emergency), regulatory IDs. Ready to use.
+              </div>
+              <div class="finding-card good">
+                <h4>Pricing tier field exists</h4>
+                <code>Default_Account_Pricing_Level</code> on Accounts. Confirmed = A/B/C = 30/38/45% gross margin. Primary pricing driver for the quote tool.
+              </div>
+              <div class="finding-card good">
+                <h4>Platform sync IDs in place</h4>
+                <code>Platform_Generator_ID</code> on Generators and <code>Platform_Record_ID</code> on Accounts. The bridge between Zoho and Platform is already stubbed — needs to be activated.
+              </div>
+              <div class="finding-card good">
+                <h4>Data model is correct</h4>
+                Generator → Account lookup exists. Generators × Contacts linking tables exist. The relational structure is sound.
+              </div>
+              <div class="finding-card good">
+                <h4>Market / industry field exists</h4>
+                16+ industry verticals on Accounts (pharma, healthcare, manufacturing, oil &amp; gas, etc.). Will drive item code selection logic in the quote tool.
+              </div>
+            </div>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin:1.25rem 0 .5rem;">⚑ Flagged — needs attention</div>
+            <div class="findings-grid" style="margin-top:0;">
+              <div class="finding-card flag">
+                <h4>Quotes have no Generator link</h4>
+                Confirmed gap. Quotes connect to Accounts + Contacts but not to individual generator sites. One custom lookup field needs to be added to Quotes in Phase 2.
+              </div>
+              <div class="finding-card flag">
+                <h4>Carrier picklist has wrong values</h4>
+                Shows FedEx, UPS, USPS, DHL, BlueDart — consumer shippers. RedArc uses hazmat carriers. Needs to be rebuilt once Zak provides the real carrier list.
+              </div>
+              <div class="finding-card flag">
+                <h4>Duplicate modules</h4>
+                Sales Orders, Purchase Orders, and Invoices each exist twice (native CRM + Books-synced versions). Two Generators × Contacts linking tables. Needs cleanup decision from Zak.
+              </div>
+              <div class="finding-card flag">
+                <h4>"Generator" text field on Accounts</h4>
+                Plain text, not a lookup. Data integrity risk — free-form text can diverge from actual Generator records. Should be removed or replaced with the proper linking table.
+              </div>
+            </div>
+
+          </div>
         </div>
-        <div id="findings-body" style="display:none; margin-top:.75rem;">
 
-          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:.5rem;">✅ Good</div>
-          <div class="findings-grid" style="margin-top:0;">
-            <div class="finding-card good">
-              <h4>CRM is well-structured</h4>
-              Generators module is solid — EPA ID, site/mailing addresses, three named contact roles, regulatory IDs.
-            </div>
-            <div class="finding-card good">
-              <h4>Pricing field exists</h4>
-              <code>Default_Account_Pricing_Level</code> on Accounts is the key driver for quote pricing.
-            </div>
-            <div class="finding-card good">
-              <h4>EPA regulatory tiers mapped</h4>
-              Generator Status captures VSQG / SQG / LQG — the three EPA quantity tiers. This + Generator Category will drive quote routing logic.
-            </div>
-            <div class="finding-card good">
-              <h4>Pricing tiers exist</h4>
-              Pricing Level A / B / C / N/A is on every Account. Need Zak to define what each letter means in dollar terms.
-            </div>
-            <div class="finding-card good">
-              <h4>16 industry verticals mapped</h4>
-              Market field covers pharma, manufacturing, electroplating, oil &amp; gas, chemical mfg, healthcare labs, and more — will drive item code selection.
-            </div>
+        <!-- Platform Audit Findings -->
+        <div style="margin-top:1.5rem;">
+          <div class="findings-toggle" onclick="toggleFindings('findings-platform')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+            <span class="section-title" style="margin:0;">Platform Audit Findings</span>
+            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
+              <span style="background:var(--blue-light);color:var(--blue);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">4 info</span>
+            </span>
+            <span id="findings-platform-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
           </div>
-
-          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin:1.25rem 0 .5rem;">⚑ Flagged</div>
-          <div class="findings-grid" style="margin-top:0;">
-            <div class="finding-card flag">
-              <h4>Quote ↔ Generator gap</h4>
-              Quotes link to Accounts and Contacts but NOT directly to generator sites. Needs investigation.
-            </div>
-            <div class="finding-card flag">
-              <h4>"Generator" text field on Accounts</h4>
-              Plain text — not a lookup. Data integrity risk. Should probably be removed or replaced.
-            </div>
-            <div class="finding-card flag">
-              <h4>Duplicate modules</h4>
-              Two copies of Sales Orders, POs, and Invoices (CRM native + Books-synced). Two "Generators X Contacts" linking modules.
-            </div>
-            <div class="finding-card flag">
-              <h4>Carrier field has wrong values</h4>
-              The Carrier picklist shows FedEx, UPS, USPS, DHL, BlueDart — consumer shippers. RedArc uses hazmat carriers. Needs to be rebuilt.
-            </div>
-            <div class="finding-card flag">
-              <h4>Item codes not in Zoho at all</h4>
-              Products module is 100% stock Zoho — no custom fields, no waste codes, no pricing. Item codes almost certainly live only in Larry's Creator app.
-            </div>
-          </div>
-
-          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin:1.25rem 0 .5rem;">ℹ Info</div>
-          <div class="findings-grid" style="margin-top:0;">
-            <div class="finding-card info">
-              <h4>Larry's Creator app fingerprints</h4>
-              <code>Platform_Generator_ID</code> and <code>Platform_Record_ID</code> fields exist on both Generators and Accounts — cross-references to the third-party app.
-            </div>
-          </div>
-
-        </div><!-- /findings-body -->
-
-        <div class="zak-banner inline">
-          <div class="zak-icon">
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="11,2 21,2 30,11 30,21 21,30 11,30 2,21 2,11" stroke="#c0392b" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
-              <text x="16" y="21" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#c0392b">!</text>
-            </svg>
-          </div>
-          <div class="zak-body">
-            <h3>5 Questions for Zak</h3>
-            <p>We can't design the quote tool logic without these answers. Each one is a specific input the tool will need to function.</p>
-            <div class="zak-steps">
-              <div class="zak-step">
-                <div class="step-badge">1</div>
-                <div>
-                  <strong>What do Pricing Levels A, B, and C mean?</strong> — Are these discount tiers, flat rates, or something else? This is the primary pricing input to the quote tool.
-                  <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'question-pricing-levels-a-b-c')">💬 Comment</button><div class="task-comments-area"></div></div>
-                </div>
+          <div id="findings-platform" style="display:none;">
+            <div class="findings-grid" style="margin-top:0;">
+              <div class="finding-card info">
+                <h4>Profile = core quoting object</h4>
+                A Profile ties one waste stream to one generator site and one disposal destination. Each Profile has vendor pricing per item code per container size (30G / 55G / 275G / 330G).
               </div>
-              <div class="zak-step">
-                <div class="step-badge">2</div>
-                <div>
-                  <strong>Who are your actual waste carriers?</strong> — The Carrier field currently shows FedEx/UPS/DHL. Need the real hazmat carrier list to rebuild it correctly.
-                  <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'question-actual-waste-carriers')">💬 Comment</button><div class="task-comments-area"></div></div>
-                </div>
+              <div class="finding-card info">
+                <h4>760 item codes in 20+ categories</h4>
+                Categories include ADM (admin/fees), ALT (alternate fuels), NON (non-hazardous), and many more. Each code has type (Disposal vs. Fees &amp; Surcharges), unit, and pricing. Export is easy — just needs Zak's context walkthrough first.
               </div>
-              <div class="zak-step">
-                <div class="step-badge">3</div>
-                <div>
-                  <strong>Can you share the item code list from Larry's Creator app?</strong> — Item codes don't exist anywhere in Zoho. Even a spreadsheet export would unblock Phase 3.
-                  <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'question-item-code-list-from-larry')">💬 Comment</button><div class="task-comments-area"></div></div>
-                </div>
+              <div class="finding-card info">
+                <h4>Vendor vs. customer pricing split</h4>
+                Platform stores both what RedArc pays the disposal vendor AND what RedArc charges the customer — per item code per container size. Margin tiers (A/B/C) are applied at the customer pricing layer.
               </div>
-              <div class="zak-step">
-                <div class="step-badge">4</div>
-                <div>
-                  <strong>How do you currently tie a quote to a specific generator site?</strong> — Quotes in Zoho connect to Accounts and Contacts, but not to individual Generators. Do you do this manually?
-                  <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'question-quote-to-generator-link')">💬 Comment</button><div class="task-comments-area"></div></div>
-                </div>
-              </div>
-              <div class="zak-step">
-                <div class="step-badge">5</div>
-                <div>
-                  <strong>Can Brian get read-only access to Larry's Creator app?</strong> — Most of RedArc's operational data (clients, generators, jobs, item codes) still lives in the Creator app, not in Zoho. Brian needs visibility into it to understand the full picture and eventually migrate data or replicate its logic.
-                  <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'question-read-access-to-larrys-creator-app')">💬 Comment</button><div class="task-comments-area"></div></div>
-                </div>
+              <div class="finding-card info">
+                <h4>Strategic decision pending</h4>
+                Zak flagged the core tension: lean on Platform long-term, or build internal systems? His instinct is internal — CRM as the intelligence layer, Platform for operations. This decision gates how much dev work goes to Larry's team vs. built in-house.
               </div>
             </div>
           </div>
         </div>
 
       </div>
-    </div>
+    </div><!-- /phase 1 -->
 
     <!-- Phase 2 -->
     <div class="phase-card" id="phase2">
@@ -653,10 +395,12 @@
       </div>
       <div class="phase-body">
         <ul class="task-list">
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Surface duplicate contacts &amp; accounts</strong><div class="task-note">Run deduplication queries. Review every match with Brian before anything is merged — no destructive changes without sign-off.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'surface-duplicate-contacts-accounts')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Clarify duplicate module situation</strong><div class="task-note">Resolve the double Sales Orders / POs / Invoices and the two Generators X Contacts linking modules with Zak.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'clarify-duplicate-module-situation')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Establish CRM as single source of truth</strong><div class="task-note">Map every place data currently lives. Reconfigure so data enters through CRM and syncs outward.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'establish-crm-single-source-of-truth')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Fix the Zoho Desk / Custom Module access gap</strong><div class="task-note">Diagnose why Desk can't see the Generators module. Likely a profile/permission config — no code required.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'fix-zoho-desk-custom-module-access-gap')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Add Generator lookup to Quotes</strong><div class="task-note">One custom field to close the Quote ↔ Generator gap identified in the Phase 1 audit. Needs Zak's approval before changing CRM structure.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'add-generator-lookup-to-quotes')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Rebuild Carrier picklist with real hazmat carriers</strong><div class="task-note">Replace FedEx/UPS/DHL with RedArc's actual carrier list (to be confirmed in Platform walkthrough).</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'rebuild-carrier-picklist')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Resolve duplicate modules</strong><div class="task-note">Decide with Zak which versions of Sales Orders, POs, Invoices, and Generators×Contacts to keep. Archive or remove duplicates.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'clarify-duplicate-module-situation')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Surface duplicate contacts &amp; accounts</strong><div class="task-note">Run deduplication queries. Review every match with Zak before anything is merged — no destructive changes without explicit sign-off.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'surface-duplicate-contacts-accounts')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Fix Zoho Desk / Generators module access gap</strong><div class="task-note">Desk can't see the custom Generators module. Likely a profile/permission config fix — no code required.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'fix-zoho-desk-custom-module-access-gap')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Activate Platform sync (Generator + Account IDs)</strong><div class="task-note"><code>Platform_Generator_ID</code> and <code>Platform_Record_ID</code> fields exist on both modules but aren't populated. Sync logic needs to be built or activated.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'activate-platform-sync')">💬 Comment</button><div class="task-comments-area"></div></div></li>
         </ul>
       </div>
     </div>
@@ -674,22 +418,22 @@
       </div>
       <div class="phase-body">
         <ul class="task-list">
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Claude-powered quote generation from CRM</strong><div class="task-note">Input job parameters → Claude pulls client data via MCP → applies item codes and pricing → outputs structured draft quote. Start with one quote type.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'claude-powered-quote-generation')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Document all routing rules &amp; item codes</strong><div class="task-note">Capture directly from Zak or by reverse-engineering the Creator app. Encode as structured logic in the Claude tool.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'document-routing-rules-item-codes')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Run new tool in parallel with Larry's app</strong><div class="task-note">Compare outputs on same inputs. Nothing switches off until Zak explicitly approves the handoff.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'run-parallel-with-larrys-app')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Claude-powered quote generation from CRM</strong><div class="task-note">Input: generator site + waste stream. Claude pulls Account pricing tier, Generator fields, item codes via MCP → applies margin → outputs draft quote. Start with one waste type, prove it, then expand.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'claude-powered-quote-generation')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Import item codes + routing rules into CRM</strong><div class="task-note">Export 760 item codes from Platform. Build item code lookup structure in Zoho Products or a custom module. Encode routing logic (waste type → destination → carrier → item codes).</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'document-routing-rules-item-codes')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Run in parallel with Platform</strong><div class="task-note">Same inputs, compare outputs. Nothing switches off until Zak explicitly approves the handoff.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'run-parallel-with-larrys-app')">💬 Comment</button><div class="task-comments-area"></div></div></li>
         </ul>
         <div class="findings-grid" style="margin-top: 1rem">
           <div class="finding-card info">
-            <h4>ℹ️ Pricing driver identified</h4>
-            <code>Default_Account_Pricing_Level</code> on Accounts will be the primary pricing input to the quote tool.
+            <h4>Pricing driver confirmed</h4>
+            <code>Default_Account_Pricing_Level</code> on Accounts = A/B/C = 30/38/45% gross margin on disposal + transport + fees.
           </div>
           <div class="finding-card info">
-            <h4>ℹ️ Routing field identified</h4>
-            <code>Carrier</code> picklist on Quotes will drive routing logic.
+            <h4>Margin math is clear</h4>
+            Customer price = vendor cost ÷ (1 − margin). e.g., NON01 55G at $45.10 vendor cost → A tier customer price = $45.10 ÷ 0.70 = $64.43.
           </div>
           <div class="finding-card info">
-            <h4>ℹ️ Generator fields ready</h4>
-            EPA ID, Generator Type, Category, and all three contact roles on Generators are in place and will feed the quote tool.
+            <h4>Generator fields quote-ready</h4>
+            EPA ID, Generator Type, Category, and all three contact roles on Generators are in place and will feed quote generation logic.
           </div>
         </div>
       </div>
@@ -697,87 +441,72 @@
 
   </div><!-- /phases -->
 
-
-  <!-- ── PUSH NOTIFICATIONS OPT-IN ── -->
-  <div style="background:white;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.06);padding:1.75rem 2rem;margin-top:2rem;">
-    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;">
-      <span style="font-size:1.2rem;">🔔</span>
-      <strong style="font-size:1rem;">Get notified when comments are posted</strong>
-    </div>
-    <p style="font-size:.85rem;color:#4a5568;margin-bottom:1.5rem;">
-      Brian is automatically emailed on every new comment. Zak — two ways to get the same. Pick whichever fits how you work:
-    </p>
-
-    <div style="display:flex;flex-direction:column;gap:1.25rem;">
-
-      <!-- Option 1: Email via Gmail app password -->
-      <div style="border:1px solid #eef0f3;border-radius:8px;padding:1rem 1.25rem;">
-        <div style="font-weight:700;font-size:.88rem;margin-bottom:.6rem;color:#1a202c;">Option A — Email to your inbox <span style="background:#eafaf1;color:#27ae60;font-size:.7rem;font-weight:700;border-radius:10px;padding:2px 8px;margin-left:.4rem;">Recommended</span></div>
-        <div style="display:flex;flex-direction:column;gap:.6rem;">
-          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
-            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">1</div>
-            <div>Go to <a href="https://myaccount.google.com" target="_blank" style="color:#2980b9;">myaccount.google.com</a> signed in as your RedArc email, search <strong>"App passwords"</strong> and open it</div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
-            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">2</div>
-            <div>Type <strong>GitHub Notifications</strong> as the app name and click <strong>Create</strong></div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
-            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">3</div>
-            <div>Copy the 16-character password shown and send it to Brian — he'll wire it up so comments land in your inbox automatically</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Option 2: Google Chat -->
-      <div style="border:1px solid #eef0f3;border-radius:8px;padding:1rem 1.25rem;">
-        <div style="font-weight:700;font-size:.88rem;margin-bottom:.35rem;color:#1a202c;">Option B — Google Chat notification</div>
-        <p style="font-size:.8rem;color:#7f8c8d;margin-bottom:.75rem;">This uses a <strong>shared space</strong> — one Chat room both you and Brian are in. When a comment is posted on the dashboard, a message appears in that space for both of you. Zak sets it up, sends Brian one URL, and Brian activates it.</p>
-        <div style="display:flex;flex-direction:column;gap:.6rem;">
-          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
-            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">1</div>
-            <div>Open <strong>Google Chat</strong> and create a new space — name it something like <strong>"RedArc Project"</strong>. This will be your shared project channel.</div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
-            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">2</div>
-            <div>Invite Brian: click the space name at the top → <strong>Add people &amp; bots</strong> → type <strong>bkaufman@redarcenv.com</strong></div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
-            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">3</div>
-            <div>Click the space name → <strong>Apps &amp; integrations</strong> → <strong>Webhooks</strong> → <strong>Add webhook</strong></div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
-            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">4</div>
-            <div>Name the webhook <strong>RedArc Dashboard</strong> → click <strong>Save</strong> → copy the long URL it generates</div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
-            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">5</div>
-            <div>Send that URL to Brian — he'll activate it in about 30 seconds. From that point, every comment on this dashboard posts a notification into the shared space for both of you.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Option 3: GitHub mobile app -->
-      <div style="border:1px solid #eef0f3;border-radius:8px;padding:1rem 1.25rem;">
-        <div style="font-weight:700;font-size:.88rem;margin-bottom:.6rem;color:#1a202c;">Option C — Push notification on your phone</div>
-        <div style="display:flex;flex-direction:column;gap:.6rem;">
-          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
-            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">1</div>
-            <div>Download the free <strong>GitHub</strong> app — <a href="https://apps.apple.com/us/app/github/id1477376905" target="_blank" style="color:#2980b9;">iPhone</a> or <a href="https://play.google.com/store/apps/details?id=com.github.android" target="_blank" style="color:#2980b9;">Android</a></div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
-            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">2</div>
-            <div>Sign in with your GitHub account — the same one you use to comment here</div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start;font-size:.84rem;color:#4a5568;">
-            <div style="background:#1a202c;color:white;border-radius:50%;width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px;">3</div>
-            <div>Tap <strong>Watch</strong> on the <a href="https://github.com/bkaufmantx/redarcenv" target="_blank" style="color:#2980b9;">redarcenv repo</a> — GitHub will push-notify you on every new comment</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+  <!-- ── ARCHIVE ── -->
+  <div class="archive-toggle" onclick="toggleArchive()">
+    <span style="font-size:1rem;">🗂</span>
+    <span class="archive-label">Archive — Resolved Questions &amp; Completed Items</span>
+    <span class="archive-count">6 items</span>
+    <span class="archive-chevron" id="archive-chevron">▶</span>
   </div>
+  <div class="archive-body" id="archive-body">
+
+    <p style="font-size:.8rem;color:var(--gray-500);margin-bottom:1.25rem;">These items are resolved — Zak answered, Brian acted, or the task is complete. Kept here for reference.</p>
+
+    <div class="archive-item">
+      <div class="archive-item-header">
+        <span style="font-size:.9rem;">✅</span>
+        <span class="archive-q">CRM Access — Brian needs admin visibility into Zak's records</span>
+        <span class="archive-date">Resolved June 5, 2026</span>
+      </div>
+      <div class="archive-a">Zak added Brian as a CRM administrator. "I've actually got you added as admin. Certain things are 'invisible' otherwise." Full access confirmed.</div>
+    </div>
+
+    <div class="archive-item">
+      <div class="archive-item-header">
+        <span style="font-size:.9rem;">✅</span>
+        <span class="archive-q">What do Pricing Levels A, B, C mean?</span>
+        <span class="archive-date">Answered June 9, 2026</span>
+      </div>
+      <div class="archive-a">"These are price tiers. A tier is tied to a 30% gross margin on fees, transportation and disposal costs related to an item of containerized waste. B and C tier are 38% and 45% respectively."</div>
+    </div>
+
+    <div class="archive-item">
+      <div class="archive-item-header">
+        <span style="font-size:.9rem;">✅</span>
+        <span class="archive-q">Who are your actual waste carriers?</span>
+        <span class="archive-date">Answered June 9, 2026</span>
+      </div>
+      <div class="archive-a">"These are in Platform. Realistically, we are transporter 1 for most waste. I can show you how it works once you are in Platform and I can give you a tour." — Carrier data is in Platform; Zak will walk Brian through it.</div>
+    </div>
+
+    <div class="archive-item">
+      <div class="archive-item-header">
+        <span style="font-size:.9rem;">✅</span>
+        <span class="archive-q">Can you share the item code list from Larry's Creator app?</span>
+        <span class="archive-date">Answered June 9, 2026</span>
+      </div>
+      <div class="archive-a">"The item code discussion is going to be a whole can of worms. Once I've shown you what's going on 'under the hood' in Platform I think my struggle with this will become a whole lot more clear. Fortunately, exporting these from Platform is easy." — 760 item codes now visible in Platform. Export pending Zak's walkthrough.</div>
+    </div>
+
+    <div class="archive-item">
+      <div class="archive-item-header">
+        <span style="font-size:.9rem;">✅</span>
+        <span class="archive-q">How do you currently tie a quote to a specific generator site?</span>
+        <span class="archive-date">Answered June 9, 2026</span>
+      </div>
+      <div class="archive-a">"Estimates are an object in Platform that is tied to an account and a generator. Right now we are not using Zoho for quotes, so I haven't added the 'Generator' custom module as a field for Quotes." — Confirmed gap. Adding Generator lookup to Quotes is now a Phase 2 task.</div>
+    </div>
+
+    <div class="archive-item">
+      <div class="archive-item-header">
+        <span style="font-size:.9rem;">✅</span>
+        <span class="archive-q">Can Brian get read-only access to Larry's Creator app (Platform)?</span>
+        <span class="archive-date">Resolved June 10, 2026</span>
+      </div>
+      <div class="archive-a">Access granted. Brian explored Platform live on June 10 — reviewed All Profiles (1,000+ records), Profile detail view, Pricing tab (vendor item pricing), and the full item code list (760 items). Full browser access confirmed via Claude Code integration.</div>
+    </div>
+
+  </div><!-- /archive-body -->
 
 </div><!-- /container -->
 
@@ -791,24 +520,30 @@
     card.classList.toggle('open');
   }
 
-  function toggleFindings() {
-    const body = document.getElementById('findings-body');
-    const chevron = document.getElementById('findings-chevron');
+  function toggleFindings(id) {
+    const body = document.getElementById(id);
+    const chevron = document.getElementById(id + '-chevron');
     const open = body.style.display !== 'none';
     body.style.display = open ? 'none' : 'block';
     chevron.style.transform = open ? '' : 'rotate(90deg)';
   }
 
+  function toggleArchive() {
+    const body = document.getElementById('archive-body');
+    const chevron = document.getElementById('archive-chevron');
+    const open = body.classList.contains('open');
+    body.classList.toggle('open');
+    chevron.style.transform = open ? '' : 'rotate(90deg)';
+  }
+
   function toggleTaskComment(btn, taskSlug) {
-    const area = btn.nextElementSibling; // .task-comments-area
+    const area = btn.nextElementSibling;
     if (area.dataset.loaded) {
-      // Toggle visibility if already loaded
       const visible = area.style.display !== 'none';
       area.style.display = visible ? 'none' : 'block';
       btn.textContent = visible ? '💬 Comment' : '💬 Hide comments';
       return;
     }
-    // Lazy-load Utterances for this specific task
     area.dataset.loaded = 'true';
     area.style.display = 'block';
     btn.textContent = '💬 Hide comments';
