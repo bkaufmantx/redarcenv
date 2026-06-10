@@ -643,6 +643,27 @@
           <li><span class="task-icon">🔲</span><div class="task-text"><strong>Import item codes + routing rules into CRM</strong><div class="task-note">Export 760 item codes from Platform. Build item code lookup structure in Zoho Products or a custom module. Encode routing logic (waste type → destination → carrier → item codes).</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'document-routing-rules-item-codes')">💬 Comment</button><div class="task-comments-area"></div></div></li>
           <li><span class="task-icon">🔲</span><div class="task-text"><strong>Run in parallel with Platform</strong><div class="task-note">Same inputs, compare outputs. Nothing switches off until Zak explicitly approves the handoff.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'run-parallel-with-larrys-app')">💬 Comment</button><div class="task-comments-area"></div></div></li>
         </ul>
+        <!-- Estimate Structure Recon -->
+        <div style="margin-top:1.5rem;background:#F0F4F8;border-radius:8px;padding:1rem 1.2rem;border-left:3px solid var(--blue);">
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:.5rem;">✅ Pre-Call Recon Complete — Estimate Structure Documented</div>
+          <div style="font-size:.82rem;color:var(--gray-700);line-height:1.6;">
+            Pulled real Estimate #229 (Lab Pack, Shield Medical Waste, $16,739) from Platform on June 10. Full field inventory documented — header, line items, boilerplate, vendor structure, margin math. We're not seeing the quote object cold in the Zak walkthrough.
+          </div>
+          <div style="margin-top:.75rem;font-size:.78rem;color:var(--gray-700);">
+            <strong>Key findings:</strong>
+            <ul style="margin:.4rem 0 0 1.2rem;line-height:1.7;">
+              <li><strong>Two-level object:</strong> Header (account/generator/totals) + line items (one per waste stream). 26 lines on a complex lab pack.</li>
+              <li><strong>Three vendor types per estimate:</strong> RedArc (labor + transport) · TSDF like CRS (incineration, fuel blend, treatment) · Questar (supplies)</li>
+              <li><strong>Item code is the atomic unit.</strong> Format: <code>PREFIX##-VENDOR</code> — encodes disposal route + chemical class + vendor. Same code can appear multiple times with different Notes (compatibility groups).</li>
+              <li><strong>Notes field distinguishes waste streams within the same code</strong> — "Flammable/Toxic" vs. "Flammable/Corrosive" on INC14-AVA. Separate containers, same route.</li>
+              <li><strong>Labor drives GP:</strong> 60 hrs of chemist labor = $3,360 GP ≈ 50% of total margin. 40.3% overall GM on this estimate.</li>
+              <li><strong>Boilerplate is static</strong> — same T&amp;C paragraph on every quote, stored in Pre_Line_Item_Content field.</li>
+              <li><strong>~760 item codes in Platform</strong> — quote tool needs search/filter, not a full list.</li>
+            </ul>
+          </div>
+          <div style="margin-top:.75rem;font-size:.75rem;color:var(--gray-500);">Full reference: <code>RedArc_Estimate_Structure_Reference.md</code> on Brian's desktop</div>
+        </div>
+
         <div class="findings-grid" style="margin-top: 1rem">
           <div class="finding-card info">
             <h4>Pricing driver confirmed</h4>
