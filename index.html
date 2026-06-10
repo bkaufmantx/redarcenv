@@ -411,7 +411,7 @@
             </table>
 
             <div style="margin-top:1rem;background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);border-left:3px solid var(--green);">
-              <strong>✅ 542 accounts look clean</strong> — no duplicate name matches. No Generator-level dedup has been run yet (requires the same API audit against the Generators report). Contacts dedup also pending.
+              <strong>✅ 542 accounts look clean</strong> — no duplicate name matches. No Generator-level dedup has been run yet (requires the same API audit against the Generators report).
             </div>
 
             <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
@@ -421,6 +421,55 @@
                 ⬇ Download Audit Workbook (.xlsx)
               </a>
               <span style="font-size:.75rem;color:var(--gray-500);">3 tabs: Summary · Duplicate Pairs · All 558 Accounts · Duplicate rows highlighted red</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Contacts Dedup Audit Findings -->
+        <div style="margin-top:1.5rem;">
+          <div onclick="toggleFindings('findings-contacts-dedup')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+            <span class="section-title" style="margin:0;">Platform Contacts Dedup Audit — June 10, 2026</span>
+            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
+              <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">280 total contacts</span>
+              <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">~32 duplicate rows</span>
+            </span>
+            <span id="findings-contacts-dedup-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+          </div>
+          <div id="findings-contacts-dedup" style="display:none;">
+
+            <div style="background:var(--blue-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--blue);">
+              Read-only audit run against Platform (Zoho Creator) All Contacts report via API — June 10, 2026. 280 contacts pulled across all pages. No records were changed. Three duplicate patterns identified across name matches and email matches.
+            </div>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;">⚑ Pattern 1 — Aug 19 Import Shells (~8 pairs)</div>
+            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Aug 18, 2025 was the main import. Aug 19, 2025 re-imported a batch of "shell" contacts — same name and email, but <strong>no account linked</strong>. These are safe DELETEs with high confidence. Examples: Lee Barnes, Issam Harmouch, Chris Louloudiadis, Cesar Varelas, Jonathan Jendral.</div>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;margin-top:.75rem;">⚑ Pattern 2 — Same-Batch Name Duplicates (~6 pairs)</div>
+            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Same name at the same company, but with different email addresses or titles. These <em>may be intentional</em> (e.g. a direct email + an AP email for billing contacts). Need Zak to confirm before any action. Examples: Preston Neumann (1 Priority), Brannan Medina (Preferred Mechanical), Kyle DeCoster (Apex Aero), Tammy Carson (Mud Technology), John Kayser (Kayser Technology).</div>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;margin-top:.75rem;">⚑ Pattern 3 — Email Duplicates, Different Names (3 records)</div>
+            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Same email address linked to two different names at the same company. Likely a data entry error or a shared inbox. Confirm with Zak.</div>
+
+            <table class="audit-table" style="margin-bottom:1.25rem;">
+              <thead><tr><th>Email</th><th>Name A</th><th>Name B</th><th>Account</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td><code>manuel.rodriguez@pisd.edu</code></td><td>Manuel Rodriguez</td><td>Manuel Rodriguez (variant)</td><td>PLANO ISD</td><td>CONFIRM</td></tr>
+                <tr><td><code>barrels@getoutlier.com</code></td><td>Ian Barnett</td><td>Brandon Petty</td><td>OUTLIER USA LLC</td><td>CONFIRM</td></tr>
+              </tbody>
+            </table>
+
+            <div style="margin-top:1rem;background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);border-left:3px solid var(--green);">
+              <strong>~248 contacts look clean.</strong> The XLSX below has the full list of flagged rows with KEEP / DELETE / CONFIRM recommendations. No records have been changed.
+            </div>
+
+            <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+              <a href="https://github.com/bkaufmantx/redarcenv/raw/main/assets/redarc_platform_contacts_dedup_audit_2026-06-10.xlsx"
+                 download="redarc_platform_contacts_dedup_audit_2026-06-10.xlsx"
+                 style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gray-900);color:white;border-radius:8px;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;text-decoration:none;">
+                ⬇ Download Contacts Audit Workbook (.xlsx)
+              </a>
+              <span style="font-size:.75rem;color:var(--gray-500);">2 tabs: Summary · Contact Duplicates (32 rows, color-coded by action)</span>
             </div>
 
           </div>
