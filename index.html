@@ -444,7 +444,7 @@
 
         <!-- Key finding callout -->
         <div style="background:#fff8e1;border:1.5px solid #f39c12;border-radius:8px;padding:.85rem 1.1rem;margin-top:1rem;font-size:.82rem;color:var(--gray-700);">
-          <strong style="color:#b7770d;">⚑ Audit finding (June 10, 2026):</strong> The CRM has zero records — Accounts, Contacts, Generators, and Leads are all empty. All of RedArc's operational data lives in Platform. The original plan to "surface and merge duplicate records" can't happen until data is imported. <strong>The deduplication logic must be built into the import itself, not applied after.</strong> The <code>Platform_Generator_ID</code> and <code>Platform_Record_ID</code> sync fields already exist in CRM — these become the dedup keys: if a Platform ID is already present, it's an update, not a new record.
+          <strong style="color:#b7770d;">⚑ Import design note:</strong> The CRM has zero records — all data lives in Platform. The Phase 1 dedup audit (see above) identified 8 duplicate pairs in Platform before any import happens. When data moves into CRM, <code>Platform_Generator_ID</code> and <code>Platform_Record_ID</code> must be used as the match keys — if a Platform ID already exists in CRM, it's an update, not a new record. See open questions below before starting the import.
         </div>
 
         <!-- Assumptions / Open Questions -->
