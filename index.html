@@ -475,6 +475,91 @@
           </div>
         </div>
 
+        <!-- Generators Dedup Audit Findings -->
+        <div style="margin-top:1.5rem;">
+          <div onclick="toggleFindings('findings-gen-dedup')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+            <span class="section-title" style="margin:0;">Platform Generators Dedup Audit — June 10, 2026</span>
+            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
+              <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">899 generators analyzed</span>
+              <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">6 duplicate pairs</span>
+              <span style="background:#FEF9E7;color:#8B6914;font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">~173 missing real EPA IDs</span>
+            </span>
+            <span id="findings-gen-dedup-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+          </div>
+          <div id="findings-gen-dedup" style="display:none;">
+
+            <div style="background:var(--blue-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--blue);">
+              Read-only audit against Platform All_Generators report via API — June 10, 2026. 899 generators analyzed. Three issue types surfaced: true duplicate sites, "DO NOT USE" records already flagged in Platform, and a significant EPA ID data quality problem.
+            </div>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:.6rem;">⚑ DO NOT USE Records — already flagged (2 pairs)</div>
+            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Someone already added a "DO NOT USE" prefix to these generator names in Platform. They have no account link and share the same EPA ID as the primary record. Safe to delete after Zak confirms.</div>
+
+            <table class="audit-table" style="margin-bottom:1.25rem;">
+              <thead><tr><th>Generator Name</th><th>EPA ID</th><th>Account</th><th>Date Added</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr style="background:var(--green-light)"><td><strong>DALDEN</strong></td><td><code>TXD982758252</code></td><td>DALDEN</td><td>10-13-2025</td><td><strong style="color:var(--green)">KEEP</strong></td></tr>
+                <tr style="background:var(--red-muted)"><td>DO NOT USE Dalden</td><td><code>TXD982758252</code></td><td><em>no account</em></td><td>10-16-2025</td><td><strong style="color:var(--red)">DELETE</strong></td></tr>
+                <tr style="background:var(--green-light)"><td><strong>GENESIS CUSTOM CHEMICAL BLENDING</strong></td><td><code>TXR000041780</code></td><td>Genesis Custom Chemical Blending</td><td>04-23-2026</td><td><strong style="color:var(--green)">KEEP</strong></td></tr>
+                <tr style="background:var(--red-muted)"><td>GENESIS CUSTOM CHEMICAL BLENDING - DO NOT USE</td><td><code>TXR000041780</code></td><td><em>no account</em></td><td>06-05-2026</td><td><strong style="color:var(--red)">DELETE</strong></td></tr>
+              </tbody>
+            </table>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:.6rem;margin-top:.75rem;">⚑ True Duplicate Sites — same address entered twice (4 pairs)</div>
+            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Same physical site entered twice — usually one record from the original Aug 19 import and a second from the Sep 8 re-entry batch, or two records created within minutes during the Aug 22 bulk import. KEEP the older/more complete record.</div>
+
+            <table class="audit-table" style="margin-bottom:1.25rem;">
+              <thead><tr><th>Generator Name</th><th>EPA ID</th><th>Address</th><th>Date Added</th><th>Action</th><th>Reason</th></tr></thead>
+              <tbody>
+                <tr style="background:var(--green-light)"><td><strong>INFORM DIAGNOSTICS</strong></td><td><code>TXR000080292</code></td><td>6655 N MacArthur Blvd, Irving TX</td><td>09-08-2025</td><td><strong style="color:var(--green)">KEEP</strong></td><td>Has address</td></tr>
+                <tr style="background:var(--red-muted)"><td>INFORM DIAGNOSTICS</td><td><code>TXR000080292</code></td><td><em>no address</em></td><td>09-15-2025</td><td><strong style="color:var(--red)">DELETE</strong></td><td>Re-entry 7 days later, no address</td></tr>
+                <tr style="background:var(--green-light)"><td><strong>DLT POWER</strong></td><td><code>TXR000086372</code></td><td>629 N 5th St, Garland TX</td><td>08-19-2025</td><td><strong style="color:var(--green)">KEEP</strong></td><td>Has real EPA ID</td></tr>
+                <tr style="background:var(--red-muted)"><td>DLT POWER</td><td><em>no EPA</em></td><td>629 N 5th Street, Garland TX</td><td>09-08-2025</td><td><strong style="color:var(--red)">DELETE</strong></td><td>Re-entry batch, missing EPA</td></tr>
+                <tr style="background:var(--green-light)"><td><strong>CONTINENTAL BATTERY SYSTEMS OF HOUSTON</strong></td><td><code>TXP490356659</code></td><td>4721 World Houston Pkwy, Houston TX</td><td>08-19-2025 22:04:21</td><td><strong style="color:var(--green)">KEEP</strong></td><td>Real EPA ID</td></tr>
+                <tr style="background:var(--red-muted)"><td>CONTINENTAL BATTERY SYSTEMS OF HOUSTON</td><td><code>TXVSQG</code> (placeholder)</td><td>4721 World Houston Pkwy, Houston TX</td><td>08-19-2025 22:04:23</td><td><strong style="color:var(--red)">DELETE</strong></td><td>Created 2 min later, placeholder EPA</td></tr>
+                <tr style="background:var(--green-light)"><td><strong>ADVANCED DERMASURGERY ASSOC. HIGHLAND VILLAGE</strong></td><td><code>TXVSQG</code></td><td>2570 Justin Road, Highland Village TX</td><td>08-19-2025</td><td><strong style="color:var(--green)">KEEP</strong></td><td>First record in batch</td></tr>
+                <tr style="background:var(--red-muted)"><td>ADVANCED DERMASURGERY ASSOC. HIGHLAND VILLAGE</td><td><code>TXVSQG</code></td><td>2570 Justin Road, Highland Village TX</td><td>08-19-2025</td><td><strong style="color:var(--red)">DELETE</strong></td><td>Second entry within minutes, same address</td></tr>
+              </tbody>
+            </table>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8B6914;margin-bottom:.6rem;margin-top:.75rem;">⚑ Confirm with Zak (3 situations)</div>
+            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">These need Zak's judgment before any action — either because addresses differ slightly (possible move vs. second location) or because RedArc's own yard has three overlapping records with different names.</div>
+            <ul style="font-size:.78rem;color:var(--gray-700);margin:.5rem 0 .75rem 1.2rem;line-height:1.6;">
+              <li><strong>Dermatology &amp; Skin Cancer Surgery Center McKinney</strong> — two records, same city, confirm if same address before deleting the newer one.</li>
+              <li><strong>Colossal Biosciences</strong> — 3309 Elm St (Aug 2025) vs. 3020 Pegasus Park Dr (Oct 2025). Office move or second location? Confirm intent.</li>
+              <li><strong>Red Arc Crandall Yard (TXR000086324)</strong> — 3 records: "Red Arc Environmental Inc." (Transporter/Destination, Aug 2025), "Red Arc Environmental - HHW" (Generator/Transporter, Feb 2026), and "Red Arc Environmental" (different account name, Mar 2026). May be intentional functional split — confirm with Zak.</li>
+            </ul>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:.6rem;margin-top:.75rem;">⚑ EPA ID Data Quality — ~173 generators missing real EPA IDs</div>
+            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Generator classification codes are being used <em>in place of</em> actual EPA ID numbers — likely entered as placeholders during the import when the real ID wasn't known. This affects ~19% of the generator records.</div>
+
+            <table class="audit-table" style="margin-bottom:1.25rem;">
+              <thead><tr><th>Placeholder Code</th><th>Count</th><th>What It Means</th></tr></thead>
+              <tbody>
+                <tr><td><code>TXVSQG</code></td><td>155</td><td>Texas Very Small Quantity Generator — classification code, not an EPA ID</td></tr>
+                <tr><td><code>vsqg</code></td><td>8</td><td>Same as above, lowercase — data entry inconsistency</td></tr>
+                <tr><td><code>VSQG</code></td><td>5</td><td>Missing state prefix — partial placeholder</td></tr>
+                <tr><td><code>TXCESQG</code></td><td>3</td><td>TX Conditionally Exempt SQG — all MLD Pathology records</td></tr>
+                <tr><td><code>OKVSQG</code></td><td>2</td><td>Oklahoma VSQG — placeholder for OK-based generators</td></tr>
+              </tbody>
+            </table>
+
+            <div style="margin-top:1rem;background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);border-left:3px solid var(--green);">
+              <strong>✅ ~880 generator sites look structurally clean</strong> — no name or address collision. The EPA ID gap is a data quality issue to fix during import to CRM (real IDs can be looked up via EPA's ECHO database). No records were changed during this audit.
+            </div>
+
+            <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+              <a href="https://github.com/bkaufmantx/redarcenv/raw/main/assets/redarc_platform_generators_dedup_audit_2026-06-10.xlsx"
+                 download="redarc_platform_generators_dedup_audit_2026-06-10.xlsx"
+                 style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gray-900);color:white;border-radius:8px;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;text-decoration:none;">
+                ⬇ Download Generators Audit Workbook (.xlsx)
+              </a>
+              <span style="font-size:.75rem;color:var(--gray-500);">2 tabs: Summary · Generator Duplicates (all flagged pairs, color-coded by action)</span>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div><!-- /phase 1 -->
 
