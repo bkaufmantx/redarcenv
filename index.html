@@ -148,7 +148,7 @@
     <span class="logo-badge">REDARC</span>
     Zoho CRM + Quote Tool Project
   </div>
-  <div class="header-meta">Managed by SAR &nbsp;·&nbsp; Updated June 10, 2026</div>
+  <div class="header-meta">Managed by SAR &nbsp;·&nbsp; Updated June 11, 2026</div>
 </header>
 
 <!-- ── MAIN ── -->
@@ -161,11 +161,11 @@
     <div class="progress-wrap">
       <div class="progress-label">
         <span>Overall progress</span>
-        <span>Phase 1 of 3 — ~60% complete</span>
+        <span>Phase 1 complete · Phase 3 starting — ~75%</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
     </div>
-    <div class="updated">📅 Last updated: June 10, 2026 &nbsp;·&nbsp; Next milestone: Platform walkthrough with Zak — item codes, carriers, live quote creation</div>
+    <div class="updated">📅 Last updated: June 11, 2026 &nbsp;·&nbsp; Next milestone: First build — the profiled-waste item-code lookup wizard, using Zak's master pricing workbook + 890 real waste profiles</div>
   </div>
 
   <!-- ── ZAK ACTION REQUIRED ── -->
@@ -178,28 +178,35 @@
       </svg>
     </div>
     <div class="zak-body">
-      <h3>Platform walkthrough needed to complete Phase 1</h3>
-      <p>Brian now has admin access to both Zoho CRM and Platform (Creator app). The CRM module/field audit is complete. To close out Phase 1, we need a short call where Zak walks through the following:</p>
+      <h3>4 quick follow-ups from the June 11 walkthrough</h3>
+      <p>The June 11 call was a goldmine — Zak walked through item codes + routing logic and sent the full data drop (master pricing workbook, 890 waste profiles, the lab pack skill, the HTML routing prototype, and operational routing notes). Four small things will let Brian start building the lookup tool with confidence:</p>
       <div class="zak-steps">
         <div class="zak-step">
           <div class="step-badge">1</div>
           <div>
-            <strong>Item code tour in Platform</strong> — Walk through how item codes are structured, how they map to waste streams, and how to export the full list (760 codes identified).
-            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'question-item-code-list-from-larry')">💬 Comment</button><div class="task-comments-area"></div></div>
+            <strong>~6 Platform screenshots</strong> (Brian's screen recording of the call didn't save) — most valuable: an item code's <em>A/B/C tier + container-size sub-table</em> (can't be exported), a built estimate, an account's tier-sheet assignment, the vendor-rate entry screen, the item-code search view, and one profile detail page.
+            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'platform-screenshots-tier-tables')">💬 Comment</button><div class="task-comments-area"></div></div>
           </div>
         </div>
         <div class="zak-step">
           <div class="step-badge">2</div>
           <div>
-            <strong>Actual waste carrier list</strong> — The Carrier field in Zoho has consumer shippers (FedEx/UPS/DHL). Walk Brian through who RedArc actually uses for hazmat transport so we can rebuild that picklist correctly.
-            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'question-actual-waste-carriers')">💬 Comment</button><div class="task-comments-area"></div></div>
+            <strong>1–2 worked routing examples</strong> — take one profiled waste stream (e.g. a drum of spent acid) and narrate <em>why</em> you land on that exact item code at each fork (which facility, which backup if rejected, which tier). This captures the operational logic that isn't in any file.
+            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'worked-routing-examples')">💬 Comment</button><div class="task-comments-area"></div></div>
           </div>
         </div>
         <div class="zak-step">
           <div class="step-badge">3</div>
           <div>
-            <strong>Live quote creation walkthrough</strong> — Create one real quote together in Platform (start to finish). Brian documents every step, input, and output. This is the blueprint for the quote tool.
-            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'walk-through-live-quote-creation')">💬 Comment</button><div class="task-comments-area"></div></div>
+            <strong>Confirm the prototype-gap list</strong> — is "Operational Color.docx" the full list of what the HTML routing cheat sheet gets wrong, or are there a few specific bugs beyond it?
+            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'html-prototype-gaps')">💬 Comment</button><div class="task-comments-area"></div></div>
+          </div>
+        </div>
+        <div class="zak-step">
+          <div class="step-badge">4</div>
+          <div>
+            <strong>A real lab-pack skill output</strong> — one finished <code>.xlsx</code> the lab pack sorter produced for a recent job (e.g. McLennan Community College), so the tool matches the exact output schema.
+            <div><button class="task-comment-btn" style="margin-top:.35rem;" onclick="toggleTaskComment(this, 'lab-pack-output-example')">💬 Comment</button><div class="task-comments-area"></div></div>
           </div>
         </div>
       </div>
@@ -213,13 +220,13 @@
     <!-- Phase 1 -->
     <div class="phase-card open" id="phase1">
       <div class="phase-header" onclick="togglePhase('phase1')">
-        <div class="phase-num active">1</div>
+        <div class="phase-num done">1</div>
         <span class="phase-chevron">▶</span>
         <div class="phase-title-wrap">
           <div class="phase-title">Phase 1 — Access &amp; Orientation</div>
           <div class="phase-subtitle">Understand the full system before touching anything</div>
         </div>
-        <span class="phase-status-badge badge-active">In Progress</span>
+        <span class="phase-status-badge badge-done">Complete</span>
       </div>
       <div class="phase-body">
 
@@ -259,19 +266,19 @@
             </div>
           </li>
           <li>
-            <span class="task-icon">⏳</span>
+            <span class="task-icon">✅</span>
             <div class="task-text">
-              <strong>Live quote creation walkthrough with Zak</strong>
-              <div class="task-note">Need Zak on a call — walk through one real quote in Platform start to finish. Document every trigger, input, tool touched, output, and handoff.</div>
+              <strong>Live quote + routing walkthrough with Zak — June 11, 2026</strong>
+              <div class="task-note">Recorded call (Granola). Zak walked through item code structure, the facility-suffix logic, the layered routing decision tree, and started a real lab-pack quote (McLennan Community College). Full synthesis captured — see "June 11 — Call & Data Drop" below.</div>
               <button class="task-comment-btn" onclick="toggleTaskComment(this, 'walk-through-live-quote-creation')">💬 Comment</button>
               <div class="task-comments-area"></div>
             </div>
           </li>
           <li>
-            <span class="task-icon">⏳</span>
+            <span class="task-icon">✅</span>
             <div class="task-text">
-              <strong>Item code export from Platform</strong>
-              <div class="task-note">760 item codes identified in Platform. Need Zak's tour before export — understanding context first per Zak's guidance.</div>
+              <strong>Item code + pricing data received from Zak — June 11, 2026</strong>
+              <div class="task-note">Full data drop in hand: the master pricing workbook (entire calc chain + A/B/C tiers + facility lookup + raw rates for all 9 facilities), the ~760-code item export, account/profile vendor pricing, 890 real waste profiles, the lab pack sorting skill, the HTML routing prototype, the Clean Earth broker guide, and operational routing notes. Build work is unblocked.</div>
               <button class="task-comment-btn" onclick="toggleTaskComment(this, 'question-item-code-list-from-larry')">💬 Comment</button>
               <div class="task-comments-area"></div>
             </div>
@@ -365,6 +372,60 @@
                 Zak flagged the core tension: lean on Platform long-term, or build internal systems? His instinct is internal — CRM as the intelligence layer, Platform for operations. This decision gates how much dev work goes to Larry's team vs. built in-house.
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- June 11 Call & Data Drop -->
+        <div style="margin-top:1.5rem;">
+          <div class="findings-toggle" onclick="toggleFindings('findings-june11')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+            <span class="section-title" style="margin:0;">June 11 — Call &amp; Data Drop</span>
+            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
+              <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">8 files received</span>
+              <span style="background:var(--blue-light);color:var(--blue);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">routing logic captured</span>
+            </span>
+            <span id="findings-june11-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+          </div>
+          <div id="findings-june11" style="display:none;">
+
+            <div style="background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--green);">
+              Recorded catch-up call June 11 + same-day data drop from Zak. Two big outcomes: (1) the <strong>full pricing/routing logic</strong> is now documented, and (2) every critical-path data file is in hand. <strong>First build target is locked: a profiled-waste item-code lookup wizard</strong> (lab packs are already solved by Zak's existing Claude skill; the gap is non-lab-pack waste, where the salesperson scrolls ~760 codes by hand).
+            </div>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:.5rem;">🧭 Pricing &amp; Routing Model</div>
+            <div class="findings-grid" style="margin-top:0;">
+              <div class="finding-card info">
+                <h4>Facility-suffixed item codes</h4>
+                Format <code>PREFIX##-FAC</code> (e.g. <code>EFW01-AVA</code>). The suffix exists because Zak <strong>bundles transport into the disposal price</strong> (no itemized freight or fuel surcharge), so all-in cost is intrinsically facility-specific.
+              </div>
+              <div class="finding-card info">
+                <h4>Routing is layered</h4>
+                (1) all-in cost = disposal + EIS fees + transport/route density → (2) facility acceptance criteria (e.g. US Ecology Tulsa's 500ppm VOC limit) → (3) backup facility per stream (Tradebe backs up Avalon) → (4) approvals-dept conservatism (tribal knowledge).
+              </div>
+              <div class="finding-card info">
+                <h4>Rate-selection priority</h4>
+                profile-specific &gt; account-specific &gt; tier-sheet default (B-tier, 55-gal) &gt; item-code default. A/B/C tiers = 30/38/45% margin, with per-container-size breakouts.
+              </div>
+              <div class="finding-card info">
+                <h4>CRM is genuinely empty — confirmed</h4>
+                Verified via admin token against the single correct org: 0 records across all core modules. The real data lives in Platform, not CRM. The "cluttered HubSpot pipeline" Zak sees is in Platform.
+              </div>
+            </div>
+
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin:1.25rem 0 .5rem;">📦 Files Received (<code>Info from Zak June 11/</code>)</div>
+            <table class="audit-table">
+              <thead><tr><th>File</th><th>What it is</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Red Arc Master Item Code Pricing Workbook.xlsx</strong> <span class="badge-ok">key</span></td><td>The entire pricing brain — calc chain (disposal → EIS → LTL → FSC → margin), A/B/C tiers, facility lookup, LTL rates, legacy-code reconciliation, raw rates for all 9 facilities.</td></tr>
+                <tr><td><strong>All Profiles.xlsx</strong> <span class="badge-ok">key</span></td><td>890 real waste-stream profiles — generator, destination facility, approval code, hazard classes. Prime fuel for the lookup wizard.</td></tr>
+                <tr><td>All Items (8).xlsx</td><td>~760 item codes — code, description, type, legacy code, billing method, default price/vendor.</td></tr>
+                <tr><td>All Vendor Pricing (3).xlsx</td><td>219 account/profile-specific negotiated rates.</td></tr>
+                <tr><td>lab-pack-sorter.skill</td><td>Zak's working Claude skill — inventory → categorized containers w/ Red Arc + Clean Earth codes, anti-hallucination SDS gate.</td></tr>
+                <tr><td>red_arc_routing_cheat_sheet_v2.html</td><td>His first-attempt waste-type → item-code lookup prototype.</td></tr>
+                <tr><td>Operational Color.docx</td><td>Routing tribal knowledge + several corrections (the approvals-conservatism layer in writing).</td></tr>
+                <tr><td>Self Pack &amp; Broker Guidelines 2024.pdf</td><td>Clean Earth broker guide — the reference the lab pack skill routes against.</td></tr>
+              </tbody>
+            </table>
+
           </div>
         </div>
 
@@ -635,12 +696,19 @@
           <div class="phase-title">Phase 3 — Build the Quote Tool</div>
           <div class="phase-subtitle">Zak gets time back; double-entry is eliminated</div>
         </div>
-        <span class="phase-status-badge badge-pending">Not Started</span>
+        <span class="phase-status-badge badge-active">In Progress</span>
       </div>
       <div class="phase-body">
-        <ul class="task-list">
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Claude-powered quote generation from CRM</strong><div class="task-note">Input: generator site + waste stream. Claude pulls Account pricing tier, Generator fields, item codes via MCP → applies margin → outputs draft quote. Start with one waste type, prove it, then expand.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'claude-powered-quote-generation')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Import item codes + routing rules into CRM</strong><div class="task-note">Export 760 item codes from Platform. Build item code lookup structure in Zoho Products or a custom module. Encode routing logic (waste type → destination → carrier → item codes).</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'document-routing-rules-item-codes')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+
+        <!-- First build callout -->
+        <div style="background:var(--blue-light);border:1.5px solid var(--blue);border-radius:8px;padding:.85rem 1.1rem;margin-top:1rem;font-size:.82rem;color:var(--gray-700);">
+          <strong style="color:var(--blue);">🎯 First build target (locked June 11):</strong> a <strong>profiled-waste item-code lookup wizard</strong>. Lab packs are <em>already solved</em> by Zak's existing Claude skill. The real gap is non-lab-pack profiled waste, where the salesperson scrolls ~760 codes by hand. A Q&amp;A / keyword wizard that narrows to the right code — built in Claude, outside Zoho — is the highest-value, best-scoped first deliverable and the first step toward independence from Platform.
+        </div>
+
+        <ul class="task-list" style="margin-top:1.25rem;">
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Build the profiled-waste item-code lookup wizard</strong><div class="task-note">Join the master pricing workbook + 890 waste profiles + the Clean Earth ↔ Red Arc code mapping into one clean catalog. Wizard narrows waste characteristics → candidate item codes → all-in price, applying the layered routing logic. Validate against the HTML prototype's known gaps.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'profiled-waste-lookup-wizard')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Encode the routing decision tree</strong><div class="task-note">From the June 11 call + Operational Color notes: all-in cost → facility acceptance criteria → backup facility per stream → approvals conservatism. Capture remaining tribal knowledge via Zak's worked examples (see Action Required).</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'document-routing-rules-item-codes')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Extend lab-pack skill output into full quote assembly</strong><div class="task-note">Lab pack sorter already outputs item codes per container. Add transport + labor + line-item assembly to produce a draft quote matching Platform's Estimate structure (see Estimate #229 recon below).</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'claude-powered-quote-generation')">💬 Comment</button><div class="task-comments-area"></div></div></li>
           <li><span class="task-icon">🔲</span><div class="task-text"><strong>Run in parallel with Platform</strong><div class="task-note">Same inputs, compare outputs. Nothing switches off until Zak explicitly approves the handoff.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'run-parallel-with-larrys-app')">💬 Comment</button><div class="task-comments-area"></div></div></li>
         </ul>
         <!-- Estimate Structure Recon -->
@@ -694,12 +762,30 @@
   <div class="archive-toggle" onclick="toggleArchive()">
     <span style="font-size:1rem;">🗂</span>
     <span class="archive-label">Archive — Resolved Questions &amp; Completed Items</span>
-    <span class="archive-count">6 items</span>
+    <span class="archive-count">8 items</span>
     <span class="archive-chevron" id="archive-chevron">▶</span>
   </div>
   <div class="archive-body" id="archive-body">
 
     <p style="font-size:.8rem;color:var(--gray-500);margin-bottom:1.25rem;">These items are resolved — Zak answered, Brian acted, or the task is complete. Kept here for reference.</p>
+
+    <div class="archive-item">
+      <div class="archive-item-header">
+        <span style="font-size:.9rem;">✅</span>
+        <span class="archive-q">Item code tour + live quote walkthrough in Platform</span>
+        <span class="archive-date">Resolved June 11, 2026</span>
+      </div>
+      <div class="archive-a">Done on the recorded June 11 call. Zak walked through item code structure, the facility-suffix logic, the layered routing decision tree, and started a real lab-pack quote (McLennan Community College). Routing logic + pricing model now documented on the dashboard.</div>
+    </div>
+
+    <div class="archive-item">
+      <div class="archive-item-header">
+        <span style="font-size:.9rem;">✅</span>
+        <span class="archive-q">Item code list + master pricing — can Zak export and share it?</span>
+        <span class="archive-date">Resolved June 11, 2026</span>
+      </div>
+      <div class="archive-a">Full data drop received June 11: master pricing workbook (calc chain + A/B/C tiers + facility lookup + raw rates for 9 facilities), ~760-code item export, 890 waste profiles, vendor pricing, the lab pack skill, the HTML routing prototype, and operational routing notes. Critical-path data is in hand — build work unblocked.</div>
+    </div>
 
     <div class="archive-item">
       <div class="archive-item-header">
