@@ -265,20 +265,13 @@
         <span class="phase-chevron">▶</span>
         <div class="phase-title-wrap">
           <div class="phase-title">Phase 3 — Post-MVP Cleanup &amp; Stabilization</div>
-          <div class="phase-subtitle">After the MVP proves out · CRM becomes the reliable source of truth</div>
+          <div class="phase-subtitle">To be defined after Zak reviews the tool</div>
         </div>
-        <span class="phase-status-badge badge-waiting">Queued</span>
+        <span class="phase-status-badge badge-waiting">TBD</span>
       </div>
       <div class="phase-body">
-        <p style="font-size:.85rem;color:var(--gray-700);margin-top:1rem;">Sequenced after the quote tool proves out (Zak's direction). The architecture is settled and the work is scoped — it's gated on decisions, not discovery. Detail in the Reference card below.</p>
-
-        <div style="margin-top:1.25rem;"><div class="section-title">Tasks (queued)</div></div>
-        <ul class="task-list">
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Design Platform → CRM import with built-in dedup</strong><div class="task-note">Match on <code>Platform_Generator_ID</code> / <code>Platform_Record_ID</code> first, fall back to name+address. No record created without a Platform ID anchor. Review every unmatched record with Zak before committing.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'surface-duplicate-contacts-accounts')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Add Generator lookup to Quotes</strong><div class="task-note">One custom field to close the Quote ↔ Generator gap. Needs Zak's approval before changing CRM structure.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'add-generator-lookup-to-quotes')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Rebuild Carrier picklist with real hazmat carriers</strong><div class="task-note">Replace FedEx/UPS/DHL with RedArc's actual carrier list.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'rebuild-carrier-picklist')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">⏸️</span><div class="task-text"><strong>Fix Zoho Desk / Generators access — on hold</strong><div class="task-note">Deprioritized June 11: Desk's job (the job-setup Kanban) is being built natively in Platform "planning mode." No work here until Zak confirms Desk is still wanted.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'fix-zoho-desk-custom-module-access-gap')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-        </ul>
+        <p style="font-size:.85rem;color:var(--gray-700);margin-top:1rem;">Intentionally open. The active work right now is <strong>refining the quote tool</strong> (Phase 2). The next round of tasks — and whether they involve the CRM, Platform, or more tool work — gets defined <strong>after Zak reviews the tool and picks a direction</strong>.</p>
+        <p style="font-size:.85rem;color:var(--gray-700);margin-top:.75rem;">The earlier CRM-cleanup ideas (Platform→CRM import, generator lookup, carrier picklist, Zoho Desk) are <strong>parked as reference, not commitments</strong> — they assumed quoting would live in Zoho, which is now an open question. They're preserved in the <strong>Audits &amp; System Reference</strong> card below if that direction is chosen.</p>
       </div>
     </div>
 
@@ -350,7 +343,7 @@
           </div>
           <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin:1.25rem 0 .5rem;">⚑ Flagged — needs attention</div>
           <div class="findings-grid" style="margin-top:0;">
-            <div class="finding-card flag"><h4>Quotes have no Generator link</h4>Confirmed gap. Quotes connect to Accounts + Contacts but not to individual generator sites. One custom lookup field needs to be added to Quotes in Phase 3.</div>
+            <div class="finding-card flag"><h4>Quotes have no Generator link</h4>Confirmed gap. Quotes connect to Accounts + Contacts but not to individual generator sites. Only matters if quoting moves into Zoho — the standalone tool already links a quote to a generator/site.</div>
             <div class="finding-card flag"><h4>Carrier picklist has wrong values</h4>Shows FedEx, UPS, USPS, DHL, BlueDart — consumer shippers. RedArc uses hazmat carriers. Needs to be rebuilt once Zak provides the real carrier list.</div>
             <div class="finding-card flag"><h4>Duplicate modules</h4>Sales Orders, Purchase Orders, and Invoices each exist twice (native CRM + Books-synced versions). Two Generators × Contacts linking tables. Needs cleanup decision from Zak.</div>
             <div class="finding-card flag"><h4>"Generator" text field on Accounts</h4>Plain text, not a lookup. Data integrity risk — free-form text can diverge from actual Generator records. Should be removed or replaced with the proper linking table.</div>
@@ -597,7 +590,7 @@
 
     <div class="archive-item">
       <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">How do you currently tie a quote to a specific generator site?</span><span class="archive-date">Answered June 9, 2026</span></div>
-      <div class="archive-a">"Estimates are an object in Platform that is tied to an account and a generator. Right now we are not using Zoho for quotes, so I haven't added the 'Generator' custom module as a field for Quotes." — Adding Generator lookup to Quotes is a Phase 3 task.</div>
+      <div class="archive-a">"Estimates are an object in Platform that is tied to an account and a generator. Right now we are not using Zoho for quotes, so I haven't added the 'Generator' custom module as a field for Quotes." — a later CRM change only if quoting moves into Zoho; the standalone tool already links quotes to a generator/site.</div>
     </div>
 
     <div class="archive-item">
