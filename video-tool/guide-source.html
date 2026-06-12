@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>RedArc Video Screenshot Tool — Guide</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm; }
+  :root{
+    --red:#c0392b; --red-light:#e74c3c; --green:#27ae60; --green-light:#eafaf1;
+    --yellow:#f39c12; --yellow-light:#fef9e7; --blue:#2980b9; --blue-light:#ebf5fb;
+    --gray-100:#f7f8fa; --gray-200:#eef0f3; --gray-300:#d5d8dc; --gray-500:#7f8c8d;
+    --gray-700:#4a5568; --gray-900:#1a202c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:var(--gray-900);line-height:1.55;font-size:10.5pt;}
+  h1{font-size:22pt;font-weight:700;letter-spacing:-.01em;}
+  h2{font-size:13pt;font-weight:700;margin:18px 0 8px;color:var(--gray-900);
+     border-bottom:2px solid var(--gray-200);padding-bottom:5px;page-break-after:avoid;}
+  h3{font-size:10.5pt;font-weight:700;margin:12px 0 4px;color:var(--gray-700);}
+  p{margin:6px 0;}
+  ul,ol{margin:6px 0 6px 20px;}
+  li{margin:3px 0;}
+  code{font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9pt;background:var(--gray-200);
+       padding:1px 5px;border-radius:4px;color:#b7270d;}
+  pre{background:var(--gray-900);color:#e8e8e8;border-radius:7px;padding:11px 14px;margin:8px 0;
+      font-family:'SF Mono',Menlo,Consolas,monospace;font-size:8.7pt;line-height:1.5;overflow:hidden;white-space:pre-wrap;}
+  pre code{background:none;color:inherit;padding:0;}
+  .header{display:flex;align-items:center;gap:12px;border-left:5px solid var(--red);
+          padding:4px 0 4px 16px;margin-bottom:6px;}
+  .badge{background:var(--red);color:#fff;border-radius:6px;padding:4px 10px;font-size:8.5pt;
+         font-weight:700;letter-spacing:.06em;}
+  .sub{color:var(--gray-500);font-size:9.5pt;margin-bottom:4px;}
+  .lead{background:#fff;border:1px solid var(--gray-200);border-left:4px solid var(--blue);
+        border-radius:8px;padding:12px 16px;margin:14px 0;font-size:10pt;}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:9.3pt;}
+  th{background:var(--gray-900);color:#fff;text-align:left;padding:6px 9px;font-weight:600;}
+  td{border:1px solid var(--gray-200);padding:5px 9px;vertical-align:top;}
+  tr:nth-child(even) td{background:var(--gray-100);}
+  .step{display:flex;gap:11px;margin:9px 0;align-items:flex-start;}
+  .num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;
+       font-weight:700;font-size:9.5pt;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .step-body{flex:1;}
+  .note{background:var(--yellow-light);border:1px solid var(--yellow);border-radius:7px;
+        padding:9px 13px;margin:9px 0;font-size:9.4pt;}
+  .ok{background:var(--green-light);border:1px solid var(--green);border-radius:7px;
+      padding:9px 13px;margin:9px 0;font-size:9.4pt;}
+  .footer{margin-top:22px;padding-top:9px;border-top:1px solid var(--gray-300);
+          color:var(--gray-500);font-size:8.3pt;display:flex;justify-content:space-between;}
+  .tree{font-family:'SF Mono',Menlo,monospace;font-size:8.6pt;color:var(--gray-700);
+        background:var(--gray-100);border:1px solid var(--gray-200);border-radius:7px;padding:11px 14px;white-space:pre;}
+  strong{font-weight:600;}
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <span class="badge">REDARC × SAR</span>
+    <div>
+      <h1>Video Screenshot Tool</h1>
+      <div class="sub">Turn a screen-demo recording into timestamped screenshots Claude can pull on demand</div>
+    </div>
+  </div>
+
+  <div class="lead">
+    <strong>What it does.</strong> Drop a screen-recording (MP4/MOV) on the app. It transcribes the
+    audio into a <strong>timestamped transcript</strong> — the map of everything said and when. From
+    then on, you just ask Claude for a moment (<em>"show me where Kristin filters the item codes"</em>)
+    and Claude reads the transcript, finds the timecode, and grabs that <strong>exact</strong> screenshot.
+    No scrubbing, and no wall of redundant images.
+  </div>
+
+  <h2>The idea in one picture</h2>
+  <table>
+    <tr><th>Step</th><th>When</th><th>What happens</th></tr>
+    <tr><td><strong>Transcribe</strong></td><td>Up front, automatic</td><td>Whisper turns the audio into a transcript with exact timestamps — the searchable map.</td></tr>
+    <tr><td><strong>Grab a frame</strong></td><td>On demand, by Claude</td><td>Claude seeks the precise moment you asked about and saves just that screenshot.</td></tr>
+    <tr><td><strong>Blanket frames</strong></td><td>Only if you ask</td><td>For silent stretches with no narration, optionally pre-extract frames (see last page).</td></tr>
+  </table>
+  <p>Frames exist only because they were needed — captured at the exact second, not the nearest sample.</p>
+
+  <h2>Using it — the everyday flow</h2>
+  <div class="step"><div class="num">1</div><div class="step-body">
+    <strong>Drag a recording onto <code>RedArc Video Tool.app</code>.</strong>
+    A Terminal window opens and shows progress. The first run downloads the transcription model once (a minute or two); after that it's quick.</div></div>
+  <div class="step"><div class="num">2</div><div class="step-body">
+    <strong>When it finishes, the output folder opens.</strong>
+    You now have the transcript and a <code>manifest.json</code> for that video.</div></div>
+  <div class="step"><div class="num">3</div><div class="step-body">
+    <strong>Ask Claude for the moment you want.</strong>
+    e.g. <em>"In the platform-walkthrough video, grab the screen where Zak opens the rate sheet."</em>
+    Claude finds the line in the transcript, grabs that frame, and shows it to you.</div></div>
+
+  <div class="ok"><strong>That's the whole loop.</strong> You drop a video and ask in plain English; Claude does the finding and grabbing.</div>
+
+  <h2>What lands on disk</h2>
+  <div class="tree">output/&lt;video-name&gt;/
+  source.mp4          copy of the original (so grabs work anytime later)
+  transcript.txt      readable, [MM:SS]-prefixed
+  transcript.json     machine-readable segments + timestamps
+  manifest.json       the index Claude reads
+  frames/             created on demand
+    00-04-22.jpg      &larr; only the moments that were actually needed</div>
+
+  <h2>Running it by hand (optional)</h2>
+  <p>You never have to, but the same thing works from a Terminal in the tool folder:</p>
+  <pre><code># 1. transcribe a video
+./venv/bin/python ./process_video.py /path/to/demo.mp4
+
+# 2. grab one or more exact frames (seconds, MM:SS, or HH:MM:SS)
+./venv/bin/python ./grab.py output/demo 4:22 5:10 6:03</code></pre>
+
+  <h2>When a moment has no narration</h2>
+  <p>On-demand grabbing relies on the transcript describing the moment. If something important happens
+  silently, pre-extract frames so there's something to look at:</p>
+  <pre><code># a frame on every visual scene change
+RAVT_FRAMES=scene ./venv/bin/python ./process_video.py demo.mp4
+
+# scene changes PLUS a guaranteed frame every few seconds
+RAVT_FRAMES=both  ./venv/bin/python ./process_video.py demo.mp4</code></pre>
+
+  <h2>Settings you can tweak</h2>
+  <table>
+    <tr><th>Setting</th><th>Default</th><th>Effect</th></tr>
+    <tr><td><code>RAVT_FRAMES</code></td><td><code>none</code></td><td><code>none</code> (on-demand) · <code>scene</code> · <code>interval</code> · <code>both</code></td></tr>
+    <tr><td><code>RAVT_MODEL</code></td><td><code>small.en</code></td><td>Transcription model: <code>base.en</code> (faster) or <code>medium.en</code> (more accurate)</td></tr>
+    <tr><td><code>RAVT_FLOOR</code></td><td><code>4</code></td><td>Seconds between forced frames in interval mode</td></tr>
+    <tr><td><code>RAVT_SCENE</code></td><td><code>0.30</code></td><td>Scene sensitivity (0–1); lower catches more changes</td></tr>
+  </table>
+
+  <h2>First-time notes &amp; troubleshooting</h2>
+  <div class="note"><strong>"Unidentified developer" warning.</strong> The first time you open the app, macOS may
+  block it. Right-click the app → <strong>Open</strong> → <strong>Open</strong>. You only do this once.</div>
+  <div class="note"><strong>First run is slower.</strong> The transcription model downloads once on the very
+  first video, then is cached for every run after.</div>
+  <p><strong>Moving to another Mac?</strong> Install the two free dependencies: <code>brew install ffmpeg</code>,
+  then in the tool folder <code>python3 -m venv venv &amp;&amp; ./venv/bin/pip install faster-whisper</code>.
+  Everything is local — no API keys, no per-video cost.</p>
+
+  <div class="footer">
+    <span>RedArc × SAR — Some Assembly Required</span>
+    <span>Backup &amp; docs: github.com/bkaufmantx/redarcenv</span>
+  </div>
+
+</body>
+</html>

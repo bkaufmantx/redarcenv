@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RedArc × SAR — Video Screenshot Tool</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --red:#c0392b; --red-light:#e74c3c; --red-muted:#f9e9e8;
+      --green:#27ae60; --green-light:#eafaf1; --yellow:#f39c12; --yellow-light:#fef9e7;
+      --blue:#2980b9; --blue-light:#ebf5fb;
+      --gray-100:#f7f8fa; --gray-200:#eef0f3; --gray-300:#d5d8dc;
+      --gray-500:#7f8c8d; --gray-700:#4a5568; --gray-900:#1a202c; --font:'Inter',sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:var(--font);background:var(--gray-100);color:var(--gray-900);line-height:1.6;}
+    a{color:var(--blue);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    header{background:var(--gray-900);color:#fff;padding:0 2rem;display:flex;align-items:center;
+      justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25);}
+    .logo{display:flex;align-items:center;gap:.75rem;font-weight:700;font-size:1.05rem;letter-spacing:.02em;}
+    .logo-badge{background:var(--red);color:#fff;border-radius:6px;padding:3px 9px;font-size:.8rem;font-weight:700;letter-spacing:.05em;}
+    .header-meta{font-size:.78rem;color:#aaa;}
+    .header-meta a{color:#cbd5e0;}
+
+    .container{max-width:980px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+
+    .hero{background:#fff;border-radius:12px;padding:2rem 2.5rem;margin-bottom:1.75rem;
+      border-left:5px solid var(--red);box-shadow:0 1px 4px rgba(0,0,0,.06);}
+    .hero h1{font-size:1.7rem;font-weight:700;margin-bottom:.5rem;}
+    .hero .tagline{color:var(--gray-700);font-size:1rem;max-width:680px;}
+    .hero .meta{margin-top:1.1rem;font-size:.78rem;color:var(--gray-500);}
+    .pill{display:inline-block;background:var(--blue-light);color:var(--blue);font-size:.72rem;
+      font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:.9rem;letter-spacing:.03em;}
+
+    .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.4rem;}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.9rem;
+      padding:.65rem 1.15rem;border-radius:8px;transition:transform .12s,box-shadow .12s;}
+    .btn:hover{text-decoration:none;transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.12);}
+    .btn-primary{background:var(--red);color:#fff;}
+    .btn-secondary{background:#fff;color:var(--gray-900);border:1.5px solid var(--gray-300);}
+
+    .section-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+      color:var(--gray-500);margin:0 0 1rem;}
+
+    .card{background:#fff;border-radius:12px;padding:1.6rem 2rem;margin-bottom:1.75rem;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+
+    .flow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
+    .flow-step{background:var(--gray-100);border:1px solid var(--gray-200);border-radius:10px;padding:1.1rem 1.2rem;position:relative;}
+    .flow-step .n{position:absolute;top:-11px;left:1.2rem;width:24px;height:24px;border-radius:50%;
+      background:var(--red);color:#fff;font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center;}
+    .flow-step h3{font-size:.95rem;font-weight:700;margin:.5rem 0 .35rem;}
+    .flow-step p{font-size:.83rem;color:var(--gray-700);}
+    .flow-step .tag{font-size:.68rem;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.05em;}
+
+    .example{background:var(--gray-900);color:#e8e8e8;border-radius:10px;padding:1.1rem 1.4rem;
+      font-family:'SF Mono',Menlo,monospace;font-size:.82rem;line-height:1.7;margin-top:1rem;}
+    .example .you{color:#fbd38d;}
+    .example .claude{color:#9ae6b4;}
+    .example .muted{color:#718096;}
+
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+    .feat h4{font-size:.92rem;font-weight:700;margin-bottom:.3rem;display:flex;align-items:center;gap:.45rem;}
+    .feat p{font-size:.85rem;color:var(--gray-700);}
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;}
+
+    .note{background:var(--yellow-light);border:1px solid var(--yellow);border-radius:9px;
+      padding:1rem 1.4rem;font-size:.86rem;color:var(--gray-700);}
+    .note strong{color:#b7770d;}
+
+    code{font-family:'SF Mono',Menlo,monospace;font-size:.82em;background:var(--gray-200);
+      padding:1px 6px;border-radius:4px;color:#b7270d;}
+
+    footer{text-align:center;color:var(--gray-500);font-size:.78rem;padding:1rem 0 0;}
+
+    @media (max-width:720px){
+      .flow{grid-template-columns:1fr;}
+      .grid2{grid-template-columns:1fr;}
+      .hero{padding:1.5rem;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><span class="logo-badge">REDARC</span> × SAR</div>
+    <div class="header-meta"><a href="../">← Project Dashboard</a></div>
+  </header>
+
+  <div class="container">
+
+    <div class="hero">
+      <span class="pill">UTILITY · LOCAL MAC TOOL</span>
+      <h1>Video Screenshot Tool</h1>
+      <p class="tagline">Turn a screen-demo recording into a timestamped transcript, then have Claude
+        pull the <strong>exact screenshots it needs, on demand</strong> — so content from walkthroughs and
+        screen-shares is instantly searchable, no scrubbing.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="RedArc_Video_Tool_Guide.pdf">📄 Read the Guide (PDF)</a>
+        <a class="btn btn-secondary" href="https://github.com/bkaufmantx/redarcenv/tree/main/video-screenshot-tool">⌥ View the code</a>
+      </div>
+      <div class="meta">Local utility · runs on Brian's Mac · no API keys, no per-video cost</div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">How it works</p>
+      <div class="flow">
+        <div class="flow-step"><span class="n">1</span>
+          <div class="tag">Up front · automatic</div>
+          <h3>Transcribe</h3>
+          <p>Drop a recording on the app. Whisper turns the audio into a transcript with exact
+             timestamps — the searchable map of everything said and when.</p></div>
+        <div class="flow-step"><span class="n">2</span>
+          <div class="tag">On demand · Claude</div>
+          <h3>Grab the frame</h3>
+          <p>You ask for a moment in plain English. Claude finds the line in the transcript and
+             seeks that precise second — saving just that screenshot.</p></div>
+        <div class="flow-step"><span class="n">3</span>
+          <div class="tag">Instantly usable</div>
+          <h3>Use the content</h3>
+          <p>Claude reads the screenshot and works with it — for docs, quotes, walkthroughs, or
+             grounding the quote tool against what was actually on screen.</p></div>
+      </div>
+
+      <div class="example">
+        <span class="you">You:</span> "In the platform walkthrough, grab the screen where Zak opens the rate sheet."<br>
+        <span class="claude">Claude:</span> <span class="muted">finds "…now I'll open the rate sheet…" at 4:22 →
+        grabs frame 00-04-22.jpg → reads it</span><br>
+        <span class="claude">Claude:</span> "Here's the rate sheet view at 4:22 — it shows the A/B/C tier columns…"
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">Why it's built this way</p>
+      <div class="grid2">
+        <div class="feat">
+          <h4><span class="dot"></span> On-demand, not a blanket dump</h4>
+          <p>No wall of every-few-seconds screenshots. Frames are captured at the exact moment they're
+             needed — more precise and nothing to wade through.</p>
+        </div>
+        <div class="feat">
+          <h4><span class="dot"></span> The transcript does the alignment</h4>
+          <p>No need for a pre-timed transcript. The video's own audio is transcribed with real
+             timestamps, so every spoken line already knows its time.</p>
+        </div>
+        <div class="feat">
+          <h4><span class="dot"></span> Fully local &amp; free</h4>
+          <p>ffmpeg + Whisper run on the Mac. No API keys, no per-video cost, works offline. A step
+             toward owning the workflow end-to-end.</p>
+        </div>
+        <div class="feat">
+          <h4><span class="dot"></span> Covers silent moments too</h4>
+          <p>If something important happens with no narration, an opt-in mode pre-extracts frames on
+             every visual change so there's always something to look at.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Note — this is a local utility, not a web app.</strong> The tool runs on Brian's Mac because
+      it works directly with the video files and Claude's filesystem (that's how Claude gets at the
+      screenshots). This page is its home base: the guide and the backed-up code live here. To run it,
+      drag a recording onto <code>RedArc Video Tool.app</code> — full steps are in the PDF guide above.
+    </div>
+
+    <footer>
+      RedArc × SAR — Some Assembly Required · Code &amp; docs backed up in
+      <a href="https://github.com/bkaufmantx/redarcenv">bkaufmantx/redarcenv</a>
+    </footer>
+
+  </div>
+</body>
+</html>
