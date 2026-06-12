@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>RedArc Quote Builder — Prototype</title>
+<title>RedArc Quote Tool</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
@@ -30,6 +30,7 @@
   .addbtn{border:1.5px solid var(--gray-300);background:#fff;border-radius:8px;padding:.45rem .85rem;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--gray-900);}
   .addbtn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light);}
   .addbtn.starter{border-color:var(--green);color:#1e7e45;background:var(--green-light);}
+  .addbtn.find{border-color:var(--red);color:var(--red);background:#fdecea;}
   table.lines{width:100%;border-collapse:collapse;font-size:.82rem;}
   table.lines th{text-align:left;font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);font-weight:700;padding:.3rem .4rem;border-bottom:2px solid var(--gray-200);}
   table.lines td{padding:.3rem .4rem;border-bottom:1px solid var(--gray-200);vertical-align:top;}
@@ -42,7 +43,10 @@
   .rm{cursor:pointer;color:var(--gray-500);border:none;background:none;font-size:1rem;line-height:1;padding:.2rem;}
   .rm:hover{color:var(--red);}
   .empty{color:var(--gray-500);font-size:.85rem;padding:1rem;text-align:center;}
-  .codewrap{position:relative;}
+  .codecell .code{font-weight:700;font-family:'SF Mono',Menlo,monospace;font-size:.78rem;}
+  .codecell .fac{font-size:.7rem;color:var(--gray-500);}
+  .codecell .findlink{font-size:.72rem;color:var(--red);cursor:pointer;font-weight:600;}
+  .codecell .findlink:hover{text-decoration:underline;}
   .codedrop{position:absolute;left:0;right:0;top:100%;z-index:20;background:#fff;border:1px solid var(--gray-300);border-radius:7px;box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:220px;overflow:auto;display:none;}
   .codedrop.open{display:block;}
   .codedrop div{padding:.4rem .6rem;cursor:pointer;border-bottom:1px solid var(--gray-200);font-size:.78rem;}
@@ -54,17 +58,55 @@
   .totinner .val{font-size:1.15rem;font-weight:700;}
   .totinner .grand .val{color:var(--red);font-size:1.4rem;}
   .totinner .spacer{flex:1;}
+  /* finder modal */
+  .overlay{position:fixed;inset:0;background:rgba(26,32,44,.45);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:3rem 1rem;overflow:auto;}
+  .overlay.open{display:flex;}
+  .modal{background:#fff;border-radius:14px;max-width:680px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+  .modal-head{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.4rem;border-bottom:1px solid var(--gray-200);}
+  .modal-head h3{font-size:1.05rem;}
+  .modal-head .x{cursor:pointer;border:none;background:none;font-size:1.3rem;color:var(--gray-500);}
+  .modal-body{padding:1.1rem 1.4rem 1.4rem;}
+  .modal-body label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);display:block;margin-bottom:.3rem;}
+  .modal-body textarea,.modal-body input{width:100%;font-family:var(--font);font-size:.9rem;border:1.5px solid var(--gray-300);border-radius:8px;padding:.55rem .7rem;}
+  .modal-body textarea{min-height:54px;resize:vertical;}
+  .frow{display:flex;gap:.7rem;margin-top:.7rem;align-items:flex-end;}
+  .frow > div{flex:1;}
+  .fbtn{background:var(--red);color:#fff;border:none;border-radius:8px;padding:.6rem 1.2rem;font-weight:600;font-size:.86rem;cursor:pointer;white-space:nowrap;}
+  .fchips{margin-top:.6rem;display:flex;gap:.4rem;flex-wrap:wrap;}
+  .fchip{background:var(--gray-100);border:1px solid var(--gray-300);border-radius:18px;padding:.25rem .7rem;font-size:.74rem;cursor:pointer;}
+  .fchip:hover{background:var(--blue-light);border-color:var(--blue);color:var(--blue);}
+  .suggest{position:absolute;left:0;right:0;top:100%;z-index:30;background:#fff;border:1px solid var(--gray-300);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:220px;overflow:auto;display:none;margin-top:3px;}
+  .suggest.open{display:block;}
+  .suggest div{padding:.45rem .7rem;cursor:pointer;border-bottom:1px solid var(--gray-200);font-size:.82rem;}
+  .suggest div:hover{background:var(--blue-light);}
+  .suggest .meta{font-size:.7rem;color:var(--gray-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .rec{border-radius:10px;padding:.9rem 1.1rem;margin-top:1rem;}
+  .rec.high{background:var(--green-light);border:1.5px solid var(--green);}
+  .rec.medium{background:var(--yellow-light);border:1.5px solid var(--yellow);}
+  .rec.low,.rec.none{background:#fdecea;border:1.5px solid var(--red);}
+  .rec .rcode{font-size:1.3rem;font-weight:700;}
+  .rec .rdesc{color:var(--gray-700);font-size:.85rem;}
+  .conf{float:right;font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:18px;color:#fff;}
+  .conf.high{background:var(--green);} .conf.medium{background:var(--yellow);} .conf.low{background:var(--red);}
+  .fsect{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-500);margin:1rem 0 .4rem;}
+  table.facs{width:100%;border-collapse:collapse;font-size:.82rem;}
+  table.facs td{padding:.35rem .4rem;border-top:1px solid var(--gray-200);}
+  table.facs .band{font-weight:700;color:var(--green);}
+  .addfac{background:var(--gray-900);color:#fff;border:none;border-radius:6px;padding:.3rem .7rem;font-size:.74rem;font-weight:600;cursor:pointer;}
+  .addfac:hover{background:#000;}
+  .note{background:var(--blue-light);border-left:3px solid var(--blue);border-radius:6px;padding:.45rem .7rem;font-size:.8rem;color:var(--gray-700);margin:.3rem 0;}
+  .ev{font-size:.8rem;color:var(--gray-700);padding:.15rem 0;}
+  .ev code{background:var(--gray-200);border-radius:4px;padding:0 4px;}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo"><span class="logo-badge">REDARC</span> Quote Builder · prototype</div>
-  <div class="header-meta"><a href="../demo/" style="color:#cbd5e0;">Item-code finder</a><a href="../../" style="color:#cbd5e0;">← Dashboard</a></div>
+  <div class="logo"><span class="logo-badge">REDARC</span> Quote Tool</div>
+  <div class="header-meta"><a href="../../" style="color:#cbd5e0;">← Dashboard</a></div>
 </header>
 
 <div class="wrap">
-  <div class="proto"><strong>Structure prototype.</strong> This replicates RedArc's full estimate flow (header + the four line types) with real field options.
-    Pricing is <strong>illustrative</strong> — but it uses RedArc's real A/B/C margin math, so gross profit &amp; margin behave correctly. Real rates come with the secured setup.</div>
+  <div class="proto"><strong>Prototype.</strong> One unified flow — build a quote, and the smart item-code finder is built in (it opens when you add a disposal line). Pricing is <strong>illustrative</strong> but uses RedArc's real A/B/C margin math.</div>
 
   <!-- HEADER CONTEXT -->
   <div class="card">
@@ -75,7 +117,7 @@
           <input id="h-client" autocomplete="off" placeholder="start typing a client…" oninput="acAccount(this.value)" onfocus="acAccount(this.value)" onblur="setTimeout(()=>closeAc('ac-client'),150)" />
           <div class="codedrop" id="ac-client"></div>
         </div>
-        <div class="hint">Sample accounts (prototype) — pick one to auto-fill tier, contact &amp; site.</div>
+        <div class="hint">Sample accounts — pick one to auto-fill tier, contact &amp; site.</div>
       </div>
       <div class="fld"><label>Pricing tier</label>
         <select id="h-tier" onchange="recalc()">
@@ -86,9 +128,7 @@
         <div class="hint">Set by the account; drives every disposal price.</div>
       </div>
       <div class="fld"><label>Service type</label>
-        <select id="h-service">
-          <option>Lab Pack</option><option>Profiled Waste</option><option>Mixed Load</option><option>Emergency Response</option>
-        </select></div>
+        <select id="h-service"><option>Lab Pack</option><option>Profiled Waste</option><option>Mixed Load</option><option>Emergency Response</option></select></div>
       <div class="fld"><label>Generator / site</label>
         <div style="position:relative;">
           <input id="h-site" autocomplete="off" placeholder="start typing a site…" oninput="acSite(this.value)" onfocus="acSite(this.value)" onblur="setTimeout(()=>closeAc('ac-site'),150)" />
@@ -112,21 +152,21 @@
   <div class="card">
     <h2>Line items — the work</h2>
     <div class="addbar">
+      <button class="addbtn find" onclick="openFinder(null)">🔎 Add waste (find item code)</button>
       <button class="addbtn starter" onclick="labPackStarter()">✨ Lab-pack starter (transport + labor)</button>
       <button class="addbtn" onclick="addLine('transport')">+ Transportation</button>
       <button class="addbtn" onclick="addLine('labor')">+ Labor</button>
-      <button class="addbtn" onclick="addLine('disposal')">+ Disposal (waste)</button>
       <button class="addbtn" onclick="addLine('supplies')">+ Supplies</button>
     </div>
     <table class="lines">
       <thead><tr>
-        <th style="width:90px;">Type</th><th>Description</th><th style="width:150px;">Item code / facility</th>
-        <th style="width:90px;">Vendor</th><th style="width:55px;">Qty</th><th style="width:80px;">Unit $</th>
+        <th style="width:88px;">Type</th><th>Description</th><th style="width:165px;">Item code / facility</th>
+        <th style="width:55px;">Qty</th><th style="width:75px;">Unit $</th>
         <th style="width:80px;" class="ext">Extended</th><th style="width:24px;"></th>
       </tr></thead>
       <tbody id="lines"></tbody>
     </table>
-    <div class="empty" id="empty">No lines yet — click <strong>Lab-pack starter</strong> or add lines above. Disposal lines tap the item-code finder.</div>
+    <div class="empty" id="empty">No lines yet — click <strong>🔎 Add waste</strong> to find a code, or <strong>Lab-pack starter</strong>.</div>
   </div>
 </div>
 
@@ -139,127 +179,171 @@
   <div class="grand"><div class="label">Estimate total</div><div class="val" id="t-total">$0</div></div>
 </div></div>
 
+<!-- FINDER MODAL -->
+<div class="overlay" id="finder" onclick="if(event.target===this)closeFinder()">
+  <div class="modal">
+    <div class="modal-head"><h3>🔎 Find item code</h3><button class="x" onclick="closeFinder()">✕</button></div>
+    <div class="modal-body">
+      <label>Describe the waste stream (paste a shipping line, or type)</label>
+      <div style="position:relative;">
+        <textarea id="f-q" autocomplete="off" placeholder="e.g. UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII"></textarea>
+        <div class="suggest" id="f-suggest"></div>
+      </div>
+      <div class="frow">
+        <div><label>State waste code (optional)</label><input id="f-sc" placeholder="e.g. 0001219H"></div>
+        <button class="fbtn" onclick="runFinder()">Find →</button>
+      </div>
+      <div class="fchips" id="f-chips"></div>
+      <div id="f-results"></div>
+    </div>
+  </div>
+</div>
+
 <script>
-let CATALOG=[], BY_BASE={};
+let CATALOG=[], PROFILES=[], ROUTING=[], BY_BASE={}, BY_CODE={};
 const FACILITIES=["Chemical Reclamation Services","Itasca Landfill TX","US Ecology Tulsa","US Ecology Texas",
   "Tradebe Treatment & Recycling","VLS Houston","Valicor Environmental","Robstown Landfill","Lighting Resources TX"];
 const CONTAINERS=["5 gal","15 gal","30 gal","55 gal drum","275 gal tote","330 gal tote","Cubic yard box","Each","Pound"];
-const BANDPRICE={"$":150,"$$":400,"$$$":750,"":120};   // illustrative only
+const BANDPRICE={"$":150,"$$":400,"$$$":750,"":120};
+const FACMAP={AVA:"Chemical Reclamation Services",CHES:"Chemical Reclamation Services",ITA:"Itasca Landfill TX",
+  TUL:"US Ecology Tulsa",ROB:"Robstown Landfill",TRD:"Tradebe Treatment & Recycling",VLS:"VLS Houston",VAL:"Valicor Environmental"};
 
-fetch("../demo/demo_data.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
-  CATALOG=d.catalog;
-  d.catalog.forEach(e=>{(BY_BASE[e.base_code]=BY_BASE[e.base_code]||[]).push(e);});
-});
-
-// ── Account / generator autofill (sample data for the prototype) ──
 let ACCOUNTS=[];
 fetch("sample_accounts.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{ACCOUNTS=d;}).catch(()=>{});
-function acAccount(q){ acHeader("ac-client", a=>a.account, (q||"").toLowerCase().trim()); }
-function acSite(q){ acHeader("ac-site", a=>a.site, (q||"").toLowerCase().trim()); }
-function acHeader(dropId, key, q){
-  const drop=document.getElementById(dropId);
-  if(q.length<1 || !ACCOUNTS.length){ drop.classList.remove("open"); return; }
-  const hits=ACCOUNTS.filter(a=>key(a).toLowerCase().includes(q)).slice(0,8);
-  if(!hits.length){ drop.classList.remove("open"); return; }
-  drop.innerHTML=hits.map((a,i)=>`<div data-i="${i}"><span class="c">${esc(key(a))}</span><div style="font-size:.66rem;color:var(--gray-500);">${dropId==='ac-client'?'Tier '+a.tierLabel+' · '+esc(a.site):esc(a.account)+' · Tier '+a.tierLabel}</div></div>`).join("");
-  [...drop.children].forEach((el,i)=>el.addEventListener("mousedown",ev=>{ ev.preventDefault(); fillAccount(hits[i]); }));
-  drop.classList.add("open");
-}
-function fillAccount(a){
-  document.getElementById("h-client").value=a.account;
-  document.getElementById("h-tier").value=a.tier;
-  document.getElementById("h-contact").value=a.contact;
-  document.getElementById("h-site").value=a.site;
-  closeAc("ac-client"); closeAc("ac-site"); recalc();
-}
-function closeAc(id){ const d=document.getElementById(id); if(d) d.classList.remove("open"); }
-
-let lines=[], seq=0;
-const DEFAULTS={
-  transport:{desc:"Class B Driver — Hourly", vendor:"Red Arc Environmental", qty:3.5, price:138, ro:false},
-  labor:    {desc:"Chemist Labor — Hourly", vendor:"Red Arc Environmental", qty:6, price:115, ro:false},
-  disposal: {desc:"", vendor:"(facility)", qty:1, price:0, code:"", facility:FACILITIES[0], container:"55 gal drum"},
-  supplies: {desc:"55-gal open-top drum", vendor:"Questar", qty:1, price:25, ro:false}
-};
-const TAG={transport:"Transport",labor:"Labor",disposal:"Disposal",supplies:"Supplies"};
-
-function addLine(type){
-  const id=++seq;
-  lines.push(Object.assign({id,type}, JSON.parse(JSON.stringify(DEFAULTS[type]))));
-  renderAll();
-}
-function labPackStarter(){ addLine("transport"); addLine("labor"); }
-function rmLine(id){ lines=lines.filter(l=>l.id!==id); renderAll(); }
+fetch("../demo/demo_data.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
+  CATALOG=d.catalog; PROFILES=d.profiles; ROUTING=d.routing_rules||[];
+  d.catalog.forEach(e=>{(BY_BASE[e.base_code]=BY_BASE[e.base_code]||[]).push(e); BY_CODE[e.item_code]=e;});
+  PROFILES.forEach(p=>p._f=features(p.name,p.shipping_description,p.state_waste_codes));
+  buildFSuggest();
+  ["UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII","aerosol paint cans","spent sulfuric acid, corrosive, 8"]
+    .forEach(ex=>{const c=document.createElement("span");c.className="fchip";c.textContent=ex;c.onclick=()=>{document.getElementById("f-q").value=ex;runFinder();};document.getElementById("f-chips").appendChild(c);});
+});
 
 function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 
-function renderAll(){
-  const tb=document.getElementById("lines"); document.getElementById("empty").style.display=lines.length?"none":"block";
-  tb.innerHTML=lines.map(l=>rowHTML(l)).join("");
-  recalc();
+/* ── Finder engine (same as the standalone finder) ── */
+const STOP=new Set(["for","and","the","with","non","of","to","in","or","per","a","waste"]);
+function toks(t){return new Set((t||"").toLowerCase().split(/[^a-z0-9]+/).filter(w=>w.length>2&&!STOP.has(w)));}
+function features(name,shipping,state){
+  const f={};const add=(k,w)=>{f[k]=Math.max(f[k]||0,w);};
+  const blob=`${name||""} ${shipping||""}`;
+  (blob.match(/\bUN\s?\d{4}\b/gi)||[]).forEach(u=>add("un:"+u.replace(/\D/g,""),6));
+  const ship=(shipping||"").replace(/\bUN\s?\d{4}\b/gi,"");
+  ship.split(/[\s,()]+/).forEach(t=>{if(/^[1-9](\.\d)?$/.test(t))add("hz:"+t,3);});
+  (blob.match(/\bPG\s?(I{1,3}|[123])\b/gi)||[]).forEach(p=>add("pg:"+p.replace(/PG\s?/i,"").toUpperCase(),1));
+  (state||"").split(/[,\s]+/).forEach(s=>{s=s.trim().toLowerCase();if(s)add("sw:"+s,2);});
+  toks(blob).forEach(w=>{if(!/^un\d/.test(w))add(w,1);});
+  return f;
 }
+function wsim(a,b){let sh=0;for(const k in a){if(b[k]!==undefined)sh+=Math.min(a[k],b[k]);}if(!sh)return 0;let sa=0,sb=0;for(const k in a)sa+=a[k];for(const k in b)sb+=b[k];return sh/(sa+sb-sh);}
+function tierB55(e){for(const p of e.pricing||[]){if(/55/.test(p.container||"")&&p.tier_b)return p.tier_b;}for(const p of e.pricing||[]){if(p.tier_b)return p.tier_b;}return null;}
+function routingFor(q,desc){const hay=(q+" "+(desc||"")).toLowerCase();return ROUTING.filter(r=>r.match.some(m=>hay.includes(m)));}
+function recommend(query,state){
+  const qf=features(query,query,state);
+  const near=PROFILES.map(p=>[wsim(qf,p._f),p]).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]).slice(0,15);
+  const votes={},ev={};
+  near.forEach(([s,p])=>{if(!p.base_code)return;votes[p.base_code]=(votes[p.base_code]||0)+s;(ev[p.base_code]=ev[p.base_code]||[]).push([s,p]);});
+  const ranked=Object.entries(votes).sort((a,b)=>b[1]-a[1]);
+  if(!ranked.length)return {conf:"none"};
+  const total=ranked.reduce((a,[,v])=>a+v,0);const[top,topv]=ranked[0];const share=topv/total;const support=ev[top].length;
+  const conf=(share>=0.5&&support>=3)?"high":(share>=0.3||support>=2)?"medium":"low";
+  const variants=(BY_BASE[top]||[]).map(e=>({code:e.item_code,fac:e.facility,band:e.price_band,uses:e.profile_uses}))
+    .sort((a,b)=>(a.band.length||9)-(b.band.length||9));
+  const cand=BY_CODE[top]||(BY_BASE[top]||[{}])[0];
+  return {conf,top,share,support,desc:cand.description||"",variants,routing:routingFor(query,cand.description),
+    evidence:ev[top].slice(0,4).map(([s,p])=>[p.name,p.item_code,p.destination_facility])};
+}
+
+/* ── Finder autocomplete ── */
+let FSUGG=[];
+function buildFSuggest(){const seen=new Map();PROFILES.forEach(p=>{const k=(p.name||"").toLowerCase().trim();if(!k)return;const c=seen.get(k);if(!c||(p.shipping_description||"").length>(c.shipping||"").length)seen.set(k,{name:p.name,shipping:p.shipping_description||"",state:p.state_waste_codes||""});});FSUGG=[...seen.values()];}
+function fSuggestions(q){q=q.toLowerCase().trim();if(q.length<2)return[];return FSUGG.filter(s=>(s.name+" "+s.shipping).toLowerCase().includes(q)).sort((a,b)=>{const an=a.name.toLowerCase();return (an.startsWith(q)?0:an.includes(q)?1:2)-((b.name.toLowerCase().startsWith(q))?0:b.name.toLowerCase().includes(q)?1:2);}).slice(0,6);}
+document.addEventListener("DOMContentLoaded",()=>{
+  const q=document.getElementById("f-q");
+  q.addEventListener("input",()=>{const box=document.getElementById("f-suggest");const list=fSuggestions(q.value);if(!list.length){box.classList.remove("open");box.innerHTML="";return;}box.innerHTML=list.map((s,i)=>`<div data-i="${i}">${esc(s.name)}<div class="meta">${esc((s.shipping||"").slice(0,64))}</div></div>`).join("");[...box.children].forEach((el,i)=>el.addEventListener("mousedown",ev=>{ev.preventDefault();q.value=list[i].shipping&&/UN\s?\d|n\.o\.s/i.test(list[i].shipping)?list[i].shipping:list[i].name;if(list[i].state)document.getElementById("f-sc").value=list[i].state;box.classList.remove("open");runFinder();}));box.classList.add("open");});
+});
+
+/* ── Finder modal ── */
+let finderTarget=null;
+function openFinder(lineId){finderTarget=lineId;document.getElementById("finder").classList.add("open");document.getElementById("f-results").innerHTML="";if(lineId===null){document.getElementById("f-q").value="";document.getElementById("f-sc").value="";}setTimeout(()=>document.getElementById("f-q").focus(),50);}
+function closeFinder(){document.getElementById("finder").classList.remove("open");document.getElementById("f-suggest").classList.remove("open");}
+function runFinder(){
+  if(!PROFILES.length)return;
+  const q=document.getElementById("f-q").value.trim();const sc=document.getElementById("f-sc").value.trim();
+  const out=document.getElementById("f-results");
+  if(!q){out.innerHTML='<div class="rec medium" style="margin-top:1rem;">Type a waste description first, or tap an example.</div>';return;}
+  const r=recommend(q,sc);
+  if(r.conf==="none"){out.innerHTML='<div class="rec none">No similar past waste found — try the shipping description, or escalate to Zak.</div>';return;}
+  const cl={high:"✓ high",medium:"~ medium",low:"⚑ low — confirm with Zak"}[r.conf];
+  let h=`<div class="rec ${r.conf}"><span class="conf ${r.conf}">${cl}</span><div class="rcode">${esc(r.top)}</div><div class="rdesc">${esc(r.desc)}</div>
+    <div style="font-size:.74rem;color:var(--gray-500);margin-top:.3rem;">From ${r.support} similar real profiles · ${Math.round(r.share*100)}% agreement</div></div>`;
+  h+=`<div class="fsect">Pick a facility — cheapest first (click to add to quote)</div><table class="facs">`;
+  r.variants.slice(0,5).forEach((v,i)=>{h+=`<tr><td><span class="code" style="font-family:monospace;font-weight:700;">${esc(v.code)}</span></td>
+    <td>${esc(v.fac)||"—"}</td><td><span class="band">${v.band||"—"}</span>${i===0&&v.band?' cheapest':''}</td><td>${v.uses}× billed</td>
+    <td style="text-align:right;"><button class="addfac" onclick="addFromFinder('${esc(v.code)}','${esc(v.fac)}','${v.band}')">Add →</button></td></tr>`;});
+  h+=`</table>`;
+  if(r.routing.length){h+=`<div class="fsect">Routing notes</div>`;r.routing.forEach(rr=>{const tag=rr.verify?' ⚑verify':(rr.no_code?' ⚠ no code':'');h+=`<div class="note"><b>Prefer ${esc(rr.preferred)}</b>${tag} — ${esc(rr.note)}</div>`;});}
+  h+=`<div class="fsect">Why — real streams we billed like this</div>`;
+  r.evidence.forEach(([n,c,f])=>{h+=`<div class="ev">${esc(n)} → <code>${esc(c)}</code> @ ${esc(f)}</div>`;});
+  out.innerHTML=h;
+}
+function facLabel(abbrev,full){if(abbrev&&FACMAP[abbrev])return FACMAP[abbrev];return full||abbrev||"";}
+function addFromFinder(code,facAbbrev,band){
+  const fac=facLabel(facAbbrev,"");const desc=(BY_CODE[code]||{}).description||code;const price=BANDPRICE[band]||120;
+  if(finderTarget!==null){const l=lines.find(x=>x.id===finderTarget);if(l){l.code=code;l.facility=fac||l.facility;l.vendor=fac||l.vendor;l.desc=desc;l.price=price;}}
+  else{const id=++seq;lines.push({id,type:"disposal",desc,vendor:fac||"(facility)",qty:1,price,code,facility:fac,container:"55 gal drum"});}
+  closeFinder();renderAll();
+}
+
+/* ── Quote lines ── */
+let lines=[],seq=0;
+const DEFAULTS={transport:{desc:"Class B Driver — Hourly",vendor:"Red Arc Environmental",qty:3.5,price:138},
+  labor:{desc:"Chemist Labor — Hourly",vendor:"Red Arc Environmental",qty:6,price:115},
+  supplies:{desc:"55-gal open-top drum",vendor:"Questar",qty:1,price:25}};
+const TAG={transport:"Transport",labor:"Labor",disposal:"Disposal",supplies:"Supplies"};
+function addLine(type){const id=++seq;lines.push(Object.assign({id,type},JSON.parse(JSON.stringify(DEFAULTS[type]))));renderAll();}
+function labPackStarter(){addLine("transport");addLine("labor");}
+function rmLine(id){lines=lines.filter(l=>l.id!==id);renderAll();}
+function renderAll(){const tb=document.getElementById("lines");document.getElementById("empty").style.display=lines.length?"none":"block";tb.innerHTML=lines.map(rowHTML).join("");recalc();}
 function rowHTML(l){
-  const mid = l.type==="disposal"
-    ? `<div class="codewrap">
-         <input value="${esc(l.code)}" placeholder="search code…" oninput="codeSearch(${l.id},this.value)" onfocus="codeSearch(${l.id},this.value)" onblur="setTimeout(()=>closeDrop(${l.id}),150)">
-         <div class="codedrop" id="drop-${l.id}"></div>
-         <select style="margin-top:3px;" onchange="upd(${l.id},'facility',this.value)">${FACILITIES.map(f=>`<option ${f===l.facility?"selected":""}>${f}</option>`).join("")}</select>
-       </div>`
-    : `<span style="color:var(--gray-500);font-size:.78rem;">${l.type==="supplies"?"Questar":"—"}</span>`;
-  const qtyUnit = l.type==="disposal" ? `<select onchange="upd(${l.id},'container',this.value)" style="margin-bottom:2px;font-size:.72rem;">${CONTAINERS.map(c=>`<option ${c===l.container?"selected":""}>${c}</option>`).join("")}</select>` : "";
+  let mid;
+  if(l.type==="disposal"){
+    mid=l.code
+      ? `<div class="codecell"><span class="code">${esc(l.code)}</span> <span class="findlink" onclick="openFinder(${l.id})">change</span><div class="fac">${esc(l.facility||"")}</div>
+         <select onchange="upd(${l.id},'container',this.value)" style="margin-top:3px;font-size:.72rem;">${CONTAINERS.map(c=>`<option ${c===l.container?"selected":""}>${c}</option>`).join("")}</select></div>`
+      : `<span class="findlink" onclick="openFinder(${l.id})">🔎 Find item code</span>`;
+  } else mid=`<span style="font-size:.74rem;color:var(--gray-500);">—</span>`;
   return `<tr>
     <td><span class="ltag lt-${l.type}">${TAG[l.type]}</span></td>
     <td><input value="${esc(l.desc)}" oninput="upd(${l.id},'desc',this.value)" placeholder="description"></td>
     <td>${mid}</td>
-    <td><span style="font-size:.74rem;color:var(--gray-700);">${esc(l.vendor)}</span></td>
-    <td class="num">${qtyUnit}<input type="number" step="0.5" value="${l.qty}" oninput="upd(${l.id},'qty',this.value)"></td>
+    <td class="num"><input type="number" step="0.5" value="${l.qty}" oninput="upd(${l.id},'qty',this.value)"></td>
     <td class="num"><input type="number" step="1" value="${l.price}" oninput="upd(${l.id},'price',this.value)"></td>
     <td class="ext" id="ext-${l.id}">$0</td>
     <td><button class="rm" onclick="rmLine(${l.id})" title="remove">✕</button></td>
   </tr>`;
 }
-function upd(id,field,val){
-  const l=lines.find(x=>x.id===id); if(!l) return;
-  l[field]=(field==="qty"||field==="price")?parseFloat(val||0):val;
-  if(field==="facility") l.vendor=val;
-  recalc();
-}
-
-function codeSearch(id,q){
-  const drop=document.getElementById("drop-"+id); if(!drop) return;
-  q=(q||"").toLowerCase().trim();
-  if(q.length<2 || !CATALOG.length){ drop.classList.remove("open"); return; }
-  const hits=CATALOG.filter(e=>e.type.toLowerCase().startsWith("disposal") &&
-      (e.item_code.toLowerCase().includes(q) || (e.description||"").toLowerCase().includes(q) || (e.keywords||[]).some(k=>k.includes(q))))
-    .sort((a,b)=>(b.profile_uses||0)-(a.profile_uses||0)).slice(0,8);
-  if(!hits.length){ drop.classList.remove("open"); return; }
-  drop.innerHTML=hits.map(e=>`<div onmousedown="pickCode(${id},'${e.item_code}')"><span class="c">${esc(e.item_code)}</span> — ${esc((e.description||"").slice(0,38))}<div style="font-size:.66rem;color:var(--gray-500);">${e.price_band||""} · ${e.profile_uses||0}× billed</div></div>`).join("");
-  drop.classList.add("open");
-}
-function closeDrop(id){ const d=document.getElementById("drop-"+id); if(d) d.classList.remove("open"); }
-function pickCode(id,code){
-  const e=CATALOG.find(x=>x.item_code===code); const l=lines.find(x=>x.id===id); if(!e||!l) return;
-  l.code=code; l.desc=e.description||l.desc; l.price=BANDPRICE[e.price_band]||120;
-  if(e.facility){ const f=FACILITIES.find(x=>x.toUpperCase().includes(e.facility)) ; }
-  renderAll();
-}
-
+function upd(id,field,val){const l=lines.find(x=>x.id===id);if(!l)return;l[field]=(field==="qty"||field==="price")?parseFloat(val||0):val;recalc();}
 function recalc(){
-  const margin=parseFloat(document.getElementById("h-tier").value);
-  let total=0, cost=0;
-  lines.forEach(l=>{
-    const ext=(l.qty||0)*(l.price||0); total+=ext;
-    // illustrative cost: disposal & supplies carry margin; RedArc labor/transport are ~internal cost-plus
-    const c = (l.type==="disposal") ? ext*(1-margin) : ext*0.72;
-    cost+=c;
-    const cell=document.getElementById("ext-"+l.id); if(cell) cell.textContent="$"+ext.toLocaleString(undefined,{maximumFractionDigits:0});
-  });
-  const gp=total-cost; const m=total?gp/total:0;
+  const margin=parseFloat(document.getElementById("h-tier").value);let total=0,cost=0;
+  lines.forEach(l=>{const ext=(l.qty||0)*(l.price||0);total+=ext;const c=(l.type==="disposal")?ext*(1-margin):ext*0.72;cost+=c;
+    const cell=document.getElementById("ext-"+l.id);if(cell)cell.textContent="$"+ext.toLocaleString(undefined,{maximumFractionDigits:0});});
+  const gp=total-cost,m=total?gp/total:0;
   document.getElementById("t-total").textContent="$"+total.toLocaleString(undefined,{maximumFractionDigits:0});
   document.getElementById("t-cost").textContent="$"+cost.toLocaleString(undefined,{maximumFractionDigits:0});
   document.getElementById("t-gp").textContent="$"+gp.toLocaleString(undefined,{maximumFractionDigits:0});
   document.getElementById("t-margin").textContent=total?(m*100).toFixed(1)+"%":"—";
 }
+
+/* ── Account / site autofill ── */
+function acAccount(q){acHeader("ac-client",a=>a.account,(q||"").toLowerCase().trim());}
+function acSite(q){acHeader("ac-site",a=>a.site,(q||"").toLowerCase().trim());}
+function acHeader(dropId,key,q){const drop=document.getElementById(dropId);if(q.length<1||!ACCOUNTS.length){drop.classList.remove("open");return;}
+  const hits=ACCOUNTS.filter(a=>key(a).toLowerCase().includes(q)).slice(0,8);if(!hits.length){drop.classList.remove("open");return;}
+  drop.innerHTML=hits.map((a,i)=>`<div data-i="${i}"><span class="c">${esc(key(a))}</span><div style="font-size:.66rem;color:var(--gray-500);">${dropId==='ac-client'?'Tier '+a.tierLabel+' · '+esc(a.site):esc(a.account)+' · Tier '+a.tierLabel}</div></div>`).join("");
+  [...drop.children].forEach((el,i)=>el.addEventListener("mousedown",ev=>{ev.preventDefault();fillAccount(hits[i]);}));drop.classList.add("open");}
+function fillAccount(a){document.getElementById("h-client").value=a.account;document.getElementById("h-tier").value=a.tier;document.getElementById("h-contact").value=a.contact;document.getElementById("h-site").value=a.site;closeAc("ac-client");closeAc("ac-site");recalc();}
+function closeAc(id){const d=document.getElementById(id);if(d)d.classList.remove("open");}
 </script>
 </body>
 </html>
