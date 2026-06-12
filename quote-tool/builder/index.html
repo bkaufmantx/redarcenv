@@ -212,7 +212,7 @@
 <div id="print-root"></div>
 
 <script>
-let CATALOG=[], PROFILES=[], ROUTING=[], BY_BASE={}, BY_CODE={};
+let CATALOG=[], PROFILES=[], ROUTING=[], BY_BASE={}, BY_CODE={}, OPTS={transport:[],labor:[],supplies:[]};
 const FACILITIES=["Chemical Reclamation Services","Itasca Landfill TX","US Ecology Tulsa","US Ecology Texas",
   "Tradebe Treatment & Recycling","VLS Houston","Valicor Environmental","Robstown Landfill","Lighting Resources TX"];
 const CONTAINERS=["5 gal","15 gal","30 gal","55 gal drum","275 gal tote","330 gal tote","Cubic yard box","Each","Pound"];
@@ -225,8 +225,12 @@ fetch("sample_accounts.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{ACCO
 fetch("../demo/demo_data.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
   CATALOG=d.catalog; PROFILES=d.profiles; ROUTING=d.routing_rules||[];
   d.catalog.forEach(e=>{(BY_BASE[e.base_code]=BY_BASE[e.base_code]||[]).push(e); BY_CODE[e.item_code]=e;});
+  const TYPEMAP={transport:"Transportation",labor:"Labor and Equipment",supplies:"Materials"};
+  OPTS={transport:[],labor:[],supplies:[]};
+  CATALOG.forEach(e=>{for(const k in TYPEMAP){if(e.type===TYPEMAP[k])OPTS[k].push(e);}});
+  Object.values(OPTS).forEach(a=>a.sort((x,y)=>(x.description||"").localeCompare(y.description||"")));
   const _pb=document.getElementById("protoBanner");
-  if(_pb && CATALOG.some(e=>e.pricing&&e.pricing.length)) _pb.innerHTML='<strong>Prototype · real data.</strong> Disposal lines pull <strong>real per-container A/B/C pricing</strong> from RedArc\'s pricelist; margins are real (30 / 38 / 45%). Transport, labor &amp; supplies still start from placeholder defaults you edit per quote.';
+  if(_pb && CATALOG.some(e=>e.pricing&&e.pricing.length)) _pb.innerHTML='<strong>Prototype · real data.</strong> Disposal lines pull <strong>real per-container A/B/C pricing</strong> from RedArc\'s pricelist; margins are real (30 / 38 / 45%). Transport, labor &amp; supplies are real catalog items — pick the exact one from the dropdown.';
   PROFILES.forEach(p=>p._f=features(p.name,p.shipping_description,p.state_waste_codes));
   buildFSuggest();
   ["UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII","aerosol paint cans","spent sulfuric acid, corrosive, 8"]
@@ -324,11 +328,11 @@ function addFromFinder(code,facAbbrev,band){
 
 /* ── Quote lines ── */
 let lines=[],seq=0;
-const DEFAULTS={transport:{desc:"Class B Driver — Hourly",vendor:"Red Arc Environmental",qty:3.5,price:138},
-  labor:{desc:"Chemist Labor — Hourly",vendor:"Red Arc Environmental",qty:6,price:115},
-  supplies:{desc:"55-gal open-top drum",vendor:"Questar",qty:1,price:25}};
+const DEFAULTS={transport:{code:"TRA19",qty:3.5},labor:{code:"LABO04",qty:6},supplies:{code:"SUP04",qty:1}};
+function itemPrice(e){return (e&&e.default_customer_price!=null)?e.default_customer_price:null;}
 const TAG={transport:"Transport",labor:"Labor",disposal:"Disposal",supplies:"Supplies"};
-function addLine(type){const id=++seq;lines.push(Object.assign({id,type},JSON.parse(JSON.stringify(DEFAULTS[type]))));renderAll();}
+function addLine(type){const id=++seq;const def=DEFAULTS[type]||{};const e=def.code?BY_CODE[def.code]:null;lines.push({id,type,code:e?def.code:"",desc:e?e.description:"",vendor:(e&&e.facility)||"",qty:def.qty||1,price:e?(itemPrice(e)??0):0});renderAll();}
+function pickItem(id,code){const l=lines.find(x=>x.id===id);if(!l)return;l.code=code;const e=BY_CODE[code];if(e){l.desc=e.description;const p=itemPrice(e);if(p!=null)l.price=p;}renderAll();}
 function labPackStarter(){addLine("transport");addLine("labor");}
 function rmLine(id){lines=lines.filter(l=>l.id!==id);renderAll();}
 function renderAll(){const tb=document.getElementById("lines");document.getElementById("empty").style.display=lines.length?"none":"block";tb.innerHTML=lines.map(rowHTML).join("");recalc();}
@@ -339,7 +343,10 @@ function rowHTML(l){
       ? `<div class="codecell"><span class="code">${esc(l.code)}</span> <span class="findlink" onclick="openFinder(${l.id})">change</span><div class="fac">${esc(l.facility||"")}</div>
          <select onchange="upd(${l.id},'container',this.value)" style="margin-top:3px;font-size:.72rem;">${CONTAINERS.map(c=>`<option ${c===l.container?"selected":""}>${c}</option>`).join("")}</select></div>`
       : `<span class="findlink" onclick="openFinder(${l.id})">🔎 Find item code</span>`;
-  } else mid=`<span style="font-size:.74rem;color:var(--gray-500);">—</span>`;
+  } else {
+    const opts=OPTS[l.type]||[];
+    mid=opts.length?`<select onchange="pickItem(${l.id},this.value)" style="width:100%;font-size:.74rem;"><option value="">— choose —</option>${opts.map(e=>`<option value="${esc(e.item_code)}" ${e.item_code===l.code?"selected":""}>${esc(e.description)}</option>`).join("")}</select>`:`<span style="font-size:.74rem;color:var(--gray-500);">—</span>`;
+  }
   return `<tr>
     <td><span class="ltag lt-${l.type}">${TAG[l.type]}</span></td>
     <td><input value="${esc(l.desc)}" oninput="upd(${l.id},'desc',this.value)" placeholder="description"></td>
