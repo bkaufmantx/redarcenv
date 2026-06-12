@@ -70,7 +70,13 @@
   <div class="card">
     <h2>Quote header — the context</h2>
     <div class="grid">
-      <div class="fld"><label>Client / Account</label><input id="h-client" placeholder="e.g. Acme Manufacturing" /></div>
+      <div class="fld"><label>Client / Account</label>
+        <div style="position:relative;">
+          <input id="h-client" autocomplete="off" placeholder="start typing a client…" oninput="acAccount(this.value)" onfocus="acAccount(this.value)" onblur="setTimeout(()=>closeAc('ac-client'),150)" />
+          <div class="codedrop" id="ac-client"></div>
+        </div>
+        <div class="hint">Sample accounts (prototype) — pick one to auto-fill tier, contact &amp; site.</div>
+      </div>
       <div class="fld"><label>Pricing tier</label>
         <select id="h-tier" onchange="recalc()">
           <option value="0.30">A — Volume / Recurring (30%)</option>
@@ -83,7 +89,12 @@
         <select id="h-service">
           <option>Lab Pack</option><option>Profiled Waste</option><option>Mixed Load</option><option>Emergency Response</option>
         </select></div>
-      <div class="fld"><label>Generator / site</label><input id="h-site" placeholder="EPA site — address" /></div>
+      <div class="fld"><label>Generator / site</label>
+        <div style="position:relative;">
+          <input id="h-site" autocomplete="off" placeholder="start typing a site…" oninput="acSite(this.value)" onfocus="acSite(this.value)" onblur="setTimeout(()=>closeAc('ac-site'),150)" />
+          <div class="codedrop" id="ac-site"></div>
+        </div>
+      </div>
       <div class="fld"><label>Contact</label><input id="h-contact" placeholder="Name at the client" /></div>
       <div class="fld"><label>Carrier (generator → yard leg)</label>
         <select id="h-carrier">
@@ -139,6 +150,29 @@ fetch("../demo/demo_data.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
   CATALOG=d.catalog;
   d.catalog.forEach(e=>{(BY_BASE[e.base_code]=BY_BASE[e.base_code]||[]).push(e);});
 });
+
+// ── Account / generator autofill (sample data for the prototype) ──
+let ACCOUNTS=[];
+fetch("sample_accounts.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{ACCOUNTS=d;}).catch(()=>{});
+function acAccount(q){ acHeader("ac-client", a=>a.account, (q||"").toLowerCase().trim()); }
+function acSite(q){ acHeader("ac-site", a=>a.site, (q||"").toLowerCase().trim()); }
+function acHeader(dropId, key, q){
+  const drop=document.getElementById(dropId);
+  if(q.length<1 || !ACCOUNTS.length){ drop.classList.remove("open"); return; }
+  const hits=ACCOUNTS.filter(a=>key(a).toLowerCase().includes(q)).slice(0,8);
+  if(!hits.length){ drop.classList.remove("open"); return; }
+  drop.innerHTML=hits.map((a,i)=>`<div data-i="${i}"><span class="c">${esc(key(a))}</span><div style="font-size:.66rem;color:var(--gray-500);">${dropId==='ac-client'?'Tier '+a.tierLabel+' · '+esc(a.site):esc(a.account)+' · Tier '+a.tierLabel}</div></div>`).join("");
+  [...drop.children].forEach((el,i)=>el.addEventListener("mousedown",ev=>{ ev.preventDefault(); fillAccount(hits[i]); }));
+  drop.classList.add("open");
+}
+function fillAccount(a){
+  document.getElementById("h-client").value=a.account;
+  document.getElementById("h-tier").value=a.tier;
+  document.getElementById("h-contact").value=a.contact;
+  document.getElementById("h-site").value=a.site;
+  closeAc("ac-client"); closeAc("ac-site"); recalc();
+}
+function closeAc(id){ const d=document.getElementById(id); if(d) d.classList.remove("open"); }
 
 let lines=[], seq=0;
 const DEFAULTS={

@@ -1,0 +1,14 @@
+[
+  {"account":"Lone Star Coatings & Finishing","tier":"0.38","tierLabel":"B","contact":"Maria Delgado","site":"Lone Star Coatings — 1420 Industrial Blvd, Garland TX"},
+  {"account":"Brazos Valley Pharma","tier":"0.30","tierLabel":"A","contact":"David Chen","site":"Brazos Valley Pharma Lab — 800 Research Pkwy, College Station TX"},
+  {"account":"Gulf Coast Aerospace Systems","tier":"0.30","tierLabel":"A","contact":"Priya Nair","site":"GCA Plant 2 — 5500 Bayport Rd, Pasadena TX"},
+  {"account":"Trinity Metal Plating","tier":"0.45","tierLabel":"C","contact":"Robert Hayes","site":"Trinity Plating — 210 Foundry St, Fort Worth TX"},
+  {"account":"Permian Oilfield Services","tier":"0.38","tierLabel":"B","contact":"Jake Morrison","site":"Permian Yard 7 — 9100 FM 1788, Midland TX"},
+  {"account":"Hill Country Labs","tier":"0.45","tierLabel":"C","contact":"Susan Albright","site":"Hill Country Labs — 33 Research Dr, Austin TX"},
+  {"account":"Red River Manufacturing","tier":"0.38","tierLabel":"B","contact":"Tom Becker","site":"Red River Mfg — 700 Mill Rd, Wichita Falls TX"},
+  {"account":"Alamo Printing & Ink","tier":"0.38","tierLabel":"B","contact":"Elena Reyes","site":"Alamo Ink — 1200 Commerce St, San Antonio TX"},
+  {"account":"Cypress Medical Center","tier":"0.30","tierLabel":"A","contact":"Dr. Angela Foster","site":"Cypress Med Lab — 450 Health Plaza, Houston TX"},
+  {"account":"Sabine Chemical Blending","tier":"0.45","tierLabel":"C","contact":"Marcus Webb","site":"Sabine Chemical — 88 Refinery Rd, Beaumont TX"},
+  {"account":"North Texas Battery Recycling","tier":"0.38","tierLabel":"B","contact":"Carl Jensen","site":"NTB Recycling — 615 Salvage Ln, Denton TX"},
+  {"account":"Coastal Environmental Solutions","tier":"0.30","tierLabel":"A","contact":"Nina Patel","site":"Coastal Env — 2300 Port Rd, Corpus Christi TX"}
+]
