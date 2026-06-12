@@ -251,8 +251,7 @@ function recommend(query,state){
   const anyPx=variants.some(v=>v.px!=null);
   variants.sort(anyPx?(a,b)=>((a.px==null?1e9:a.px)-(b.px==null?1e9:b.px)):(a,b)=>(a.band.length||9)-(b.band.length||9));
   const cand=BY_CODE[top]||(BY_BASE[top]||[{}])[0];
-  return {conf,top,share,support,desc:cand.description||"",variants,routing:routingFor(query,cand.description),
-    evidence:ev[top].slice(0,4).map(([s,p])=>[p.name,p.item_code,p.destination_facility])};
+  return {conf,top,share,support,desc:cand.description||"",variants,routing:routingFor(query,cand.description)};
 }
 
 /* ── Finder autocomplete ── */
@@ -284,8 +283,6 @@ function runFinder(){
     <td style="text-align:right;"><button class="addfac" onclick="addFromFinder('${esc(v.code)}','${esc(v.fac)}','${v.band}')">Add →</button></td></tr>`;});
   h+=`</table>`;
   if(r.routing.length){h+=`<div class="fsect">Routing notes</div>`;r.routing.forEach(rr=>{const tag=rr.verify?' ⚑verify':(rr.no_code?' ⚠ no code':'');h+=`<div class="note"><b>Prefer ${esc(rr.preferred)}</b>${tag} — ${esc(rr.note)}</div>`;});}
-  h+=`<div class="fsect">Why — real streams we billed like this</div>`;
-  r.evidence.forEach(([n,c,f])=>{h+=`<div class="ev">${esc(n)} → <code>${esc(c)}</code> @ ${esc(cleanFac(f))}</div>`;});
   out.innerHTML=h;
 }
 function facLabel(abbrev,full){if(abbrev&&FACMAP[abbrev])return FACMAP[abbrev];return full||abbrev||"";}
@@ -303,7 +300,6 @@ function carrierChange(){
   }
   box.innerHTML=h;
 }
-function cleanFac(s){return String(s||"").split("(")[0].split("ACCOUNT:")[0].replace(/[\s,]+$/,"").trim();}
 function tierPrice(e){const m=parseFloat(document.getElementById("h-tier").value);const key=m<=0.30?"tier_a":(m>=0.45?"tier_c":"tier_b");const ps=e.pricing||[];if(!ps.length)return null;const p=ps.find(x=>/55/.test(x.container||""))||ps[0];return p[key]||p.tier_b||null;}
 function addFromFinder(code,facAbbrev,band){
   const fac=facLabel(facAbbrev,"");const e=BY_CODE[code]||{};const desc=e.description||code;const price=tierPrice(e)||BANDPRICE[band]||120;
