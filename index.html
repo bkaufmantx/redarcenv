@@ -164,7 +164,7 @@
     <div class="progress-wrap">
       <div class="progress-label">
         <span>Overall progress</span>
-        <span>Phase 1 complete · unified quote tool live on secured real-data link — ~84%</span>
+        <span>Phase 2 — quote tool: MVP live on secured link, now refining · Phase 1 complete — ~84%</span>
       </div>
       <div class="progress-bar"><div class="progress-fill" style="width: 84%"></div></div>
     </div>
@@ -189,7 +189,6 @@
          the next layer.</p>
       <div style="margin-top:.9rem;display:flex;gap:.6rem;flex-wrap:wrap;">
         <a href="https://redarc-quote-tool.pages.dev" target="_blank" rel="noopener" class="btn btn-red">🔒 Open the secured Quote Tool</a>
-        <a href="quote-tool/demo/" target="_blank" rel="noopener" class="btn btn-white">▶ Public preview (no login)</a>
         <a href="quote-tool/RedArc_Quote_Tool_v1_Guide.pdf" target="_blank" rel="noopener" class="btn btn-white">📄 Companion guide (PDF)</a>
       </div>
       <div class="zak-steps">
@@ -210,13 +209,13 @@
   <div class="section-title">Where We Are</div>
   <div class="phases">
 
-    <!-- Phase 3 — ACTIVE (lead with the current work) -->
-    <div class="phase-card open" id="phase3">
-      <div class="phase-header" onclick="togglePhase('phase3')">
-        <div class="phase-num active">3</div>
+    <!-- Phase 2 — ACTIVE (lead with the current work) -->
+    <div class="phase-card open" id="phase2">
+      <div class="phase-header" onclick="togglePhase('phase2')">
+        <div class="phase-num active">2</div>
         <span class="phase-chevron">▶</span>
         <div class="phase-title-wrap">
-          <div class="phase-title">Phase 3 — Build the Quote Tool</div>
+          <div class="phase-title">Phase 2 — Build the Quote Tool</div>
           <div class="phase-subtitle">Current focus · Zak gets time back, double-entry is eliminated</div>
         </div>
         <span class="phase-status-badge badge-active">Active · Building</span>
@@ -235,10 +234,9 @@
           </div>
           <div style="margin-top:.85rem;display:flex;gap:.6rem;flex-wrap:wrap;">
             <a href="https://redarc-quote-tool.pages.dev" target="_blank" rel="noopener" class="btn btn-red">🔒 Secured Quote Tool (real data)</a>
-            <a href="quote-tool/demo/" target="_blank" rel="noopener" class="btn btn-white">▶ Public preview (no login)</a>
             <a href="quote-tool/RedArc_Quote_Tool_v1_Guide.pdf" target="_blank" rel="noopener" class="btn btn-white">📄 Companion guide (PDF)</a>
           </div>
-          <div style="font-size:.72rem;color:var(--gray-500);margin-top:.55rem;">Secured link runs on real prices + real accounts (RedArc email sign-in). Public preview is de-identified (relative price bands). v1 proof of concept, not production quoting yet.</div>
+          <div style="font-size:.72rem;color:var(--gray-500);margin-top:.55rem;">Runs on real prices + real accounts behind a RedArc email sign-in. v1 proof of concept, not production quoting yet.</div>
         </div>
 
         <div style="margin-top:1.25rem;"><div class="section-title">Done</div></div>
@@ -247,8 +245,8 @@
           <li><span class="task-icon">✅</span><div class="task-text"><strong>Recommendation engine — measured</strong><div class="task-note">Ranks codes by what real profiles were actually billed (not just keywords), adds cost-ranked facility options + Zak's routing notes + a confidence flag. Top-3 = 72%, high-confidence top-1 = 74%, on description alone.</div></div></li>
           <li><span class="task-icon">✅</span><div class="task-text"><strong>Finder + builder unified into one tool</strong><div class="task-note">The smart item-code finder is now built into the quote builder as a modal — one continuous flow from client &amp; tier → add waste → priced disposal line → transport, labor &amp; supplies → live totals. No more jumping between two pages.</div></div></li>
           <li><span class="task-icon">✅</span><div class="task-text"><strong>Secured, access-gated link — live</strong><div class="task-note">Deployed to a private URL gated by Cloudflare Access (email allowlist, RedArc sign-in). Free tier, no app to install. Linked at the top of this board.</div></div></li>
-          <li><span class="task-icon">✅</span><div class="task-text"><strong>Real data wired in (secured site only)</strong><div class="task-note">The gated version now runs on real per-container A/B/C prices and real account names — disposal lines auto-fill the real customer price at the selected tier. Real data stays behind the login; the public preview remains de-identified.</div></div></li>
-          <li><span class="task-icon">✅</span><div class="task-text"><strong>Interactive tool + companion guide — published</strong><div class="task-note">A public de-identified preview, the secured real-data link, and a PDF guide with caveats and the questions above. Linked at the top of this board.</div></div></li>
+          <li><span class="task-icon">✅</span><div class="task-text"><strong>Real data wired in (secured site only)</strong><div class="task-note">The gated version now runs on real per-container A/B/C prices and real account names — disposal lines auto-fill the real customer price at the selected tier. Real data stays behind the secured login — never on the public site.</div></div></li>
+          <li><span class="task-icon">✅</span><div class="task-text"><strong>Interactive tool + companion guide — published</strong><div class="task-note">The secured real-data link and a PDF guide with caveats and the questions above. Linked at the top of this board.</div></div></li>
         </ul>
 
         <div style="margin-top:1.25rem;"><div class="section-title">Next</div></div>
@@ -262,14 +260,14 @@
       </div>
     </div>
 
-    <!-- Phase 2 — QUEUED -->
-    <div class="phase-card" id="phase2">
-      <div class="phase-header" onclick="togglePhase('phase2')">
-        <div class="phase-num pending">2</div>
+    <!-- Phase 3 — POST-MVP -->
+    <div class="phase-card" id="phase3">
+      <div class="phase-header" onclick="togglePhase('phase3')">
+        <div class="phase-num pending">3</div>
         <span class="phase-chevron">▶</span>
         <div class="phase-title-wrap">
-          <div class="phase-title">Phase 2 — Clean House &amp; Stabilize</div>
-          <div class="phase-subtitle">Queued after the quote tool · CRM becomes the reliable source of truth</div>
+          <div class="phase-title">Phase 3 — Post-MVP Cleanup &amp; Stabilization</div>
+          <div class="phase-subtitle">After the MVP proves out · CRM becomes the reliable source of truth</div>
         </div>
         <span class="phase-status-badge badge-waiting">Queued</span>
       </div>
@@ -354,7 +352,7 @@
           </div>
           <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin:1.25rem 0 .5rem;">⚑ Flagged — needs attention</div>
           <div class="findings-grid" style="margin-top:0;">
-            <div class="finding-card flag"><h4>Quotes have no Generator link</h4>Confirmed gap. Quotes connect to Accounts + Contacts but not to individual generator sites. One custom lookup field needs to be added to Quotes in Phase 2.</div>
+            <div class="finding-card flag"><h4>Quotes have no Generator link</h4>Confirmed gap. Quotes connect to Accounts + Contacts but not to individual generator sites. One custom lookup field needs to be added to Quotes in Phase 3.</div>
             <div class="finding-card flag"><h4>Carrier picklist has wrong values</h4>Shows FedEx, UPS, USPS, DHL, BlueDart — consumer shippers. RedArc uses hazmat carriers. Needs to be rebuilt once Zak provides the real carrier list.</div>
             <div class="finding-card flag"><h4>Duplicate modules</h4>Sales Orders, Purchase Orders, and Invoices each exist twice (native CRM + Books-synced versions). Two Generators × Contacts linking tables. Needs cleanup decision from Zak.</div>
             <div class="finding-card flag"><h4>"Generator" text field on Accounts</h4>Plain text, not a lookup. Data integrity risk — free-form text can diverge from actual Generator records. Should be removed or replaced with the proper linking table.</div>
@@ -601,7 +599,7 @@
 
     <div class="archive-item">
       <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">How do you currently tie a quote to a specific generator site?</span><span class="archive-date">Answered June 9, 2026</span></div>
-      <div class="archive-a">"Estimates are an object in Platform that is tied to an account and a generator. Right now we are not using Zoho for quotes, so I haven't added the 'Generator' custom module as a field for Quotes." — Adding Generator lookup to Quotes is a Phase 2 task.</div>
+      <div class="archive-a">"Estimates are an object in Platform that is tied to an account and a generator. Right now we are not using Zoho for quotes, so I haven't added the 'Generator' custom module as a field for Quotes." — Adding Generator lookup to Quotes is a Phase 3 task.</div>
     </div>
 
     <div class="archive-item">

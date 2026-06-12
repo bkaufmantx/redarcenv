@@ -78,18 +78,16 @@
   options ranked by cost, Zak's routing notes, and the real waste streams it matched on. Pick a facility and it
   drops a priced disposal line; add transport, labor and supplies and the totals update live at your tier. Try a
   manifest shipping line like <code>UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII</code>.</p>
-  <p><strong>Two ways to open it:</strong> a <strong>secured link</strong> (RedArc email sign-in) that runs on real
-  prices and your real accounts, or a <strong>public preview</strong> (no login) that's de-identified with relative
-  price bands. Both are linked from the project dashboard.</p>
+  <p>It opens from a <strong>secured link</strong> (RedArc email sign-in) that runs on real prices and your real
+  accounts — linked from the project dashboard. Real data stays behind that login.</p>
 
   <h2>Caveats — please read before judging</h2>
   <div class="caveat"><b>It's v1 on raw data.</b> Item-code descriptions are inconsistent (generated from vendor
   rate sheets, never cleaned). We did <em>not</em> clean them first — cleanup is a later step. The number above is
   despite the mess, not because the data is tidy.</div>
-  <div class="caveat"><b>Two versions, by design.</b> The <b>public preview</b> is de-identified — no customer
-  names, prices as relative bands ($ = cheapest) — because the public dashboard isn't a place for RedArc's pricing.
-  The <b>secured link</b> (behind a RedArc email sign-in) runs the real per-container A/B/C prices and real account
-  names. Real data never touches the public site.</div>
+  <div class="caveat"><b>Real data lives behind the login.</b> The tool runs the real per-container A/B/C prices and
+  real account names only on the <b>secured link</b> (RedArc email sign-in). Real pricing and customer names never
+  touch the public dashboard or its repo — that's a hard rule, not a setting.</div>
   <div class="caveat"><b>The hardest layer isn't in yet.</b> No SDS/chemistry reasoning, cost-optimization, or
   facility acceptance-criteria (e.g. Tulsa's 500&nbsp;ppm VOC limit) — and the approvals-department conservatism
   that lives only in Zak's head is deliberately left as a "low-confidence → confirm" flag, not a guess.</div>
