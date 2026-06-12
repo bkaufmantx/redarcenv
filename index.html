@@ -60,6 +60,9 @@
     .zak-steps { margin-top: .75rem; display: flex; flex-direction: column; gap: .4rem; }
     .zak-step { display: flex; align-items: flex-start; gap: .6rem; font-size: .85rem; color: var(--gray-700); }
     .step-badge { background: var(--yellow); color: white; border-radius: 50%; width: 20px; height: 20px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; margin-top: 1px; }
+    .btn { display:inline-flex; align-items:center; gap:.4rem; border-radius:8px; padding:.55rem 1.15rem; font-size:.82rem; font-weight:600; text-decoration:none; }
+    .btn-red { background: var(--red); color:#fff; }
+    .btn-white { background:#fff; color:var(--gray-900); border:1.5px solid var(--gray-300); }
 
     /* ── Phase cards ── */
     .phases { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
@@ -115,7 +118,7 @@
     .badge-ok { background: var(--green-light); color: var(--green); font-size: .68rem; font-weight: 700; padding: 1px 6px; border-radius: 8px; }
 
     /* ── Archive section ── */
-    .archive-toggle { display: flex; align-items: center; gap: .75rem; cursor: pointer; user-select: none; padding: 1.25rem 1.75rem; background: white; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-top: 2.5rem; }
+    .archive-toggle { display: flex; align-items: center; gap: .75rem; cursor: pointer; user-select: none; padding: 1.25rem 1.75rem; background: white; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-top: 1rem; }
     .archive-toggle:hover { background: var(--gray-100); }
     .archive-label { font-size: .85rem; font-weight: 600; color: var(--gray-500); flex: 1; }
     .archive-count { font-size: .72rem; background: var(--gray-200); color: var(--gray-500); padding: 2px 9px; border-radius: 10px; font-weight: 700; }
@@ -161,729 +164,439 @@
     <div class="progress-wrap">
       <div class="progress-label">
         <span>Overall progress</span>
-        <span>Phase 1 complete · all data + recon in hand · first build is the active next step — ~75%</span>
+        <span>Phase 1 complete · quote tool v1 live in preview — ~80%</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 80%"></div></div>
     </div>
-    <div class="updated">📅 Last updated: June 12, 2026 &nbsp;·&nbsp; Next milestone: First build — the profiled-waste item-code lookup wizard, using Zak's master pricing workbook + 890 real waste profiles. Nothing outstanding from Zak.</div>
+    <div class="updated">📅 Last updated: June 12, 2026 &nbsp;·&nbsp; Now building: the profiled-waste item-code finder (v1 is live below). Next milestone: Zak's read on the demo + a few accuracy upgrades.</div>
   </div>
 
-  <!-- ── STATUS: NOTHING OUTSTANDING ── -->
-  <div class="section-title">Status — Zak's Court</div>
-  <div class="zak-banner" style="background:var(--green-light);border-color:var(--green);">
+  <!-- ── ACTION FOR ZAK ── -->
+  <div class="section-title">Action for Zak</div>
+  <div class="zak-banner" style="background:var(--blue-light);border-color:var(--blue);">
     <div class="zak-icon">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="16" cy="16" r="14" stroke="#27ae60" stroke-width="2.2" fill="none"/>
-        <path d="M9 16.5 L14 21.5 L23 11" stroke="#27ae60" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="16" cy="16" r="14" stroke="#2980b9" stroke-width="2.2" fill="none"/>
+        <path d="M13 11 L22 16 L13 21 Z" fill="#2980b9"/>
       </svg>
     </div>
     <div class="zak-body">
-      <h3 style="color:#1e7e45;">✓ Nothing outstanding — the first build is fully unblocked</h3>
-      <p>The four June 11 follow-ups (Platform screenshots, worked routing examples, the HTML prototype-gap list, and a lab-pack output file) are <strong>all resolved</strong> — no homework needed from Zak. Brian mined what was capturable straight from the recorded call using a new screenshot tool, and confirmed the rest was already in the files Zak sent. <em>(Details in the Archive below.)</em></p>
-      <p style="margin-top:.6rem;">The only future inputs from Zak are <strong>not blockers</strong>:</p>
+      <h3 style="color:var(--blue);">Try the v1 quote-tool demo — and tell us if the direction feels right</h3>
+      <p>The first build is live. Describe a waste stream the way it reads on a manifest, and it narrows ~760 item
+         codes to a shortlist — with the cheaper facility options and the reasoning. We'd value your gut read before
+         we invest in the next layer.</p>
+      <div style="margin-top:.9rem;display:flex;gap:.6rem;flex-wrap:wrap;">
+        <a href="quote-tool/demo/" class="btn btn-red">▶ Try the live demo</a>
+        <a href="quote-tool/RedArc_Quote_Tool_v1_Guide.pdf" class="btn btn-white">📄 Companion guide (PDF)</a>
+      </div>
       <div class="zak-steps">
-        <div class="zak-step">
-          <div class="step-badge" style="background:var(--gray-300);color:var(--gray-700);">→</div>
-          <div><strong>Phase 2 CRM-import decisions</strong> — sequenced for later (the quote tool comes first, per Zak's own direction). See Phase 2 below.</div>
-        </div>
-        <div class="zak-step">
-          <div class="step-badge" style="background:var(--gray-300);color:var(--gray-700);">→</div>
-          <div><strong>A few routing corrections</strong> — the one thing no file captures (how conservative each facility's approvals desk is). These surface naturally as Brian builds and Zak reviews outputs — not an upfront assignment.</div>
-        </div>
+        <div style="font-size:.8rem;font-weight:700;color:var(--gray-700);margin-bottom:.1rem;">Four quick questions waiting in the guide:</div>
+        <div class="zak-step"><div class="step-badge" style="background:var(--blue);">1</div><div><strong>Does the shape fit?</strong> "Short list of 3 + a confidence flag, auto-fill when sure, confirm-with-you when not" — is that how you'd want Kristin to work?
+          <div><button class="task-comment-btn" style="margin-top:.3rem;" onclick="toggleTaskComment(this,'demo-shape-fit')">💬 Comment</button><div class="task-comments-area"></div></div></div></div>
+        <div class="zak-step"><div class="step-badge" style="background:var(--blue);">2</div><div><strong>Two routing corrections to confirm:</strong> HF→Tulsa is still in the recycling group (remove?), and recycled petroleum shouldn't be under an FBL code to VAL — master-list error or a rogue profile?
+          <div><button class="task-comment-btn" style="margin-top:.3rem;" onclick="toggleTaskComment(this,'routing-corrections')">💬 Comment</button><div class="task-comments-area"></div></div></div></div>
+        <div class="zak-step"><div class="step-badge" style="background:var(--blue);">3</div><div><strong>Where should it live?</strong> A Claude skill Kristin invokes (like the lab-pack sorter), or a small internal web tool?
+          <div><button class="task-comment-btn" style="margin-top:.3rem;" onclick="toggleTaskComment(this,'where-tool-lives')">💬 Comment</button><div class="task-comments-area"></div></div></div></div>
+        <div class="zak-step"><div class="step-badge" style="background:var(--blue);">4</div><div><strong>Secured setup?</strong> To run on the full real data (live prices, customer-specific rates) it needs a private/secured home — worth setting up now, or keep proving it locally first?
+          <div><button class="task-comment-btn" style="margin-top:.3rem;" onclick="toggleTaskComment(this,'secured-setup')">💬 Comment</button><div class="task-comments-area"></div></div></div></div>
       </div>
     </div>
   </div>
 
   <!-- ── PHASES ── -->
-  <div class="section-title">Project Phases</div>
+  <div class="section-title">Where We Are</div>
   <div class="phases">
 
-    <!-- Phase 1 -->
-    <div class="phase-card open" id="phase1">
-      <div class="phase-header" onclick="togglePhase('phase1')">
-        <div class="phase-num done">1</div>
+    <!-- Phase 3 — ACTIVE (lead with the current work) -->
+    <div class="phase-card open" id="phase3">
+      <div class="phase-header" onclick="togglePhase('phase3')">
+        <div class="phase-num active">3</div>
         <span class="phase-chevron">▶</span>
         <div class="phase-title-wrap">
-          <div class="phase-title">Phase 1 — Access &amp; Orientation</div>
-          <div class="phase-subtitle">Understand the full system before touching anything</div>
+          <div class="phase-title">Phase 3 — Build the Quote Tool</div>
+          <div class="phase-subtitle">Current focus · Zak gets time back, double-entry is eliminated</div>
         </div>
-        <span class="phase-status-badge badge-done">Complete</span>
+        <span class="phase-status-badge badge-active">Active · Building</span>
       </div>
       <div class="phase-body">
 
+        <!-- First-build preview -->
+        <div style="background:var(--green-light);border:1.5px solid var(--green);border-radius:8px;padding:1rem 1.25rem;margin-top:1rem;">
+          <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#1e7e45;margin-bottom:.35rem;">🎯 v1 is live — try it</div>
+          <div style="font-size:.85rem;color:var(--gray-700);">
+            The <strong>profiled-waste item-code finder</strong>: describe a waste stream → a shortlist of likely item
+            codes with the cheaper facility options and the reasoning. Validated against 889 real profiles —
+            the right code is in the top-3 shortlist <strong>72%</strong> of the time (74% top-1 on high-confidence calls).
+          </div>
+          <div style="margin-top:.85rem;display:flex;gap:.6rem;flex-wrap:wrap;">
+            <a href="quote-tool/demo/" class="btn btn-red">▶ Try the live demo</a>
+            <a href="quote-tool/RedArc_Quote_Tool_v1_Guide.pdf" class="btn btn-white">📄 Companion guide (PDF)</a>
+          </div>
+          <div style="font-size:.72rem;color:var(--gray-500);margin-top:.55rem;">De-identified demo · relative price bands, not real rates · v1 proof of concept, not production quoting yet.</div>
+        </div>
+
+        <div style="margin-top:1.25rem;"><div class="section-title">Done</div></div>
         <ul class="task-list">
-          <li>
-            <span class="task-icon">✅</span>
-            <div class="task-text">
-              <strong>MCP connectors configured</strong>
-              <div class="task-note">Zoho CRM, Desk, and Projects connectors live. Brian confirmed admin access to CRM and Platform (June 5–10, 2026).</div>
-            </div>
-          </li>
-          <li>
-            <span class="task-icon">✅</span>
-            <div class="task-text">
-              <strong>CRM module inventory — 61 modules catalogued</strong>
-              <div class="task-note">Full module list pulled via MCP. Key modules: Generators (custom), Accounts, Contacts, Quotes, Deals. Duplicate modules flagged (Sales Orders, POs, Invoices appear twice; two Generators×Contacts linking tables).</div>
-              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'full-module-inventory')">💬 Comment</button>
-              <div class="task-comments-area"></div>
-            </div>
-          </li>
-          <li>
-            <span class="task-icon">✅</span>
-            <div class="task-text">
-              <strong>CRM field inventory — Generators, Accounts, Quotes</strong>
-              <div class="task-note">Generators: 38 fields (22 custom) — EPA ID, site addresses, Generator Type, Platform sync ID, 3 contact role lookups. Accounts: 67 fields (27 custom) — pricing tier, Platform sync ID, QuickBooks ID, onboarding flags. Quotes: 43 fields (0 custom) — no Generator lookup field. Gap confirmed.</div>
-              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'field-inventory-generators-accounts-quotes-contacts')">💬 Comment</button>
-              <div class="task-comments-area"></div>
-            </div>
-          </li>
-          <li>
-            <span class="task-icon">✅</span>
-            <div class="task-text">
-              <strong>Platform (Creator app) structure explored</strong>
-              <div class="task-note">Profiles = waste stream + generator + destination. 760 item codes in 20+ categories (ADM, ALT, NON, etc.). Vendor pricing per item code per container size. Pricing tiers (A/B/C) confirmed as 30/38/45% gross margin.</div>
-              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'platform-structure-explored')">💬 Comment</button>
-              <div class="task-comments-area"></div>
-            </div>
-          </li>
-          <li>
-            <span class="task-icon">✅</span>
-            <div class="task-text">
-              <strong>Live quote + routing walkthrough with Zak — June 11, 2026</strong>
-              <div class="task-note">Recorded call (Granola). Zak walked through item code structure, the facility-suffix logic, the layered routing decision tree, and started a real lab-pack quote (McLennan Community College). Full synthesis captured — see "June 11 — Call & Data Drop" below.</div>
-              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'walk-through-live-quote-creation')">💬 Comment</button>
-              <div class="task-comments-area"></div>
-            </div>
-          </li>
-          <li>
-            <span class="task-icon">✅</span>
-            <div class="task-text">
-              <strong>Item code + pricing data received from Zak — June 11, 2026</strong>
-              <div class="task-note">Full data drop in hand: the master pricing workbook (entire calc chain + A/B/C tiers + facility lookup + raw rates for all 9 facilities), the ~760-code item export, account/profile vendor pricing, 890 real waste profiles, the lab pack sorting skill, the HTML routing prototype, the Clean Earth broker guide, and operational routing notes. Build work is unblocked.</div>
-              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'question-item-code-list-from-larry')">💬 Comment</button>
-              <div class="task-comments-area"></div>
-            </div>
-          </li>
-          <li>
-            <span class="task-icon">✅</span>
-            <div class="task-text">
-              <strong>June 11 call fully mined — screenshots captured, all follow-ups self-resolved — June 12, 2026</strong>
-              <div class="task-note">Built a local <strong>Video Screenshot Tool</strong> that transcribes a screen-recording and grabs exact frames on demand by timecode. Applied it to the 51-minute June 11 call: captured the item-code A/B/C tier + container sub-table, a built estimate with line items, the vendor item-pricing report, and the item-code search grid — the Platform screenshots once needed from Zak. The remaining asks (worked routing examples, HTML gap list, lab-pack output schema) proved <strong>derivable from files already in hand</strong>, so all four June 11 follow-ups are closed with zero new homework for Zak. <a href="video-tool/" style="color:var(--blue);font-weight:600;">Tool &amp; guide →</a></div>
-              <button class="task-comment-btn" onclick="toggleTaskComment(this, 'june11-recording-mined-screenshots')">💬 Comment</button>
-              <div class="task-comments-area"></div>
-            </div>
-          </li>
+          <li><span class="task-icon">✅</span><div class="task-text"><strong>Unified data catalog built</strong><div class="task-note">Joined Zak's 5 exports into one queryable catalog — 761 item codes (with A/B/C × container pricing + routing facility) and 889 real labeled profiles. 100% of profile codes match the catalog.</div></div></li>
+          <li><span class="task-icon">✅</span><div class="task-text"><strong>Recommendation engine — measured</strong><div class="task-note">Ranks codes by what real profiles were actually billed (not just keywords), adds cost-ranked facility options + Zak's routing notes + a confidence flag. Top-3 = 72%, high-confidence top-1 = 74%, on description alone.</div></div></li>
+          <li><span class="task-icon">✅</span><div class="task-text"><strong>Interactive demo + companion guide — published</strong><div class="task-note">A live web demo (de-identified) and a PDF guide with caveats and the four questions above. Linked at the top of this board.</div></div></li>
         </ul>
 
-        <!-- CRM Audit Findings -->
-        <div style="margin-top:1.5rem;">
-          <div class="findings-toggle" onclick="toggleFindings('findings-crm')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
-            <span class="section-title" style="margin:0;">CRM Audit Findings</span>
-            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
-              <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">5 good</span>
-              <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">4 flagged</span>
-            </span>
-            <span id="findings-crm-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
-          </div>
-          <div id="findings-crm" style="display:none;">
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:.5rem;">✅ Good</div>
-            <div class="findings-grid" style="margin-top:0;">
-              <div class="finding-card good">
-                <h4>Generators module is solid</h4>
-                22 custom fields — EPA ID, site + mailing addresses, Generator Type (multi-select), three named contact roles (EHS, Scheduling, Emergency), regulatory IDs. Ready to use.
-              </div>
-              <div class="finding-card good">
-                <h4>Pricing tier field exists</h4>
-                <code>Default_Account_Pricing_Level</code> on Accounts. Confirmed = A/B/C = 30/38/45% gross margin. Primary pricing driver for the quote tool.
-              </div>
-              <div class="finding-card good">
-                <h4>Platform sync IDs in place</h4>
-                <code>Platform_Generator_ID</code> on Generators and <code>Platform_Record_ID</code> on Accounts. The bridge between Zoho and Platform is already stubbed — needs to be activated.
-              </div>
-              <div class="finding-card good">
-                <h4>Data model is correct</h4>
-                Generator → Account lookup exists. Generators × Contacts linking tables exist. The relational structure is sound.
-              </div>
-              <div class="finding-card good">
-                <h4>Market / industry field exists</h4>
-                16+ industry verticals on Accounts (pharma, healthcare, manufacturing, oil &amp; gas, etc.). Will drive item code selection logic in the quote tool.
-              </div>
-            </div>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin:1.25rem 0 .5rem;">⚑ Flagged — needs attention</div>
-            <div class="findings-grid" style="margin-top:0;">
-              <div class="finding-card flag">
-                <h4>Quotes have no Generator link</h4>
-                Confirmed gap. Quotes connect to Accounts + Contacts but not to individual generator sites. One custom lookup field needs to be added to Quotes in Phase 2.
-              </div>
-              <div class="finding-card flag">
-                <h4>Carrier picklist has wrong values</h4>
-                Shows FedEx, UPS, USPS, DHL, BlueDart — consumer shippers. RedArc uses hazmat carriers. Needs to be rebuilt once Zak provides the real carrier list.
-              </div>
-              <div class="finding-card flag">
-                <h4>Duplicate modules</h4>
-                Sales Orders, Purchase Orders, and Invoices each exist twice (native CRM + Books-synced versions). Two Generators × Contacts linking tables. Needs cleanup decision from Zak.
-              </div>
-              <div class="finding-card flag">
-                <h4>"Generator" text field on Accounts</h4>
-                Plain text, not a lookup. Data integrity risk — free-form text can diverge from actual Generator records. Should be removed or replaced with the proper linking table.
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Platform Audit Findings -->
-        <div style="margin-top:1.5rem;">
-          <div class="findings-toggle" onclick="toggleFindings('findings-platform')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
-            <span class="section-title" style="margin:0;">Platform Audit Findings</span>
-            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
-              <span style="background:var(--blue-light);color:var(--blue);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">4 info</span>
-            </span>
-            <span id="findings-platform-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
-          </div>
-          <div id="findings-platform" style="display:none;">
-            <div class="findings-grid" style="margin-top:0;">
-              <div class="finding-card info">
-                <h4>Profile = core quoting object</h4>
-                A Profile ties one waste stream to one generator site and one disposal destination. Each Profile has vendor pricing per item code per container size (30G / 55G / 275G / 330G).
-              </div>
-              <div class="finding-card info">
-                <h4>760 item codes in 20+ categories</h4>
-                Categories include ADM (admin/fees), ALT (alternate fuels), NON (non-hazardous), and many more. Each code has type (Disposal vs. Fees &amp; Surcharges), unit, and pricing. Export is easy — just needs Zak's context walkthrough first.
-              </div>
-              <div class="finding-card info">
-                <h4>Vendor vs. customer pricing split</h4>
-                Platform stores both what RedArc pays the disposal vendor AND what RedArc charges the customer — per item code per container size. Margin tiers (A/B/C) are applied at the customer pricing layer.
-              </div>
-              <div class="finding-card info">
-                <h4>Strategic decision pending</h4>
-                Zak flagged the core tension: lean on Platform long-term, or build internal systems? His instinct is internal — CRM as the intelligence layer, Platform for operations. This decision gates how much dev work goes to Larry's team vs. built in-house.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- June 11 Call & Data Drop -->
-        <div style="margin-top:1.5rem;">
-          <div class="findings-toggle" onclick="toggleFindings('findings-june11')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
-            <span class="section-title" style="margin:0;">June 11 — Call &amp; Data Drop</span>
-            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
-              <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">8 files received</span>
-              <span style="background:var(--blue-light);color:var(--blue);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">routing logic captured</span>
-            </span>
-            <span id="findings-june11-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
-          </div>
-          <div id="findings-june11" style="display:none;">
-
-            <div style="background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--green);">
-              Recorded catch-up call June 11 + same-day data drop from Zak. Two big outcomes: (1) the <strong>full pricing/routing logic</strong> is now documented, and (2) every critical-path data file is in hand. <strong>First build target is locked: a profiled-waste item-code lookup wizard</strong> (lab packs are already solved by Zak's existing Claude skill; the gap is non-lab-pack waste, where the salesperson scrolls ~760 codes by hand).
-            </div>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:.5rem;">🧭 Pricing &amp; Routing Model</div>
-            <div class="findings-grid" style="margin-top:0;">
-              <div class="finding-card info">
-                <h4>Facility-suffixed item codes</h4>
-                Format <code>PREFIX##-FAC</code> (e.g. <code>EFW01-AVA</code>). The suffix exists because Zak <strong>bundles transport into the disposal price</strong> (no itemized freight or fuel surcharge), so all-in cost is intrinsically facility-specific.
-              </div>
-              <div class="finding-card info">
-                <h4>Routing is layered</h4>
-                (1) all-in cost = disposal + EIS fees + transport/route density → (2) facility acceptance criteria (e.g. US Ecology Tulsa's 500ppm VOC limit) → (3) backup facility per stream (Tradebe backs up Avalon) → (4) approvals-dept conservatism (tribal knowledge).
-              </div>
-              <div class="finding-card info">
-                <h4>Rate-selection priority</h4>
-                profile-specific &gt; account-specific &gt; tier-sheet default (B-tier, 55-gal) &gt; item-code default. A/B/C tiers = 30/38/45% margin, with per-container-size breakouts.
-              </div>
-              <div class="finding-card info">
-                <h4>CRM is genuinely empty — confirmed</h4>
-                Verified via admin token against the single correct org: 0 records across all core modules. The real data lives in Platform, not CRM. The "cluttered HubSpot pipeline" Zak sees is in Platform.
-              </div>
-            </div>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin:1.25rem 0 .5rem;">📦 Files Received (<code>Info from Zak June 11/</code>)</div>
-            <table class="audit-table">
-              <thead><tr><th>File</th><th>What it is</th></tr></thead>
-              <tbody>
-                <tr><td><strong>Red Arc Master Item Code Pricing Workbook.xlsx</strong> <span class="badge-ok">key</span></td><td>The entire pricing brain — calc chain (disposal → EIS → LTL → FSC → margin), A/B/C tiers, facility lookup, LTL rates, legacy-code reconciliation, raw rates for all 9 facilities.</td></tr>
-                <tr><td><strong>All Profiles.xlsx</strong> <span class="badge-ok">key</span></td><td>890 real waste-stream profiles — generator, destination facility, approval code, hazard classes. Prime fuel for the lookup wizard.</td></tr>
-                <tr><td>All Items (8).xlsx</td><td>~760 item codes — code, description, type, legacy code, billing method, default price/vendor.</td></tr>
-                <tr><td>All Vendor Pricing (3).xlsx</td><td>219 account/profile-specific negotiated rates.</td></tr>
-                <tr><td>lab-pack-sorter.skill</td><td>Zak's working Claude skill — inventory → categorized containers w/ Red Arc + Clean Earth codes, anti-hallucination SDS gate.</td></tr>
-                <tr><td>red_arc_routing_cheat_sheet_v2.html</td><td>His first-attempt waste-type → item-code lookup prototype.</td></tr>
-                <tr><td>Operational Color.docx</td><td>Routing tribal knowledge + several corrections (the approvals-conservatism layer in writing).</td></tr>
-                <tr><td>Self Pack &amp; Broker Guidelines 2024.pdf</td><td>Clean Earth broker guide — the reference the lab pack skill routes against.</td></tr>
-              </tbody>
-            </table>
-
-          </div>
-        </div>
-
-        <!-- Dedup Audit Findings -->
-        <div style="margin-top:1.5rem;">
-          <div onclick="toggleFindings('findings-dedup')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
-            <span class="section-title" style="margin:0;">Platform Account Dedup Audit — June 10, 2026</span>
-            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
-              <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">558 total accounts</span>
-              <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">8 duplicate pairs</span>
-            </span>
-            <span id="findings-dedup-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
-          </div>
-          <div id="findings-dedup" style="display:none;">
-
-            <div style="background:var(--blue-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--blue);">
-              Read-only audit run against Platform (Zoho Creator) via API — June 10, 2026. 558 accounts pulled across all pages. No records were changed. Two duplicate patterns identified: recent entry errors (data entry double-clicks) and legacy migration double-imports.
-            </div>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;">⚑ Category 1 — Recent Entry Errors (3 pairs, May 2026)</div>
-            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Two records created within seconds/minutes of each other — one has the data, the other is a shell. Safe to delete the shell after Zak confirms.</div>
-
-            <table class="audit-table" style="margin-bottom:1.25rem;">
-              <thead><tr><th>Account Name</th><th>Keep (ID)</th><th>Delete (ID)</th><th>Why</th></tr></thead>
-              <tbody>
-                <tr><td><strong>EXOS Aerospace Systems &amp; Technologies</strong></td><td><code>2232</code> — has address, Prospect - Open, Kristin Green</td><td><code>2233</code> — no address, no stage, created 29 sec later</td><td>Double-click on form submit</td></tr>
-                <tr><td><strong>Mann Made</strong></td><td><code>2231</code> — has address (Wylie, TX), Prospect - Open</td><td><code>2230</code> — no address, no stage, created 20 sec earlier</td><td>Double-click on form submit</td></tr>
-                <tr><td><strong>Floyd Peacock Company Inc.</strong></td><td><code>2226</code> — Customer stage (more complete)</td><td><code>2220</code> — Prospect, created 11 days earlier, no address on either</td><td>Re-entered when stage changed; needs Zak to confirm before delete</td></tr>
-              </tbody>
-            </table>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;">⚑ Category 2 — Legacy Migration Double-Import (5 pairs, Aug–Sep 2025)</div>
-            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Platform data was migrated from the legacy system in at least two batches: Aug 18, 2025 and Sep 15, 2025. Five companies were imported in both batches. The Sep 15 records have different Legacy IDs but the same company name/address.</div>
-
-            <table class="audit-table">
-              <thead><tr><th>Account Name</th><th>Aug 18 Import (ID)</th><th>Sep 15 Import (ID)</th><th>Notes</th></tr></thead>
-              <tbody>
-                <tr><td><strong>Texas Air Systems</strong></td><td><code>1781</code> — Customer, has address (Irving TX), Legacy 27724</td><td><code>2188</code> — Prospect - Open, no address, no legacy ID</td><td>Stage conflict: older record is Customer, newer is Prospect — needs Zak</td></tr>
-                <tr><td><strong>ABF Freight System</strong></td><td><code>1878</code> — no address, no stage, legacy import shell</td><td><code>2150</code> — Customer, has address (Fort Smith AR)</td><td>Keep 2150 (more complete). Likely a vendor/carrier.</td></tr>
-                <tr><td><strong>Metroplex Clinical Research Center</strong></td><td><code>1761</code> — same address, Legacy 26348</td><td><code>2119</code> — same address (8144 Walnut Hill Ln, Dallas), Legacy 26427</td><td>Exact same address — clearest true duplicate in the set</td></tr>
-                <tr><td><strong>Texas Shred</strong></td><td><code>1759</code> — Vendor type, same address, Legacy 26251</td><td><code>2118</code> — no type, same address (Richardson TX), Legacy 26252</td><td>One flagged as Vendor. May be intentional — confirm with Zak.</td></tr>
-                <tr><td><strong>Texas Pain Physicians Corporate</strong></td><td><code>1692</code> — Customer, McEwen Rd Farmers Branch, Legacy 22583</td><td><code>2117</code> — no stage, LBJ Freeway Dallas, Legacy 22628</td><td>Different addresses — may be two locations, not a duplicate. Flag for Zak.</td></tr>
-              </tbody>
-            </table>
-
-            <div style="margin-top:1rem;background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);border-left:3px solid var(--green);">
-              <strong>✅ 542 accounts look clean</strong> — no duplicate name matches. No Generator-level dedup has been run yet (requires the same API audit against the Generators report).
-            </div>
-
-            <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-              <a href="https://github.com/bkaufmantx/redarcenv/raw/main/assets/redarc_platform_account_dedup_audit_2026-06-10.xlsx"
-                 download="redarc_platform_account_dedup_audit_2026-06-10.xlsx"
-                 style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gray-900);color:white;border-radius:8px;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;text-decoration:none;">
-                ⬇ Download Audit Workbook (.xlsx)
-              </a>
-              <span style="font-size:.75rem;color:var(--gray-500);">3 tabs: Summary · Duplicate Pairs · All 558 Accounts · Duplicate rows highlighted red</span>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Contacts Dedup Audit Findings -->
-        <div style="margin-top:1.5rem;">
-          <div onclick="toggleFindings('findings-contacts-dedup')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
-            <span class="section-title" style="margin:0;">Platform Contacts Dedup Audit — June 10, 2026</span>
-            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
-              <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">280 total contacts</span>
-              <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">~32 duplicate rows</span>
-            </span>
-            <span id="findings-contacts-dedup-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
-          </div>
-          <div id="findings-contacts-dedup" style="display:none;">
-
-            <div style="background:var(--blue-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--blue);">
-              Read-only audit run against Platform (Zoho Creator) All Contacts report via API — June 10, 2026. 280 contacts pulled across all pages. No records were changed. Three duplicate patterns identified across name matches and email matches.
-            </div>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;">⚑ Pattern 1 — Aug 19 Import Shells (~8 pairs)</div>
-            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Aug 18, 2025 was the main import. Aug 19, 2025 re-imported a batch of "shell" contacts — same name and email, but <strong>no account linked</strong>. These are safe DELETEs with high confidence. Examples: Lee Barnes, Issam Harmouch, Chris Louloudiadis, Cesar Varelas, Jonathan Jendral.</div>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;margin-top:.75rem;">⚑ Pattern 2 — Same-Batch Name Duplicates (~6 pairs)</div>
-            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Same name at the same company, but with different email addresses or titles. These <em>may be intentional</em> (e.g. a direct email + an AP email for billing contacts). Need Zak to confirm before any action. Examples: Preston Neumann (1 Priority), Brannan Medina (Preferred Mechanical), Kyle DeCoster (Apex Aero), Tammy Carson (Mud Technology), John Kayser (Kayser Technology).</div>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;margin-top:.75rem;">⚑ Pattern 3 — Email Duplicates, Different Names (3 records)</div>
-            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Same email address linked to two different names at the same company. Likely a data entry error or a shared inbox. Confirm with Zak.</div>
-
-            <table class="audit-table" style="margin-bottom:1.25rem;">
-              <thead><tr><th>Email</th><th>Name A</th><th>Name B</th><th>Account</th><th>Action</th></tr></thead>
-              <tbody>
-                <tr><td><code>manuel.rodriguez@pisd.edu</code></td><td>Manuel Rodriguez</td><td>Manuel Rodriguez (variant)</td><td>PLANO ISD</td><td>CONFIRM</td></tr>
-                <tr><td><code>barrels@getoutlier.com</code></td><td>Ian Barnett</td><td>Brandon Petty</td><td>OUTLIER USA LLC</td><td>CONFIRM</td></tr>
-              </tbody>
-            </table>
-
-            <div style="margin-top:1rem;background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);border-left:3px solid var(--green);">
-              <strong>~248 contacts look clean.</strong> The XLSX below has the full list of flagged rows with KEEP / DELETE / CONFIRM recommendations. No records have been changed.
-            </div>
-
-            <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-              <a href="https://github.com/bkaufmantx/redarcenv/raw/main/assets/redarc_platform_contacts_dedup_audit_2026-06-10.xlsx"
-                 download="redarc_platform_contacts_dedup_audit_2026-06-10.xlsx"
-                 style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gray-900);color:white;border-radius:8px;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;text-decoration:none;">
-                ⬇ Download Contacts Audit Workbook (.xlsx)
-              </a>
-              <span style="font-size:.75rem;color:var(--gray-500);">2 tabs: Summary · Contact Duplicates (32 rows, color-coded by action)</span>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Generators Dedup Audit Findings -->
-        <div style="margin-top:1.5rem;">
-          <div onclick="toggleFindings('findings-gen-dedup')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
-            <span class="section-title" style="margin:0;">Platform Generators Dedup Audit — June 10, 2026</span>
-            <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
-              <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">899 generators analyzed</span>
-              <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">6 duplicate pairs</span>
-              <span style="background:#FEF9E7;color:#8B6914;font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">~173 missing real EPA IDs</span>
-            </span>
-            <span id="findings-gen-dedup-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
-          </div>
-          <div id="findings-gen-dedup" style="display:none;">
-
-            <div style="background:var(--blue-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--blue);">
-              Read-only audit against Platform All_Generators report via API — June 10, 2026. 899 generators analyzed. Three issue types surfaced: true duplicate sites, "DO NOT USE" records already flagged in Platform, and a significant EPA ID data quality problem.
-            </div>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:.6rem;">⚑ DO NOT USE Records — already flagged (2 pairs)</div>
-            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Someone already added a "DO NOT USE" prefix to these generator names in Platform. They have no account link and share the same EPA ID as the primary record. Safe to delete after Zak confirms.</div>
-
-            <table class="audit-table" style="margin-bottom:1.25rem;">
-              <thead><tr><th>Generator Name</th><th>EPA ID</th><th>Account</th><th>Date Added</th><th>Action</th></tr></thead>
-              <tbody>
-                <tr style="background:var(--green-light)"><td><strong>DALDEN</strong></td><td><code>TXD982758252</code></td><td>DALDEN</td><td>10-13-2025</td><td><strong style="color:var(--green)">KEEP</strong></td></tr>
-                <tr style="background:var(--red-muted)"><td>DO NOT USE Dalden</td><td><code>TXD982758252</code></td><td><em>no account</em></td><td>10-16-2025</td><td><strong style="color:var(--red)">DELETE</strong></td></tr>
-                <tr style="background:var(--green-light)"><td><strong>GENESIS CUSTOM CHEMICAL BLENDING</strong></td><td><code>TXR000041780</code></td><td>Genesis Custom Chemical Blending</td><td>04-23-2026</td><td><strong style="color:var(--green)">KEEP</strong></td></tr>
-                <tr style="background:var(--red-muted)"><td>GENESIS CUSTOM CHEMICAL BLENDING - DO NOT USE</td><td><code>TXR000041780</code></td><td><em>no account</em></td><td>06-05-2026</td><td><strong style="color:var(--red)">DELETE</strong></td></tr>
-              </tbody>
-            </table>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:.6rem;margin-top:.75rem;">⚑ True Duplicate Sites — same address entered twice (4 pairs)</div>
-            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Same physical site entered twice — usually one record from the original Aug 19 import and a second from the Sep 8 re-entry batch, or two records created within minutes during the Aug 22 bulk import. KEEP the older/more complete record.</div>
-
-            <table class="audit-table" style="margin-bottom:1.25rem;">
-              <thead><tr><th>Generator Name</th><th>EPA ID</th><th>Address</th><th>Date Added</th><th>Action</th><th>Reason</th></tr></thead>
-              <tbody>
-                <tr style="background:var(--green-light)"><td><strong>INFORM DIAGNOSTICS</strong></td><td><code>TXR000080292</code></td><td>6655 N MacArthur Blvd, Irving TX</td><td>09-08-2025</td><td><strong style="color:var(--green)">KEEP</strong></td><td>Has address</td></tr>
-                <tr style="background:var(--red-muted)"><td>INFORM DIAGNOSTICS</td><td><code>TXR000080292</code></td><td><em>no address</em></td><td>09-15-2025</td><td><strong style="color:var(--red)">DELETE</strong></td><td>Re-entry 7 days later, no address</td></tr>
-                <tr style="background:var(--green-light)"><td><strong>DLT POWER</strong></td><td><code>TXR000086372</code></td><td>629 N 5th St, Garland TX</td><td>08-19-2025</td><td><strong style="color:var(--green)">KEEP</strong></td><td>Has real EPA ID</td></tr>
-                <tr style="background:var(--red-muted)"><td>DLT POWER</td><td><em>no EPA</em></td><td>629 N 5th Street, Garland TX</td><td>09-08-2025</td><td><strong style="color:var(--red)">DELETE</strong></td><td>Re-entry batch, missing EPA</td></tr>
-                <tr style="background:var(--green-light)"><td><strong>CONTINENTAL BATTERY SYSTEMS OF HOUSTON</strong></td><td><code>TXP490356659</code></td><td>4721 World Houston Pkwy, Houston TX</td><td>08-19-2025 22:04:21</td><td><strong style="color:var(--green)">KEEP</strong></td><td>Real EPA ID</td></tr>
-                <tr style="background:var(--red-muted)"><td>CONTINENTAL BATTERY SYSTEMS OF HOUSTON</td><td><code>TXVSQG</code> (placeholder)</td><td>4721 World Houston Pkwy, Houston TX</td><td>08-19-2025 22:04:23</td><td><strong style="color:var(--red)">DELETE</strong></td><td>Created 2 min later, placeholder EPA</td></tr>
-                <tr style="background:var(--green-light)"><td><strong>ADVANCED DERMASURGERY ASSOC. HIGHLAND VILLAGE</strong></td><td><code>TXVSQG</code></td><td>2570 Justin Road, Highland Village TX</td><td>08-19-2025</td><td><strong style="color:var(--green)">KEEP</strong></td><td>First record in batch</td></tr>
-                <tr style="background:var(--red-muted)"><td>ADVANCED DERMASURGERY ASSOC. HIGHLAND VILLAGE</td><td><code>TXVSQG</code></td><td>2570 Justin Road, Highland Village TX</td><td>08-19-2025</td><td><strong style="color:var(--red)">DELETE</strong></td><td>Second entry within minutes, same address</td></tr>
-              </tbody>
-            </table>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8B6914;margin-bottom:.6rem;margin-top:.75rem;">⚑ Confirm with Zak (3 situations)</div>
-            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">These need Zak's judgment before any action — either because addresses differ slightly (possible move vs. second location) or because RedArc's own yard has three overlapping records with different names.</div>
-            <ul style="font-size:.78rem;color:var(--gray-700);margin:.5rem 0 .75rem 1.2rem;line-height:1.6;">
-              <li><strong>Dermatology &amp; Skin Cancer Surgery Center McKinney</strong> — two records, same city, confirm if same address before deleting the newer one.</li>
-              <li><strong>Colossal Biosciences</strong> — 3309 Elm St (Aug 2025) vs. 3020 Pegasus Park Dr (Oct 2025). Office move or second location? Confirm intent.</li>
-              <li><strong>Red Arc Crandall Yard (TXR000086324)</strong> — 3 records: "Red Arc Environmental Inc." (Transporter/Destination, Aug 2025), "Red Arc Environmental - HHW" (Generator/Transporter, Feb 2026), and "Red Arc Environmental" (different account name, Mar 2026). May be intentional functional split — confirm with Zak.</li>
-            </ul>
-
-            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:.6rem;margin-top:.75rem;">⚑ EPA ID Data Quality — ~173 generators missing real EPA IDs</div>
-            <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Generator classification codes are being used <em>in place of</em> actual EPA ID numbers — likely entered as placeholders during the import when the real ID wasn't known. This affects ~19% of the generator records.</div>
-
-            <table class="audit-table" style="margin-bottom:1.25rem;">
-              <thead><tr><th>Placeholder Code</th><th>Count</th><th>What It Means</th></tr></thead>
-              <tbody>
-                <tr><td><code>TXVSQG</code></td><td>155</td><td>Texas Very Small Quantity Generator — classification code, not an EPA ID</td></tr>
-                <tr><td><code>vsqg</code></td><td>8</td><td>Same as above, lowercase — data entry inconsistency</td></tr>
-                <tr><td><code>VSQG</code></td><td>5</td><td>Missing state prefix — partial placeholder</td></tr>
-                <tr><td><code>TXCESQG</code></td><td>3</td><td>TX Conditionally Exempt SQG — all MLD Pathology records</td></tr>
-                <tr><td><code>OKVSQG</code></td><td>2</td><td>Oklahoma VSQG — placeholder for OK-based generators</td></tr>
-              </tbody>
-            </table>
-
-            <div style="margin-top:1rem;background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);border-left:3px solid var(--green);">
-              <strong>✅ ~880 generator sites look structurally clean</strong> — no name or address collision. The EPA ID gap is a data quality issue to fix during import to CRM (real IDs can be looked up via EPA's ECHO database). No records were changed during this audit.
-            </div>
-
-            <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-              <a href="https://github.com/bkaufmantx/redarcenv/raw/main/assets/redarc_platform_generators_dedup_audit_2026-06-10.xlsx"
-                 download="redarc_platform_generators_dedup_audit_2026-06-10.xlsx"
-                 style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gray-900);color:white;border-radius:8px;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;text-decoration:none;">
-                ⬇ Download Generators Audit Workbook (.xlsx)
-              </a>
-              <span style="font-size:.75rem;color:var(--gray-500);">2 tabs: Summary · Generator Duplicates (all flagged pairs, color-coded by action)</span>
-            </div>
-
-          </div>
-        </div>
-
+        <div style="margin-top:1.25rem;"><div class="section-title">Next</div></div>
+        <ul class="task-list">
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Push accuracy past the 72% baseline</strong><div class="task-note">Add Claude's SDS/chemistry reasoning, the cost-optimization layer, and facility acceptance-criteria (e.g. Tulsa's 500 ppm VOC limit). Every gain is measurable against the current baseline.</div><button class="task-comment-btn" onclick="toggleTaskComment(this,'push-accuracy')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Fold in Zak's demo feedback + routing corrections</strong><div class="task-note">Whatever the demo gets wrong, plus the two Operational Color corrections, get encoded. The approvals-conservatism layer is captured incrementally as Zak reviews outputs.</div><button class="task-comment-btn" onclick="toggleTaskComment(this,'fold-feedback')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Decide where it lives + secured setup</strong><div class="task-note">Claude skill vs. internal web tool (Zak's call), and a private/secured home so it can run on the full live data instead of de-identified samples.</div><button class="task-comment-btn" onclick="toggleTaskComment(this,'productionize')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Unify with the lab-pack skill</strong><div class="task-note">Lab packs are already solved by Zak's existing skill. Wire both into one flow so an inventory or a profiled stream both end in a draft quote that matches Platform's Estimate structure (recon in Reference below).</div><button class="task-comment-btn" onclick="toggleTaskComment(this,'unify-labpack')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+        </ul>
       </div>
-    </div><!-- /phase 1 -->
+    </div>
 
-    <!-- Phase 2 -->
+    <!-- Phase 2 — QUEUED -->
     <div class="phase-card" id="phase2">
       <div class="phase-header" onclick="togglePhase('phase2')">
         <div class="phase-num pending">2</div>
         <span class="phase-chevron">▶</span>
         <div class="phase-title-wrap">
           <div class="phase-title">Phase 2 — Clean House &amp; Stabilize</div>
-          <div class="phase-subtitle">CRM is reliable; Brian + Claude can query it fluently</div>
+          <div class="phase-subtitle">Queued after the quote tool · CRM becomes the reliable source of truth</div>
         </div>
-        <span class="phase-status-badge badge-waiting">Queued · Zak's call</span>
+        <span class="phase-status-badge badge-waiting">Queued</span>
       </div>
       <div class="phase-body">
+        <p style="font-size:.85rem;color:var(--gray-700);margin-top:1rem;">Sequenced after the quote tool proves out (Zak's direction). The architecture is settled and the work is scoped — it's gated on decisions, not discovery. Detail in the Reference card below.</p>
 
-        <!-- Sequencing note -->
-        <div style="background:var(--blue-light);border:1.5px solid var(--blue);border-radius:8px;padding:.85rem 1.1rem;margin-top:1rem;font-size:.82rem;color:var(--gray-700);">
-          <strong style="color:var(--blue);">🧭 Where this stands:</strong> Phase 2 is <strong>intentionally sequenced after the first build</strong> — per Zak's own direction, prove value with the quote tool first, then clean and stabilize the CRM. Prep is done (the Platform dedup audits below). Active cleanup starts once the lookup wizard is moving and Zak answers the four import questions. <strong>Line of sight is clear: the work is scoped and ready — it's gated on decisions, not discovery.</strong>
-        </div>
-
-        <!-- First-build preview: the quote tool this phase is sequenced behind -->
-        <div style="background:var(--green-light);border:1.5px solid var(--green);border-radius:8px;padding:1rem 1.25rem;margin-top:1rem;">
-          <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#1e7e45;margin-bottom:.35rem;">🎯 The first build is live in preview — try it</div>
-          <div style="font-size:.85rem;color:var(--gray-700);">
-            The <strong>profiled-waste item-code finder</strong> — the first build this phase is sequenced behind — now has a working v1.
-            Describe a waste stream and it narrows ~760 item codes to a shortlist, with the cheaper facility options and the reasoning.
-            Measured against 889 real profiles: the right code is in the top-3 shortlist <strong>72%</strong> of the time.
-          </div>
-          <div style="margin-top:.85rem;display:flex;gap:.6rem;flex-wrap:wrap;">
-            <a href="quote-tool/demo/" style="background:var(--red);color:#fff;border-radius:8px;padding:.55rem 1.15rem;font-size:.82rem;font-weight:600;text-decoration:none;">▶ Try the live demo</a>
-            <a href="quote-tool/RedArc_Quote_Tool_v1_Guide.pdf" style="background:#fff;color:var(--gray-900);border:1.5px solid var(--gray-300);border-radius:8px;padding:.55rem 1.15rem;font-size:.82rem;font-weight:600;text-decoration:none;">📄 Companion guide (PDF)</a>
-          </div>
-          <div style="font-size:.72rem;color:var(--gray-500);margin-top:.55rem;">De-identified demo · relative price bands, not real rates · v1 proof of concept, not production quoting yet.</div>
-        </div>
-
-        <!-- Key finding callout -->
-        <div style="background:#fff8e1;border:1.5px solid #f39c12;border-radius:8px;padding:.85rem 1.1rem;margin-top:1rem;font-size:.82rem;color:var(--gray-700);">
-          <strong style="color:#b7770d;">⚑ Import design note:</strong> The CRM has zero records — all data lives in Platform. The Phase 1 dedup audit (see above) identified 8 duplicate pairs in Platform before any import happens. When data moves into CRM, <code>Platform_Generator_ID</code> and <code>Platform_Record_ID</code> must be used as the match keys — if a Platform ID already exists in CRM, it's an update, not a new record. The architecture that governs this is settled (see below).
-        </div>
-
-        <!-- Architecture — settled on the June 11 call -->
-        <div style="margin-top:1.25rem;">
-          <div onclick="toggleFindings('phase2-architecture')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
-            <span class="section-title" style="margin:0;">Architecture — Settled on the June 11 Call</span>
-            <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">decided</span>
-            <span id="phase2-architecture-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
-          </div>
-          <div id="phase2-architecture" style="display:none;">
-            <div style="background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--green);">
-              The questions that used to gate Phase 2 were answered on the June 11 call. The model is decided — what's left is execution, sequenced after the first build. No decisions pending from Zak here.
-            </div>
-            <div class="findings-grid" style="margin-top:0;">
-              <div class="finding-card info">
-                <h4>✅ Hybrid model — CRM + Platform, split by domain</h4>
-                Zak's words: CRM is the system of record for <strong>accounts &amp; contacts</strong>; Platform for <strong>generators, item codes, and estimates/ops</strong>. All live data currently sits in Platform only because CRM was never populated — that's the gap Phase 2 closes, not an open question.
-              </div>
-              <div class="finding-card info">
-                <h4>✅ Sync direction — create in place, flow outward</h4>
-                Not a one-time bulk dump. Zak is building <strong>Zoho Flows</strong> so an account created in CRM propagates to Platform, while generators are created in Platform (EPA "Gnosis" pull). CRM = entry point for client data; Platform = entry point for operational data.
-              </div>
-              <div class="finding-card info">
-                <h4>✅ No hidden write-back to guard against</h4>
-                The CRM↔Platform sync <em>is</em> the Flow logic Zak is actively building himself (and wants help with). An import won't collide with a mystery integration — we coordinate with Zak's flows rather than work around them.
-              </div>
-              <div class="finding-card info">
-                <h4>↪ One minor leftover — low priority</h4>
-                The duplicate CRM modules (Sales Orders / POs / Invoices ×2; two Generators×Contacts tables) weren't covered on the call, but are likely <strong>moot</strong> under the hybrid model (invoices/estimates live in Platform). We'll surface the "which to keep" call in context only if CRM cleanup ever touches those modules.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tasks -->
-        <div style="margin-top:1.25rem;"><div class="section-title">Tasks (queued — execution starts after the first build)</div></div>
+        <div style="margin-top:1.25rem;"><div class="section-title">Tasks (queued)</div></div>
         <ul class="task-list">
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Design Platform → CRM import with built-in dedup</strong><div class="task-note">Using <code>Platform_Generator_ID</code> and <code>Platform_Record_ID</code> as sync keys — match on ID first, fall back to name+address. No record created without a Platform ID anchor. Review every unmatched record with Zak before committing.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'surface-duplicate-contacts-accounts')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Design Platform → CRM import with built-in dedup</strong><div class="task-note">Match on <code>Platform_Generator_ID</code> / <code>Platform_Record_ID</code> first, fall back to name+address. No record created without a Platform ID anchor. Review every unmatched record with Zak before committing.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'surface-duplicate-contacts-accounts')">💬 Comment</button><div class="task-comments-area"></div></div></li>
           <li><span class="task-icon">🔲</span><div class="task-text"><strong>Add Generator lookup to Quotes</strong><div class="task-note">One custom field to close the Quote ↔ Generator gap. Needs Zak's approval before changing CRM structure.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'add-generator-lookup-to-quotes')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Rebuild Carrier picklist with real hazmat carriers</strong><div class="task-note">Replace FedEx/UPS/DHL with RedArc's actual carrier list (to be confirmed in Platform walkthrough).</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'rebuild-carrier-picklist')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Resolve duplicate CRM modules</strong><div class="task-note">Once we know which versions to keep — archive or remove the redundant Sales Orders, POs, Invoices, and Generators×Contacts modules.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'clarify-duplicate-module-situation')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">⏸️</span><div class="task-text"><strong>Fix Zoho Desk / Generators module access gap — on hold</strong><div class="task-note">Deprioritized on the June 11 call: Desk's intended job (the job-setup Kanban — profile creation → price review → ready to schedule) is being built natively in Platform "planning mode." If that lands, Desk may not be needed at all. No work here until Zak confirms Desk is still wanted.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'fix-zoho-desk-custom-module-access-gap')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Rebuild Carrier picklist with real hazmat carriers</strong><div class="task-note">Replace FedEx/UPS/DHL with RedArc's actual carrier list.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'rebuild-carrier-picklist')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">⏸️</span><div class="task-text"><strong>Fix Zoho Desk / Generators access — on hold</strong><div class="task-note">Deprioritized June 11: Desk's job (the job-setup Kanban) is being built natively in Platform "planning mode." No work here until Zak confirms Desk is still wanted.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'fix-zoho-desk-custom-module-access-gap')">💬 Comment</button><div class="task-comments-area"></div></div></li>
         </ul>
-      </div>
-    </div>
-
-    <!-- Phase 3 -->
-    <div class="phase-card" id="phase3">
-      <div class="phase-header" onclick="togglePhase('phase3')">
-        <div class="phase-num active">3</div>
-        <span class="phase-chevron">▶</span>
-        <div class="phase-title-wrap">
-          <div class="phase-title">Phase 3 — Build the Quote Tool</div>
-          <div class="phase-subtitle">Zak gets time back; double-entry is eliminated</div>
-        </div>
-        <span class="phase-status-badge badge-active">Active · Next Build</span>
-      </div>
-      <div class="phase-body">
-
-        <!-- First build callout -->
-        <div style="background:var(--blue-light);border:1.5px solid var(--blue);border-radius:8px;padding:.85rem 1.1rem;margin-top:1rem;font-size:.82rem;color:var(--gray-700);">
-          <strong style="color:var(--blue);">🎯 First build target (locked June 11):</strong> a <strong>profiled-waste item-code lookup wizard</strong>. Lab packs are <em>already solved</em> by Zak's existing Claude skill. The real gap is non-lab-pack profiled waste, where the salesperson scrolls ~760 codes by hand. A Q&amp;A / keyword wizard that narrows to the right code — built in Claude, outside Zoho — is the highest-value, best-scoped first deliverable and the first step toward independence from Platform.
-        </div>
-
-        <ul class="task-list" style="margin-top:1.25rem;">
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Build the profiled-waste item-code lookup wizard</strong><div class="task-note">Join the master pricing workbook + 890 waste profiles + the Clean Earth ↔ Red Arc code mapping into one clean catalog. Wizard narrows waste characteristics → candidate item codes → all-in price, applying the layered routing logic. Validate against the HTML prototype's known gaps.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'profiled-waste-lookup-wizard')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Encode the routing decision tree</strong><div class="task-note">From the June 11 call + Operational Color notes: all-in cost → facility acceptance criteria → backup facility per stream → approvals conservatism. Worked examples are derivable from the 890 real profiles (each already shows its actual destination + approval code); the only piece no file holds — how conservative each facility's approvals desk is — gets captured incrementally as Zak reviews build outputs.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'document-routing-rules-item-codes')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Extend lab-pack skill output into full quote assembly</strong><div class="task-note">Lab pack sorter already outputs item codes per container. Add transport + labor + line-item assembly to produce a draft quote matching Platform's Estimate structure (see Estimate #229 recon below).</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'claude-powered-quote-generation')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Run in parallel with Platform</strong><div class="task-note">Same inputs, compare outputs. Nothing switches off until Zak explicitly approves the handoff.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'run-parallel-with-larrys-app')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-        </ul>
-        <!-- Estimate Structure Recon -->
-        <div style="margin-top:1.5rem;background:#F0F4F8;border-radius:8px;padding:1rem 1.2rem;border-left:3px solid var(--blue);">
-          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:.5rem;">✅ Pre-Call Recon Complete — Estimate Structure Documented</div>
-          <div style="font-size:.82rem;color:var(--gray-700);line-height:1.6;">
-            Pulled real Estimate #229 (Lab Pack, Shield Medical Waste, $16,739) from Platform on June 10. Full field inventory documented — header, line items, boilerplate, vendor structure, margin math. We're not seeing the quote object cold in the Zak walkthrough.
-          </div>
-          <div style="margin-top:.75rem;font-size:.78rem;color:var(--gray-700);">
-            <strong>Key findings:</strong>
-            <ul style="margin:.4rem 0 0 1.2rem;line-height:1.7;">
-              <li><strong>Two-level object:</strong> Header (account/generator/totals) + line items (one per waste stream). 26 lines on a complex lab pack.</li>
-              <li><strong>Three vendor types per estimate:</strong> RedArc (labor + transport) · TSDF like CRS (incineration, fuel blend, treatment) · Questar (supplies)</li>
-              <li><strong>Item code is the atomic unit.</strong> Format: <code>PREFIX##-VENDOR</code> — encodes disposal route + chemical class + vendor. Same code can appear multiple times with different Notes (compatibility groups).</li>
-              <li><strong>Notes field distinguishes waste streams within the same code</strong> — "Flammable/Toxic" vs. "Flammable/Corrosive" on INC14-AVA. Separate containers, same route.</li>
-              <li><strong>Labor drives GP:</strong> 60 hrs of chemist labor = $3,360 GP ≈ 50% of total margin. 40.3% overall GM on this estimate.</li>
-              <li><strong>Boilerplate is static</strong> — same T&amp;C paragraph on every quote, stored in Pre_Line_Item_Content field.</li>
-              <li><strong>~760 item codes in Platform</strong> — quote tool needs search/filter, not a full list.</li>
-            </ul>
-          </div>
-          <div style="margin-top:.75rem;">
-            <a href="https://github.com/bkaufmantx/redarcenv/raw/main/assets/RedArc_Estimate_Structure_Reference.md"
-               download="RedArc_Estimate_Structure_Reference.md"
-               style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gray-900);color:white;border-radius:8px;padding:.5rem 1rem;font-size:.78rem;font-weight:600;text-decoration:none;">
-              ⬇ Download Estimate Structure Reference (.md)
-            </a>
-            <span style="display:inline-block;margin-left:.75rem;font-size:.72rem;color:var(--gray-500);">41 header fields · 20 line item fields · full Estimate #229 with 26 real line items</span>
-          </div>
-        </div>
-
-        <div class="findings-grid" style="margin-top: 1rem">
-          <div class="finding-card info">
-            <h4>Pricing driver confirmed</h4>
-            <code>Default_Account_Pricing_Level</code> on Accounts = A/B/C = 30/38/45% gross margin on disposal + transport + fees.
-          </div>
-          <div class="finding-card info">
-            <h4>Margin math is clear</h4>
-            Customer price = vendor cost ÷ (1 − margin). e.g., NON01 55G at $45.10 vendor cost → A tier customer price = $45.10 ÷ 0.70 = $64.43.
-          </div>
-          <div class="finding-card info">
-            <h4>Generator fields quote-ready</h4>
-            EPA ID, Generator Type, Category, and all three contact roles on Generators are in place and will feed quote generation logic.
-          </div>
-        </div>
       </div>
     </div>
 
   </div><!-- /phases -->
 
+  <!-- ── PERSISTENT REFERENCE — AUDITS & SYSTEM FINDINGS ── -->
+  <div class="section-title">Reference (persistent)</div>
+  <div class="phase-card">
+    <div class="phase-header" onclick="toggleFindings('audit-ref')">
+      <div class="phase-num pending" style="font-size:1.05rem;">📋</div>
+      <span class="phase-chevron" id="audit-ref-chevron">▶</span>
+      <div class="phase-title-wrap">
+        <div class="phase-title">Audits &amp; System Reference</div>
+        <div class="phase-subtitle">Platform dedup audits, CRM/Platform findings, and the pricing &amp; routing model — kept here for reference</div>
+      </div>
+      <span class="phase-status-badge badge-pending">reference</span>
+    </div>
+    <div id="audit-ref" style="display:none;padding:1.25rem 1.75rem 1.5rem;border-top:1px solid var(--gray-200);">
+
+      <!-- Pricing & Routing model + files (June 11) -->
+      <div>
+        <div class="findings-toggle" onclick="toggleFindings('ref-june11')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+          <span class="section-title" style="margin:0;">Pricing &amp; Routing Model + Data Drop (June 11)</span>
+          <span style="background:var(--blue-light);color:var(--blue);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">the foundation</span>
+          <span id="ref-june11-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+        </div>
+        <div id="ref-june11" style="display:none;">
+          <div class="findings-grid" style="margin-top:0;">
+            <div class="finding-card info"><h4>Facility-suffixed item codes</h4>Format <code>PREFIX##-FAC</code> (e.g. <code>EFW01-AVA</code>). The suffix exists because Zak <strong>bundles transport into the disposal price</strong> (no itemized freight or fuel surcharge), so all-in cost is intrinsically facility-specific.</div>
+            <div class="finding-card info"><h4>Routing is layered</h4>(1) all-in cost = disposal + EIS fees + transport/route density → (2) facility acceptance criteria (e.g. US Ecology Tulsa's 500ppm VOC limit) → (3) backup facility per stream (Tradebe backs up Avalon) → (4) approvals-dept conservatism (tribal knowledge).</div>
+            <div class="finding-card info"><h4>Rate-selection priority</h4>profile-specific &gt; account-specific &gt; tier-sheet default (B-tier, 55-gal) &gt; item-code default. A/B/C tiers = 30/38/45% margin, with per-container-size breakouts.</div>
+            <div class="finding-card info"><h4>CRM is genuinely empty — confirmed</h4>0 records across all core modules. The real data lives in Platform, not CRM. The "cluttered HubSpot pipeline" Zak sees is in Platform.</div>
+          </div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin:1.25rem 0 .5rem;">📦 Files Received (<code>Info from Zak June 11/</code>)</div>
+          <table class="audit-table">
+            <thead><tr><th>File</th><th>What it is</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Red Arc Master Item Code Pricing Workbook.xlsx</strong> <span class="badge-ok">key</span></td><td>The entire pricing brain — calc chain (disposal → EIS → LTL → FSC → margin), A/B/C tiers, facility lookup, LTL rates, legacy-code reconciliation, raw rates for all 9 facilities.</td></tr>
+              <tr><td><strong>All Profiles.xlsx</strong> <span class="badge-ok">key</span></td><td>890 real waste-stream profiles — generator, destination facility, approval code, hazard classes. Prime fuel for the lookup wizard.</td></tr>
+              <tr><td>All Items (8).xlsx</td><td>~760 item codes — code, description, type, legacy code, billing method, default price/vendor.</td></tr>
+              <tr><td>All Vendor Pricing (3).xlsx</td><td>219 account/profile-specific negotiated rates.</td></tr>
+              <tr><td>lab-pack-sorter.skill</td><td>Zak's working Claude skill — inventory → categorized containers w/ Red Arc + Clean Earth codes, anti-hallucination SDS gate.</td></tr>
+              <tr><td>red_arc_routing_cheat_sheet_v2.html</td><td>His first-attempt waste-type → item-code lookup prototype.</td></tr>
+              <tr><td>Operational Color.docx</td><td>Routing tribal knowledge + several corrections (the approvals-conservatism layer in writing).</td></tr>
+              <tr><td>Self Pack &amp; Broker Guidelines 2024.pdf</td><td>Clean Earth broker guide — the reference the lab pack skill routes against.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CRM Audit Findings -->
+      <div style="margin-top:1.5rem;">
+        <div class="findings-toggle" onclick="toggleFindings('findings-crm')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+          <span class="section-title" style="margin:0;">CRM Audit Findings</span>
+          <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
+            <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">5 good</span>
+            <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">4 flagged</span>
+          </span>
+          <span id="findings-crm-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+        </div>
+        <div id="findings-crm" style="display:none;">
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:.5rem;">✅ Good</div>
+          <div class="findings-grid" style="margin-top:0;">
+            <div class="finding-card good"><h4>Generators module is solid</h4>22 custom fields — EPA ID, site + mailing addresses, Generator Type (multi-select), three named contact roles (EHS, Scheduling, Emergency), regulatory IDs. Ready to use.</div>
+            <div class="finding-card good"><h4>Pricing tier field exists</h4><code>Default_Account_Pricing_Level</code> on Accounts. Confirmed = A/B/C = 30/38/45% gross margin. Primary pricing driver for the quote tool.</div>
+            <div class="finding-card good"><h4>Platform sync IDs in place</h4><code>Platform_Generator_ID</code> on Generators and <code>Platform_Record_ID</code> on Accounts. The bridge between Zoho and Platform is already stubbed — needs to be activated.</div>
+            <div class="finding-card good"><h4>Data model is correct</h4>Generator → Account lookup exists. Generators × Contacts linking tables exist. The relational structure is sound.</div>
+            <div class="finding-card good"><h4>Market / industry field exists</h4>16+ industry verticals on Accounts (pharma, healthcare, manufacturing, oil &amp; gas, etc.). Will drive item code selection logic in the quote tool.</div>
+          </div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin:1.25rem 0 .5rem;">⚑ Flagged — needs attention</div>
+          <div class="findings-grid" style="margin-top:0;">
+            <div class="finding-card flag"><h4>Quotes have no Generator link</h4>Confirmed gap. Quotes connect to Accounts + Contacts but not to individual generator sites. One custom lookup field needs to be added to Quotes in Phase 2.</div>
+            <div class="finding-card flag"><h4>Carrier picklist has wrong values</h4>Shows FedEx, UPS, USPS, DHL, BlueDart — consumer shippers. RedArc uses hazmat carriers. Needs to be rebuilt once Zak provides the real carrier list.</div>
+            <div class="finding-card flag"><h4>Duplicate modules</h4>Sales Orders, Purchase Orders, and Invoices each exist twice (native CRM + Books-synced versions). Two Generators × Contacts linking tables. Needs cleanup decision from Zak.</div>
+            <div class="finding-card flag"><h4>"Generator" text field on Accounts</h4>Plain text, not a lookup. Data integrity risk — free-form text can diverge from actual Generator records. Should be removed or replaced with the proper linking table.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform Audit Findings -->
+      <div style="margin-top:1.5rem;">
+        <div class="findings-toggle" onclick="toggleFindings('findings-platform')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+          <span class="section-title" style="margin:0;">Platform Audit Findings</span>
+          <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
+            <span style="background:var(--blue-light);color:var(--blue);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">4 info</span>
+          </span>
+          <span id="findings-platform-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+        </div>
+        <div id="findings-platform" style="display:none;">
+          <div class="findings-grid" style="margin-top:0;">
+            <div class="finding-card info"><h4>Profile = core quoting object</h4>A Profile ties one waste stream to one generator site and one disposal destination. Each Profile has vendor pricing per item code per container size (30G / 55G / 275G / 330G).</div>
+            <div class="finding-card info"><h4>760 item codes in 20+ categories</h4>Categories include ADM (admin/fees), ALT (alternate fuels), NON (non-hazardous), and many more. Each code has type (Disposal vs. Fees &amp; Surcharges), unit, and pricing.</div>
+            <div class="finding-card info"><h4>Vendor vs. customer pricing split</h4>Platform stores both what RedArc pays the disposal vendor AND what RedArc charges the customer — per item code per container size. Margin tiers (A/B/C) are applied at the customer pricing layer.</div>
+            <div class="finding-card info"><h4>Strategic decision pending</h4>Zak flagged the core tension: lean on Platform long-term, or build internal systems? His instinct is internal — CRM as the intelligence layer, Platform for operations.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform Account Dedup Audit -->
+      <div style="margin-top:1.5rem;">
+        <div onclick="toggleFindings('findings-dedup')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+          <span class="section-title" style="margin:0;">Platform Account Dedup Audit — June 10, 2026</span>
+          <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
+            <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">558 total accounts</span>
+            <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">8 duplicate pairs</span>
+          </span>
+          <span id="findings-dedup-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+        </div>
+        <div id="findings-dedup" style="display:none;">
+          <div style="background:var(--blue-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--blue);">
+            Read-only audit run against Platform (Zoho Creator) via API — June 10, 2026. 558 accounts pulled across all pages. No records were changed. Two duplicate patterns identified: recent entry errors (data entry double-clicks) and legacy migration double-imports.
+          </div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;">⚑ Category 1 — Recent Entry Errors (3 pairs, May 2026)</div>
+          <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Two records created within seconds/minutes of each other — one has the data, the other is a shell. Safe to delete the shell after Zak confirms.</div>
+          <table class="audit-table" style="margin-bottom:1.25rem;">
+            <thead><tr><th>Account Name</th><th>Keep (ID)</th><th>Delete (ID)</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td><strong>EXOS Aerospace Systems &amp; Technologies</strong></td><td><code>2232</code> — has address, Prospect - Open, Kristin Green</td><td><code>2233</code> — no address, no stage, created 29 sec later</td><td>Double-click on form submit</td></tr>
+              <tr><td><strong>Mann Made</strong></td><td><code>2231</code> — has address (Wylie, TX), Prospect - Open</td><td><code>2230</code> — no address, no stage, created 20 sec earlier</td><td>Double-click on form submit</td></tr>
+              <tr><td><strong>Floyd Peacock Company Inc.</strong></td><td><code>2226</code> — Customer stage (more complete)</td><td><code>2220</code> — Prospect, created 11 days earlier, no address on either</td><td>Re-entered when stage changed; needs Zak to confirm before delete</td></tr>
+            </tbody>
+          </table>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;">⚑ Category 2 — Legacy Migration Double-Import (5 pairs, Aug–Sep 2025)</div>
+          <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Platform data was migrated from the legacy system in at least two batches: Aug 18, 2025 and Sep 15, 2025. Five companies were imported in both batches. The Sep 15 records have different Legacy IDs but the same company name/address.</div>
+          <table class="audit-table">
+            <thead><tr><th>Account Name</th><th>Aug 18 Import (ID)</th><th>Sep 15 Import (ID)</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Texas Air Systems</strong></td><td><code>1781</code> — Customer, has address (Irving TX), Legacy 27724</td><td><code>2188</code> — Prospect - Open, no address, no legacy ID</td><td>Stage conflict: older record is Customer, newer is Prospect — needs Zak</td></tr>
+              <tr><td><strong>ABF Freight System</strong></td><td><code>1878</code> — no address, no stage, legacy import shell</td><td><code>2150</code> — Customer, has address (Fort Smith AR)</td><td>Keep 2150 (more complete). Likely a vendor/carrier.</td></tr>
+              <tr><td><strong>Metroplex Clinical Research Center</strong></td><td><code>1761</code> — same address, Legacy 26348</td><td><code>2119</code> — same address (8144 Walnut Hill Ln, Dallas), Legacy 26427</td><td>Exact same address — clearest true duplicate in the set</td></tr>
+              <tr><td><strong>Texas Shred</strong></td><td><code>1759</code> — Vendor type, same address, Legacy 26251</td><td><code>2118</code> — no type, same address (Richardson TX), Legacy 26252</td><td>One flagged as Vendor. May be intentional — confirm with Zak.</td></tr>
+              <tr><td><strong>Texas Pain Physicians Corporate</strong></td><td><code>1692</code> — Customer, McEwen Rd Farmers Branch, Legacy 22583</td><td><code>2117</code> — no stage, LBJ Freeway Dallas, Legacy 22628</td><td>Different addresses — may be two locations, not a duplicate. Flag for Zak.</td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top:1rem;background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);border-left:3px solid var(--green);">
+            <strong>✅ 542 accounts look clean</strong> — no duplicate name matches.
+          </div>
+          <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+            <a href="https://github.com/bkaufmantx/redarcenv/raw/main/assets/redarc_platform_account_dedup_audit_2026-06-10.xlsx" download="redarc_platform_account_dedup_audit_2026-06-10.xlsx" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gray-900);color:white;border-radius:8px;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;text-decoration:none;">⬇ Download Audit Workbook (.xlsx)</a>
+            <span style="font-size:.75rem;color:var(--gray-500);">3 tabs: Summary · Duplicate Pairs · All 558 Accounts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform Contacts Dedup Audit -->
+      <div style="margin-top:1.5rem;">
+        <div onclick="toggleFindings('findings-contacts-dedup')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+          <span class="section-title" style="margin:0;">Platform Contacts Dedup Audit — June 10, 2026</span>
+          <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
+            <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">280 total contacts</span>
+            <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">~32 duplicate rows</span>
+          </span>
+          <span id="findings-contacts-dedup-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+        </div>
+        <div id="findings-contacts-dedup" style="display:none;">
+          <div style="background:var(--blue-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--blue);">
+            Read-only audit against Platform All Contacts report via API — June 10, 2026. 280 contacts pulled across all pages. No records were changed. Three duplicate patterns identified across name matches and email matches.
+          </div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;">⚑ Pattern 1 — Aug 19 Import Shells (~8 pairs)</div>
+          <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Aug 18, 2025 was the main import. Aug 19, 2025 re-imported a batch of "shell" contacts — same name and email, but <strong>no account linked</strong>. Safe DELETEs. Examples: Lee Barnes, Issam Harmouch, Chris Louloudiadis, Cesar Varelas, Jonathan Jendral.</div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;margin-top:.75rem;">⚑ Pattern 2 — Same-Batch Name Duplicates (~6 pairs)</div>
+          <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Same name at the same company, different email/title. May be intentional (direct + AP email). Confirm before action. Examples: Preston Neumann, Brannan Medina, Kyle DeCoster, Tammy Carson, John Kayser.</div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b7770d;margin-bottom:.6rem;margin-top:.75rem;">⚑ Pattern 3 — Email Duplicates, Different Names (3 records)</div>
+          <table class="audit-table" style="margin-bottom:1.25rem;">
+            <thead><tr><th>Email</th><th>Name A</th><th>Name B</th><th>Account</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td><code>manuel.rodriguez@pisd.edu</code></td><td>Manuel Rodriguez</td><td>Manuel Rodriguez (variant)</td><td>PLANO ISD</td><td>CONFIRM</td></tr>
+              <tr><td><code>barrels@getoutlier.com</code></td><td>Ian Barnett</td><td>Brandon Petty</td><td>OUTLIER USA LLC</td><td>CONFIRM</td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+            <a href="https://github.com/bkaufmantx/redarcenv/raw/main/assets/redarc_platform_contacts_dedup_audit_2026-06-10.xlsx" download="redarc_platform_contacts_dedup_audit_2026-06-10.xlsx" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gray-900);color:white;border-radius:8px;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;text-decoration:none;">⬇ Download Contacts Audit Workbook (.xlsx)</a>
+            <span style="font-size:.75rem;color:var(--gray-500);">2 tabs: Summary · Contact Duplicates (32 rows, color-coded)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform Generators Dedup Audit -->
+      <div style="margin-top:1.5rem;">
+        <div onclick="toggleFindings('findings-gen-dedup')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+          <span class="section-title" style="margin:0;">Platform Generators Dedup Audit — June 10, 2026</span>
+          <span style="display:flex;gap:.35rem;align-items:center;margin-left:.25rem;">
+            <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">899 analyzed</span>
+            <span style="background:var(--red-muted);color:var(--red);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">6 duplicate pairs</span>
+            <span style="background:#FEF9E7;color:#8B6914;font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">~173 missing EPA IDs</span>
+          </span>
+          <span id="findings-gen-dedup-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+        </div>
+        <div id="findings-gen-dedup" style="display:none;">
+          <div style="background:var(--blue-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--blue);">
+            Read-only audit against Platform All_Generators report via API — June 10, 2026. 899 generators analyzed. Three issue types: true duplicate sites, "DO NOT USE" records already flagged in Platform, and an EPA ID data quality problem.
+          </div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:.6rem;">⚑ DO NOT USE Records — already flagged (2 pairs)</div>
+          <table class="audit-table" style="margin-bottom:1.25rem;">
+            <thead><tr><th>Generator Name</th><th>EPA ID</th><th>Account</th><th>Date Added</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr style="background:var(--green-light)"><td><strong>DALDEN</strong></td><td><code>TXD982758252</code></td><td>DALDEN</td><td>10-13-2025</td><td><strong style="color:var(--green)">KEEP</strong></td></tr>
+              <tr style="background:var(--red-muted)"><td>DO NOT USE Dalden</td><td><code>TXD982758252</code></td><td><em>no account</em></td><td>10-16-2025</td><td><strong style="color:var(--red)">DELETE</strong></td></tr>
+              <tr style="background:var(--green-light)"><td><strong>GENESIS CUSTOM CHEMICAL BLENDING</strong></td><td><code>TXR000041780</code></td><td>Genesis Custom Chemical Blending</td><td>04-23-2026</td><td><strong style="color:var(--green)">KEEP</strong></td></tr>
+              <tr style="background:var(--red-muted)"><td>GENESIS CUSTOM CHEMICAL BLENDING - DO NOT USE</td><td><code>TXR000041780</code></td><td><em>no account</em></td><td>06-05-2026</td><td><strong style="color:var(--red)">DELETE</strong></td></tr>
+            </tbody>
+          </table>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:.6rem;margin-top:.75rem;">⚑ True Duplicate Sites — same address entered twice (4 pairs)</div>
+          <table class="audit-table" style="margin-bottom:1.25rem;">
+            <thead><tr><th>Generator Name</th><th>EPA ID</th><th>Address</th><th>Date Added</th><th>Action</th><th>Reason</th></tr></thead>
+            <tbody>
+              <tr style="background:var(--green-light)"><td><strong>INFORM DIAGNOSTICS</strong></td><td><code>TXR000080292</code></td><td>6655 N MacArthur Blvd, Irving TX</td><td>09-08-2025</td><td><strong style="color:var(--green)">KEEP</strong></td><td>Has address</td></tr>
+              <tr style="background:var(--red-muted)"><td>INFORM DIAGNOSTICS</td><td><code>TXR000080292</code></td><td><em>no address</em></td><td>09-15-2025</td><td><strong style="color:var(--red)">DELETE</strong></td><td>Re-entry 7 days later, no address</td></tr>
+              <tr style="background:var(--green-light)"><td><strong>DLT POWER</strong></td><td><code>TXR000086372</code></td><td>629 N 5th St, Garland TX</td><td>08-19-2025</td><td><strong style="color:var(--green)">KEEP</strong></td><td>Has real EPA ID</td></tr>
+              <tr style="background:var(--red-muted)"><td>DLT POWER</td><td><em>no EPA</em></td><td>629 N 5th Street, Garland TX</td><td>09-08-2025</td><td><strong style="color:var(--red)">DELETE</strong></td><td>Re-entry batch, missing EPA</td></tr>
+              <tr style="background:var(--green-light)"><td><strong>CONTINENTAL BATTERY SYSTEMS OF HOUSTON</strong></td><td><code>TXP490356659</code></td><td>4721 World Houston Pkwy, Houston TX</td><td>08-19-2025</td><td><strong style="color:var(--green)">KEEP</strong></td><td>Real EPA ID</td></tr>
+              <tr style="background:var(--red-muted)"><td>CONTINENTAL BATTERY SYSTEMS OF HOUSTON</td><td><code>TXVSQG</code> (placeholder)</td><td>4721 World Houston Pkwy, Houston TX</td><td>08-19-2025</td><td><strong style="color:var(--red)">DELETE</strong></td><td>Created 2 min later, placeholder EPA</td></tr>
+            </tbody>
+          </table>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8B6914;margin-bottom:.6rem;margin-top:.75rem;">⚑ EPA ID Data Quality — ~173 generators missing real EPA IDs</div>
+          <div style="font-size:.78rem;color:var(--gray-700);margin-bottom:.75rem;">Generator classification codes (TXVSQG, etc.) used <em>in place of</em> real EPA IDs — placeholders from the import. Affects ~19% of records; fixable during import to CRM via EPA's ECHO lookup.</div>
+          <div style="margin-top:1rem;background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);border-left:3px solid var(--green);">
+            <strong>✅ ~880 generator sites look structurally clean</strong> — no name or address collision. No records were changed during this audit.
+          </div>
+          <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+            <a href="https://github.com/bkaufmantx/redarcenv/raw/main/assets/redarc_platform_generators_dedup_audit_2026-06-10.xlsx" download="redarc_platform_generators_dedup_audit_2026-06-10.xlsx" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gray-900);color:white;border-radius:8px;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;text-decoration:none;">⬇ Download Generators Audit Workbook (.xlsx)</a>
+            <span style="font-size:.75rem;color:var(--gray-500);">2 tabs: Summary · Generator Duplicates</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estimate structure recon -->
+      <div style="margin-top:1.5rem;">
+        <div onclick="toggleFindings('ref-estimate')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+          <span class="section-title" style="margin:0;">Platform Estimate Structure — Recon</span>
+          <span style="background:var(--blue-light);color:var(--blue);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">quote-tool target</span>
+          <span id="ref-estimate-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+        </div>
+        <div id="ref-estimate" style="display:none;font-size:.82rem;color:var(--gray-700);">
+          <p>Pulled real Estimate #229 (Lab Pack, $16,739) from Platform — the structure the quote tool's output must match:</p>
+          <ul style="margin:.5rem 0 0 1.2rem;line-height:1.7;">
+            <li><strong>Two-level object:</strong> header (account/generator/totals) + line items (one per waste stream). 26 lines on a complex lab pack.</li>
+            <li><strong>Three vendor types:</strong> RedArc (labor + transport) · TSDF (incineration, fuel blend, treatment) · Questar (supplies).</li>
+            <li><strong>Item code is the atomic unit</strong> (<code>PREFIX##-VENDOR</code>); same code repeats with different Notes for compatibility groups.</li>
+            <li><strong>Labor drives GP:</strong> 60 hrs chemist labor ≈ 50% of margin; 40.3% overall GM on that estimate.</li>
+          </ul>
+          <div style="margin-top:.75rem;">
+            <a href="https://github.com/bkaufmantx/redarcenv/raw/main/assets/RedArc_Estimate_Structure_Reference.md" download="RedArc_Estimate_Structure_Reference.md" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gray-900);color:white;border-radius:8px;padding:.5rem 1rem;font-size:.78rem;font-weight:600;text-decoration:none;">⬇ Estimate Structure Reference (.md)</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- ── ARCHIVE ── -->
   <div class="archive-toggle" onclick="toggleArchive()">
     <span style="font-size:1rem;">🗂</span>
-    <span class="archive-label">Archive — Resolved Questions &amp; Completed Items</span>
-    <span class="archive-count">12 items</span>
+    <span class="archive-label">Archive — Completed Phases &amp; Resolved Questions</span>
+    <span class="archive-count">13 items</span>
     <span class="archive-chevron" id="archive-chevron">▶</span>
   </div>
   <div class="archive-body" id="archive-body">
 
-    <p style="font-size:.8rem;color:var(--gray-500);margin-bottom:1.25rem;">These items are resolved — Zak answered, Brian acted, or the task is complete. Kept here for reference.</p>
+    <p style="font-size:.8rem;color:var(--gray-500);margin-bottom:1.25rem;">Completed work and resolved questions — kept for reference.</p>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">~6 Platform screenshots from the June 11 call</span>
-        <span class="archive-date">Resolved June 12, 2026</span>
-      </div>
-      <div class="archive-a">No longer needed from Zak. Brian built a Video Screenshot Tool and mined the recorded call directly: captured the item-code A/B/C tier + container sub-table (27:50), a built estimate (21:40), the vendor item-pricing report (29:55), and the item-code search grid (25:52). The two not on screen (an account's tier-sheet assignment UI; a profile detail page) aren't needed — we're not cloning Platform's UI, the profile data is already in <code>All Profiles.xlsx</code>, and account→tier is a future one-column export, not a screenshot.</div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">🏁</span><span class="archive-q">Phase 1 — Access &amp; Orientation (Complete)</span><span class="archive-date">Archived June 12, 2026</span></div>
+      <div class="archive-a">All of Phase 1 is done: MCP connectors live, 61 CRM modules + key field inventories catalogued, Platform structure explored, the June 11 quote/routing walkthrough recorded, and Zak's full data drop received and mined. The detailed CRM/Platform audits and the pricing/routing model live in the <strong>Audits &amp; System Reference</strong> card above (persistent).</div>
     </div>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">1–2 worked routing examples (e.g. spent acid → item code)</span>
-        <span class="archive-date">Resolved June 12, 2026</span>
-      </div>
-      <div class="archive-a">Derivable — no homework needed. <code>All Profiles.xlsx</code> holds 890 real worked outcomes (e.g. <em>31% Hydrochloric Acid → US Ecology Tulsa → HAZ01, approval D265823TUL</em>). The "why" at each fork is reconstructable from the cost workbook + acceptance criteria + Operational Color notes; only the tacit approvals-conservatism forks get confirmed with Zak during the build.</div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">~6 Platform screenshots from the June 11 call</span><span class="archive-date">Resolved June 12, 2026</span></div>
+      <div class="archive-a">No longer needed from Zak. Brian built a Video Screenshot Tool and mined the recorded call directly: captured the item-code A/B/C tier + container sub-table, a built estimate, the vendor item-pricing report, and the item-code search grid. The two not on screen (account tier-sheet UI; profile detail page) aren't needed — we're not cloning Platform's UI, profile data is in <code>All Profiles.xlsx</code>, and account→tier is a future one-column export.</div>
     </div>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">Confirm the HTML prototype-gap list</span>
-        <span class="archive-date">Resolved June 12, 2026</span>
-      </div>
-      <div class="archive-a">Derivable — Brian can audit the HTML cheat sheet against the 890 real profiles + master workbook and surface the gaps himself, then have Zak confirm rather than generate cold. <code>Operational Color.docx</code> already contains several of the corrections.</div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">1–2 worked routing examples (e.g. spent acid → item code)</span><span class="archive-date">Resolved June 12, 2026</span></div>
+      <div class="archive-a">Derivable — no homework needed. <code>All Profiles.xlsx</code> holds 890 real worked outcomes (e.g. <em>31% Hydrochloric Acid → US Ecology Tulsa → HAZ01</em>). The "why" is reconstructable from the cost workbook + criteria + Operational Color; only the tacit approvals-conservatism forks get confirmed with Zak during the build.</div>
     </div>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">A real lab-pack skill output (.xlsx) to see the schema</span>
-        <span class="archive-date">Resolved June 12, 2026</span>
-      </div>
-      <div class="archive-a">Not needed — the lab-pack skill's <code>SKILL.md</code> fully specifies the output schema (tab convention, the Red Arc Item Code column mapped via <code>redarc-ce-code-mapping.csv</code>, the Verification Basis column). The skill itself is in hand and can be run to produce a sample.</div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">Confirm the HTML prototype-gap list</span><span class="archive-date">Resolved June 12, 2026</span></div>
+      <div class="archive-a">Derivable — Brian can audit the HTML cheat sheet against the 890 real profiles + master workbook and surface gaps, then have Zak confirm rather than generate cold. <code>Operational Color.docx</code> already holds several corrections.</div>
     </div>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">Item code tour + live quote walkthrough in Platform</span>
-        <span class="archive-date">Resolved June 11, 2026</span>
-      </div>
-      <div class="archive-a">Done on the recorded June 11 call. Zak walked through item code structure, the facility-suffix logic, the layered routing decision tree, and started a real lab-pack quote (McLennan Community College). Routing logic + pricing model now documented on the dashboard.</div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">A real lab-pack skill output (.xlsx) to see the schema</span><span class="archive-date">Resolved June 12, 2026</span></div>
+      <div class="archive-a">Not needed — the lab-pack skill's <code>SKILL.md</code> fully specifies the output schema (tab convention, Red Arc Item Code column via <code>redarc-ce-code-mapping.csv</code>, Verification Basis column). The skill itself can be run to produce a sample.</div>
     </div>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">Item code list + master pricing — can Zak export and share it?</span>
-        <span class="archive-date">Resolved June 11, 2026</span>
-      </div>
-      <div class="archive-a">Full data drop received June 11: master pricing workbook (calc chain + A/B/C tiers + facility lookup + raw rates for 9 facilities), ~760-code item export, 890 waste profiles, vendor pricing, the lab pack skill, the HTML routing prototype, and operational routing notes. Critical-path data is in hand — build work unblocked.</div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">Item code tour + live quote walkthrough in Platform</span><span class="archive-date">Resolved June 11, 2026</span></div>
+      <div class="archive-a">Done on the recorded June 11 call. Zak walked through item code structure, the facility-suffix logic, the layered routing decision tree, and started a real lab-pack quote (McLennan Community College).</div>
     </div>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">CRM Access — Brian needs admin visibility into Zak's records</span>
-        <span class="archive-date">Resolved June 5, 2026</span>
-      </div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">Item code list + master pricing — can Zak export and share it?</span><span class="archive-date">Resolved June 11, 2026</span></div>
+      <div class="archive-a">Full data drop received June 11: master pricing workbook, ~760-code item export, 890 waste profiles, vendor pricing, the lab pack skill, the HTML routing prototype, and operational routing notes. Build work unblocked.</div>
+    </div>
+
+    <div class="archive-item">
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">CRM Access — Brian needs admin visibility into Zak's records</span><span class="archive-date">Resolved June 5, 2026</span></div>
       <div class="archive-a">Zak added Brian as a CRM administrator. "I've actually got you added as admin. Certain things are 'invisible' otherwise." Full access confirmed.</div>
     </div>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">What do Pricing Levels A, B, C mean?</span>
-        <span class="archive-date">Answered June 9, 2026</span>
-      </div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">What do Pricing Levels A, B, C mean?</span><span class="archive-date">Answered June 9, 2026</span></div>
       <div class="archive-a">"These are price tiers. A tier is tied to a 30% gross margin on fees, transportation and disposal costs related to an item of containerized waste. B and C tier are 38% and 45% respectively."</div>
     </div>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">Who are your actual waste carriers?</span>
-        <span class="archive-date">Answered June 9, 2026</span>
-      </div>
-      <div class="archive-a">"These are in Platform. Realistically, we are transporter 1 for most waste. I can show you how it works once you are in Platform and I can give you a tour." — Carrier data is in Platform; Zak will walk Brian through it.</div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">Who are your actual waste carriers?</span><span class="archive-date">Answered June 9, 2026</span></div>
+      <div class="archive-a">"These are in Platform. Realistically, we are transporter 1 for most waste. I can show you how it works once you are in Platform and I can give you a tour." — Carrier data is in Platform.</div>
     </div>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">Can you share the item code list from Larry's Creator app?</span>
-        <span class="archive-date">Answered June 9, 2026</span>
-      </div>
-      <div class="archive-a">"The item code discussion is going to be a whole can of worms. Once I've shown you what's going on 'under the hood' in Platform I think my struggle with this will become a whole lot more clear. Fortunately, exporting these from Platform is easy." — 760 item codes now visible in Platform. Export pending Zak's walkthrough.</div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">Can you share the item code list from Larry's Creator app?</span><span class="archive-date">Answered June 9, 2026</span></div>
+      <div class="archive-a">"The item code discussion is going to be a whole can of worms... Fortunately, exporting these from Platform is easy." — 760 item codes received in the June 11 data drop.</div>
     </div>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">How do you currently tie a quote to a specific generator site?</span>
-        <span class="archive-date">Answered June 9, 2026</span>
-      </div>
-      <div class="archive-a">"Estimates are an object in Platform that is tied to an account and a generator. Right now we are not using Zoho for quotes, so I haven't added the 'Generator' custom module as a field for Quotes." — Confirmed gap. Adding Generator lookup to Quotes is now a Phase 2 task.</div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">How do you currently tie a quote to a specific generator site?</span><span class="archive-date">Answered June 9, 2026</span></div>
+      <div class="archive-a">"Estimates are an object in Platform that is tied to an account and a generator. Right now we are not using Zoho for quotes, so I haven't added the 'Generator' custom module as a field for Quotes." — Adding Generator lookup to Quotes is a Phase 2 task.</div>
     </div>
 
     <div class="archive-item">
-      <div class="archive-item-header">
-        <span style="font-size:.9rem;">✅</span>
-        <span class="archive-q">Can Brian get read-only access to Larry's Creator app (Platform)?</span>
-        <span class="archive-date">Resolved June 10, 2026</span>
-      </div>
-      <div class="archive-a">Access granted. Brian explored Platform live on June 10 — reviewed All Profiles (1,000+ records), Profile detail view, Pricing tab (vendor item pricing), and the full item code list (760 items). Full browser access confirmed via Claude Code integration.</div>
+      <div class="archive-item-header"><span style="font-size:.9rem;">✅</span><span class="archive-q">Can Brian get read-only access to Larry's Creator app (Platform)?</span><span class="archive-date">Resolved June 10, 2026</span></div>
+      <div class="archive-a">Access granted. Brian explored Platform live June 10 — All Profiles (1,000+ records), Profile detail, Pricing tab, and the full item code list (760 items).</div>
     </div>
 
   </div><!-- /archive-body -->
@@ -905,7 +618,7 @@
     const chevron = document.getElementById(id + '-chevron');
     const open = body.style.display !== 'none';
     body.style.display = open ? 'none' : 'block';
-    chevron.style.transform = open ? '' : 'rotate(90deg)';
+    if (chevron) chevron.style.transform = open ? '' : 'rotate(90deg)';
   }
 
   function toggleArchive() {
