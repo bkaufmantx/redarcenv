@@ -166,6 +166,7 @@
       <button class="addbtn" onclick="addLine('transport')">+ Transportation</button>
       <button class="addbtn" onclick="addLine('labor')">+ Labor</button>
       <button class="addbtn" onclick="addLine('supplies')">+ Supplies</button>
+      <button class="addbtn" onclick="toggleNotes()">Notes</button>
     </div>
     <table class="lines">
       <thead><tr>
@@ -176,6 +177,10 @@
       <tbody id="lines"></tbody>
     </table>
     <div class="empty" id="empty">No lines yet — click <strong>Add waste</strong> to find a code, or <strong>Lab-pack starter</strong>.</div>
+    <div id="notes-wrap" style="display:none;margin-top:1rem;">
+      <label style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);display:block;margin-bottom:.3rem;">Quote notes <span style="font-weight:400;text-transform:none;letter-spacing:0;">— appears on the client PDF, after the total</span></label>
+      <textarea id="quote-notes" placeholder="Free-form notes for the client (scope clarifications, scheduling, terms…)" style="width:100%;min-height:70px;font-family:var(--font);font-size:.85rem;border:1px solid var(--gray-300);border-radius:6px;padding:.5rem .6rem;resize:vertical;"></textarea>
+    </div>
   </div>
 
 <!-- TOTALS -->
@@ -295,9 +300,9 @@ function runFinder(){
   const cl={high:"✓ high",medium:"~ medium",low:"⚑ low — confirm with Zak"}[r.conf];
   let h=`<div class="rec ${r.conf}"><span class="conf ${r.conf}">${cl}</span><div class="rcode">${esc(r.top)}</div><div class="rdesc">${esc(r.desc)}</div>
     <div style="font-size:.74rem;color:var(--gray-500);margin-top:.3rem;">From ${r.support} similar real profiles · ${Math.round(r.share*100)}% agreement</div></div>`;
-  h+=`<div class="fsect">Pick a facility — cheapest first (click to add to quote)</div><table class="facs">`;
+  h+=`<div class="fsect">Pick a facility</div><table class="facs">`;
   r.variants.slice(0,5).forEach((v,i)=>{h+=`<tr><td><span class="code" style="font-family:monospace;font-weight:700;">${esc(v.code)}</span></td>
-    <td>${esc(v.fac)||"—"}</td><td><span class="band">${v.px!=null?('$'+Math.round(v.px).toLocaleString()):(v.band||"—")}</span>${i===0&&(v.px!=null||v.band)?' cheapest':''}</td><td>${v.uses}× billed</td>
+    <td>${esc(v.fac)||"—"}</td><td><span class="band">${v.px!=null?('$'+Math.round(v.px).toLocaleString()):(v.band||"—")}</span>${i===0&&(v.px!=null||v.band)?' cheapest':''}</td>
     <td style="text-align:right;"><button class="addfac" onclick="addFromFinder('${esc(v.code)}','${esc(v.fac)}','${v.band}')">Add →</button></td></tr>`;});
   h+=`</table>`;
   if(r.routing.length){h+=`<div class="fsect">Routing notes</div>`;r.routing.forEach(rr=>{const tag=rr.verify?' ⚑verify':(rr.no_code?' ⚠ no code':'');h+=`<div class="note"><b>Prefer ${esc(rr.preferred)}</b>${tag} — ${esc(rr.note)}</div>`;});}
@@ -334,6 +339,7 @@ const TAG={transport:"Transport",labor:"Labor",disposal:"Disposal",supplies:"Sup
 function addLine(type){const id=++seq;const def=DEFAULTS[type]||{};const e=def.code?BY_CODE[def.code]:null;lines.push({id,type,code:e?def.code:"",desc:e?e.description:"",vendor:(e&&e.facility)||"",qty:def.qty||1,price:e?(itemPrice(e)??0):0});renderAll();}
 function pickItem(id,code){const l=lines.find(x=>x.id===id);if(!l)return;l.code=code;const e=BY_CODE[code];if(e){l.desc=e.description;const p=itemPrice(e);if(p!=null)l.price=p;}renderAll();}
 function labPackStarter(){addLine("transport");addLine("labor");}
+function toggleNotes(){const w=document.getElementById("notes-wrap");const hidden=(w.style.display==="none"||!w.style.display);w.style.display=hidden?"block":"none";if(hidden)document.getElementById("quote-notes").focus();}
 function rmLine(id){lines=lines.filter(l=>l.id!==id);renderAll();}
 function renderAll(){const tb=document.getElementById("lines");document.getElementById("empty").style.display=lines.length?"none":"block";tb.innerHTML=lines.map(rowHTML).join("");recalc();}
 function rowHTML(l){
@@ -378,6 +384,7 @@ function exportQuote(){
   const d=new Date(), pad=n=>String(n).padStart(2,"0");
   const dateStr=d.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});
   const quoteNo="Q-"+d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+"-"+pad(d.getHours())+pad(d.getMinutes());
+  const notes=((document.getElementById("quote-notes")||{}).value||"").trim();
   let total=0;
   const rows=lines.map(l=>{const ext=(l.qty||0)*(l.price||0);total+=ext;
     return `<tr style="border-bottom:1px solid #e5e7eb;">`
@@ -407,6 +414,7 @@ function exportQuote(){
       +`<div style="min-width:230px;border-top:2px solid #1a202c;padding-top:8px;display:flex;justify-content:space-between;">`
         +`<span style="font-weight:700;font-size:13px;">Total</span>`
         +`<span style="font-weight:700;font-size:17px;color:#c0392b;">${money(total)}</span></div></div>`
+    +(notes?`<div style="margin-top:22px;font-size:11.5px;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#888;font-weight:700;margin-bottom:4px;">Notes</div><div style="white-space:pre-wrap;color:#333;line-height:1.5;">${esc(notes)}</div></div>`:"")
     +`<div style="margin-top:28px;font-size:10px;color:#777;border-top:1px solid #ddd;padding-top:10px;line-height:1.6;">`
       +`Quote valid for 30 days from the date above. Disposal pricing is all-inclusive of the destination facility; transportation to RedArc's facility is billed as noted. Final pricing subject to waste profile approval and facility acceptance criteria. Taxes and regulatory fees applied as applicable.</div></div>`;
   document.getElementById("print-root").innerHTML=doc;
