@@ -632,6 +632,21 @@
           <strong style="color:var(--blue);">🧭 Where this stands:</strong> Phase 2 is <strong>intentionally sequenced after the first build</strong> — per Zak's own direction, prove value with the quote tool first, then clean and stabilize the CRM. Prep is done (the Platform dedup audits below). Active cleanup starts once the lookup wizard is moving and Zak answers the four import questions. <strong>Line of sight is clear: the work is scoped and ready — it's gated on decisions, not discovery.</strong>
         </div>
 
+        <!-- First-build preview: the quote tool this phase is sequenced behind -->
+        <div style="background:var(--green-light);border:1.5px solid var(--green);border-radius:8px;padding:1rem 1.25rem;margin-top:1rem;">
+          <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#1e7e45;margin-bottom:.35rem;">🎯 The first build is live in preview — try it</div>
+          <div style="font-size:.85rem;color:var(--gray-700);">
+            The <strong>profiled-waste item-code finder</strong> — the first build this phase is sequenced behind — now has a working v1.
+            Describe a waste stream and it narrows ~760 item codes to a shortlist, with the cheaper facility options and the reasoning.
+            Measured against 889 real profiles: the right code is in the top-3 shortlist <strong>72%</strong> of the time.
+          </div>
+          <div style="margin-top:.85rem;display:flex;gap:.6rem;flex-wrap:wrap;">
+            <a href="quote-tool/demo/" style="background:var(--red);color:#fff;border-radius:8px;padding:.55rem 1.15rem;font-size:.82rem;font-weight:600;text-decoration:none;">▶ Try the live demo</a>
+            <a href="quote-tool/RedArc_Quote_Tool_v1_Guide.pdf" style="background:#fff;color:var(--gray-900);border:1.5px solid var(--gray-300);border-radius:8px;padding:.55rem 1.15rem;font-size:.82rem;font-weight:600;text-decoration:none;">📄 Companion guide (PDF)</a>
+          </div>
+          <div style="font-size:.72rem;color:var(--gray-500);margin-top:.55rem;">De-identified demo · relative price bands, not real rates · v1 proof of concept, not production quoting yet.</div>
+        </div>
+
         <!-- Key finding callout -->
         <div style="background:#fff8e1;border:1.5px solid #f39c12;border-radius:8px;padding:.85rem 1.1rem;margin-top:1rem;font-size:.82rem;color:var(--gray-700);">
           <strong style="color:#b7770d;">⚑ Import design note:</strong> The CRM has zero records — all data lives in Platform. The Phase 1 dedup audit (see above) identified 8 duplicate pairs in Platform before any import happens. When data moves into CRM, <code>Platform_Generator_ID</code> and <code>Platform_Record_ID</code> must be used as the match keys — if a Platform ID already exists in CRM, it's an update, not a new record. The architecture that governs this is settled (see below).

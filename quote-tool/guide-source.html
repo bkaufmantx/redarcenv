@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>RedArc Quote Tool — v1 Companion Guide</title>
+<style>
+  @page { size: A4; margin: 15mm 15mm; }
+  :root{ --red:#c0392b; --green:#27ae60; --green-light:#eafaf1; --yellow:#f39c12;
+    --yellow-light:#fef9e7; --blue:#2980b9; --blue-light:#ebf5fb; --gray-100:#f7f8fa;
+    --gray-200:#eef0f3; --gray-300:#d5d8dc; --gray-500:#7f8c8d; --gray-700:#4a5568; --gray-900:#1a202c; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:var(--gray-900);line-height:1.5;font-size:10pt;}
+  h1{font-size:21pt;font-weight:700;}
+  h2{font-size:12.5pt;font-weight:700;margin:16px 0 7px;border-bottom:2px solid var(--gray-200);padding-bottom:4px;page-break-after:avoid;}
+  p{margin:5px 0;} ul{margin:5px 0 5px 18px;} li{margin:3px 0;}
+  code{font-family:'SF Mono',Menlo,Consolas,monospace;font-size:8.7pt;background:var(--gray-200);padding:1px 5px;border-radius:4px;color:#b7270d;}
+  .header{display:flex;align-items:center;gap:12px;border-left:5px solid var(--red);padding:3px 0 3px 15px;margin-bottom:6px;}
+  .badge{background:var(--red);color:#fff;border-radius:6px;padding:4px 10px;font-size:8pt;font-weight:700;letter-spacing:.06em;}
+  .sub{color:var(--gray-500);font-size:9pt;}
+  .lead{background:#fff;border:1px solid var(--gray-200);border-left:4px solid var(--blue);border-radius:8px;padding:11px 15px;margin:13px 0;font-size:9.6pt;}
+  .stats{display:flex;gap:10px;margin:12px 0;}
+  .stat{flex:1;background:var(--gray-100);border:1px solid var(--gray-200);border-radius:8px;padding:9px 12px;text-align:center;}
+  .stat b{display:block;font-size:17pt;color:var(--gray-900);}
+  .stat span{font-size:8pt;color:var(--gray-500);}
+  table{width:100%;border-collapse:collapse;margin:9px 0;font-size:9pt;}
+  th{background:var(--gray-900);color:#fff;text-align:left;padding:5px 9px;font-weight:600;}
+  td{border:1px solid var(--gray-200);padding:5px 9px;vertical-align:top;}
+  tr:nth-child(even) td{background:var(--gray-100);}
+  .caveat{background:var(--yellow-light);border:1px solid var(--yellow);border-radius:7px;padding:9px 13px;margin:9px 0;font-size:9.3pt;}
+  .caveat b{color:#b7770d;}
+  .q{background:var(--blue-light);border-left:3px solid var(--blue);border-radius:6px;padding:7px 12px;margin:6px 0;font-size:9.3pt;}
+  .footer{margin-top:18px;padding-top:8px;border-top:1px solid var(--gray-300);color:var(--gray-500);font-size:8pt;display:flex;justify-content:space-between;}
+  strong{font-weight:600;}
+</style>
+</head>
+<body>
+  <div class="header">
+    <span class="badge">REDARC × SAR</span>
+    <div><h1>Quote Tool — v1 Companion Guide</h1>
+    <div class="sub">A first proof-of-concept of the profiled-waste item-code finder — what it does, what to trust, and what's next.</div></div>
+  </div>
+
+  <div class="lead"><strong>The problem we're attacking.</strong> Today, to quote a profiled (non-lab-pack)
+  waste stream, Kristin scrolls ~760 item codes by hand to find the right one. This tool narrows that to a
+  short list in seconds — ranked by what RedArc has <em>actually billed</em> for similar waste, with the
+  cheaper facility options and the reasoning shown. <strong>This is a v1: built to prove the approach is real,
+  not to quote live yet.</strong></div>
+
+  <h2>How it works</h2>
+  <p>We joined Zak's five data files into one catalog (761 codes + pricing + routing). The key ingredient is
+  <strong>889 real waste-stream profiles</strong> — each already labeled with the item code RedArc billed and
+  the facility it went to. That's an answer key. So instead of hand-coding every routing rule, the tool:</p>
+  <ul>
+    <li>Reads your waste description (a manifest shipping line works great — UN number, hazard class, packing group).</li>
+    <li>Finds the most similar <em>real past profiles</em> and recommends the code <em>they</em> were billed under.</li>
+    <li>Shows the facility options ranked by cost, plus Zak's routing notes (preferred / backup facility).</li>
+    <li>Gives a <strong>confidence flag</strong> — and when it's unsure, it says "confirm with Zak" instead of guessing.</li>
+  </ul>
+
+  <h2>How accurate is it? (measured, not claimed)</h2>
+  <p>We replayed all 889 real profiles through the tool (hiding each one's answer) and checked whether it
+  recommended the code that was actually billed:</p>
+  <div class="stats">
+    <div class="stat"><b>72%</b><span>right code in the top-3 shortlist</span></div>
+    <div class="stat"><b>74%</b><span>top-1 correct on high-confidence calls</span></div>
+    <div class="stat"><b>889</b><span>real profiles as the answer key</span></div>
+  </div>
+  <p><strong>Why top-3 is the number that matters:</strong> the job is to narrow 760 codes to a shortlist.
+  Handing Kristin a 3-code shortlist that contains the right answer 72% of the time — from a waste description
+  alone — already replaces most of the scrolling. The confident cases (~40%) can auto-fill; the rest still get
+  a short list instead of the whole catalog. <strong>This is a baseline to beat, and every future improvement is
+  measurable against it.</strong></p>
+
+  <h2>Reading the demo</h2>
+  <p>Paste a waste description (or click an example). You'll see the recommended item code, a confidence badge,
+  the facility options (cheapest first, as relative <code>$ / $$ / $$$</code> bands), Zak's routing notes, and
+  the real waste streams it matched on. Try a manifest shipping line like
+  <code>UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII</code>.</p>
+
+  <h2>Caveats — please read before judging</h2>
+  <div class="caveat"><b>It's v1 on raw data.</b> Item-code descriptions are inconsistent (generated from vendor
+  rate sheets, never cleaned). We did <em>not</em> clean them first — cleanup is a later step. The number above is
+  despite the mess, not because the data is tidy.</div>
+  <div class="caveat"><b>The demo is de-identified.</b> No customer/generator names, and prices are shown as
+  relative bands ($ = cheapest), not real rates — the public dashboard isn't a place for RedArc's pricing. The
+  full-dollar version runs locally on Brian's machine.</div>
+  <div class="caveat"><b>The hardest layer isn't in yet.</b> No SDS/chemistry reasoning, cost-optimization, or
+  facility acceptance-criteria (e.g. Tulsa's 500&nbsp;ppm VOC limit) — and the approvals-department conservatism
+  that lives only in Zak's head is deliberately left as a "low-confidence → confirm" flag, not a guess.</div>
+  <div class="caveat"><b>Not for production quoting.</b> This proves direction. It is not yet a tool Kristin
+  should quote a customer from unaided.</div>
+
+  <h2>A few questions for Zak</h2>
+  <div class="q"><strong>1. Does the shape fit?</strong> Is "short list of 3 + a confidence flag, auto-fill when
+  sure, confirm-with-Zak when not" the right way for Kristin to work?</div>
+  <div class="q"><strong>2. Two routing corrections to confirm</strong> (from your Operational Color notes): the
+  HF→Tulsa code is still in the recycling group (remove?), and recycled petroleum shouldn't be under an FBL code
+  to VAL — master-list error or a rogue profile?</div>
+  <div class="q"><strong>3. Where should it live?</strong> A Claude skill Kristin invokes (like the lab-pack
+  sorter), or a small internal web tool? Either is easy.</div>
+  <div class="q"><strong>4. Secured setup?</strong> To run on the full real data (live prices, customer-specific
+  rates) it needs a private/secured home. Worth setting up — or keep proving it locally first?</div>
+
+  <h2>What's next</h2>
+  <p>The accuracy levers we haven't pulled yet, each measurable against the 72%: (1) match on hazard class +
+  RCRA/state codes more deeply, (2) Claude's chemistry/SDS reasoning, (3) the cost-optimization and
+  acceptance-criteria routing layers Zak described. Then: wire in the lab-pack skill so one flow handles both
+  lab packs and profiled waste end-to-end.</p>
+
+  <div class="footer"><span>RedArc × Some Assembly Required — v1 proof of concept, June 2026</span>
+  <span>Questions: brian@someassemblyrequired.coach</span></div>
+</body>
+</html>
