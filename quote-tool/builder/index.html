@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RedArc Quote Builder — Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{ --red:#c0392b; --green:#27ae60; --green-light:#eafaf1; --yellow:#f39c12;
+    --yellow-light:#fef9e7; --blue:#2980b9; --blue-light:#ebf5fb; --gray-100:#f7f8fa;
+    --gray-200:#eef0f3; --gray-300:#d5d8dc; --gray-500:#7f8c8d; --gray-700:#4a5568; --gray-900:#1a202c; --font:'Inter',sans-serif;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font);background:var(--gray-100);color:var(--gray-900);line-height:1.5;font-size:14px;}
+  a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+  header{background:var(--gray-900);color:#fff;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:50;}
+  .logo{display:flex;align-items:center;gap:.6rem;font-weight:700;}
+  .logo-badge{background:var(--red);border-radius:6px;padding:3px 9px;font-size:.78rem;letter-spacing:.05em;}
+  .header-meta{font-size:.76rem;color:#cbd5e0;display:flex;gap:.8rem;align-items:center;}
+  .wrap{max-width:1000px;margin:0 auto;padding:1.25rem 1.25rem 8rem;}
+  .proto{background:var(--yellow-light);border:1px solid var(--yellow);border-radius:9px;padding:.7rem 1rem;font-size:.82rem;color:#8a6d1a;margin-bottom:1.25rem;}
+  .card{background:#fff;border-radius:12px;padding:1.25rem 1.4rem;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:1.25rem;}
+  .card h2{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:var(--gray-500);font-weight:700;margin-bottom:.9rem;}
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.85rem;}
+  @media(max-width:720px){.grid{grid-template-columns:1fr 1fr;}}
+  .fld label{display:block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);margin-bottom:.25rem;}
+  .fld input,.fld select{width:100%;font-family:var(--font);font-size:.86rem;border:1.5px solid var(--gray-300);border-radius:7px;padding:.45rem .6rem;background:#fff;color:var(--gray-900);}
+  .fld .hint{font-size:.68rem;color:var(--gray-500);margin-top:.2rem;}
+  .addbar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+  .addbtn{border:1.5px solid var(--gray-300);background:#fff;border-radius:8px;padding:.45rem .85rem;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--gray-900);}
+  .addbtn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light);}
+  .addbtn.starter{border-color:var(--green);color:#1e7e45;background:var(--green-light);}
+  table.lines{width:100%;border-collapse:collapse;font-size:.82rem;}
+  table.lines th{text-align:left;font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);font-weight:700;padding:.3rem .4rem;border-bottom:2px solid var(--gray-200);}
+  table.lines td{padding:.3rem .4rem;border-bottom:1px solid var(--gray-200);vertical-align:top;}
+  table.lines input,table.lines select{width:100%;font-family:var(--font);font-size:.8rem;border:1px solid var(--gray-300);border-radius:5px;padding:.3rem .4rem;background:#fff;}
+  td.num input{text-align:right;}
+  .ltag{display:inline-block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-radius:4px;padding:1px 5px;}
+  .lt-transport{background:#e8f1fb;color:var(--blue);} .lt-labor{background:#f3eafc;color:#7b3fb5;}
+  .lt-disposal{background:var(--green-light);color:#1e7e45;} .lt-supplies{background:#fdf0e6;color:#b7770d;}
+  .ext{text-align:right;font-weight:600;white-space:nowrap;}
+  .rm{cursor:pointer;color:var(--gray-500);border:none;background:none;font-size:1rem;line-height:1;padding:.2rem;}
+  .rm:hover{color:var(--red);}
+  .empty{color:var(--gray-500);font-size:.85rem;padding:1rem;text-align:center;}
+  .codewrap{position:relative;}
+  .codedrop{position:absolute;left:0;right:0;top:100%;z-index:20;background:#fff;border:1px solid var(--gray-300);border-radius:7px;box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:220px;overflow:auto;display:none;}
+  .codedrop.open{display:block;}
+  .codedrop div{padding:.4rem .6rem;cursor:pointer;border-bottom:1px solid var(--gray-200);font-size:.78rem;}
+  .codedrop div:hover{background:var(--blue-light);}
+  .codedrop .c{font-weight:700;}
+  .totbar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--gray-300);box-shadow:0 -3px 12px rgba(0,0,0,.07);padding:.85rem 1.25rem;}
+  .totinner{max-width:1000px;margin:0 auto;display:flex;gap:2rem;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+  .totinner .label{font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);font-weight:700;}
+  .totinner .val{font-size:1.15rem;font-weight:700;}
+  .totinner .grand .val{color:var(--red);font-size:1.4rem;}
+  .totinner .spacer{flex:1;}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><span class="logo-badge">REDARC</span> Quote Builder · prototype</div>
+  <div class="header-meta"><a href="../demo/" style="color:#cbd5e0;">Item-code finder</a><a href="../../" style="color:#cbd5e0;">← Dashboard</a></div>
+</header>
+
+<div class="wrap">
+  <div class="proto"><strong>Structure prototype.</strong> This replicates RedArc's full estimate flow (header + the four line types) with real field options.
+    Pricing is <strong>illustrative</strong> — but it uses RedArc's real A/B/C margin math, so gross profit &amp; margin behave correctly. Real rates come with the secured setup.</div>
+
+  <!-- HEADER CONTEXT -->
+  <div class="card">
+    <h2>Quote header — the context</h2>
+    <div class="grid">
+      <div class="fld"><label>Client / Account</label><input id="h-client" placeholder="e.g. Acme Manufacturing" /></div>
+      <div class="fld"><label>Pricing tier</label>
+        <select id="h-tier" onchange="recalc()">
+          <option value="0.30">A — Volume / Recurring (30%)</option>
+          <option value="0.38" selected>B — Standard (38%) · default</option>
+          <option value="0.45">C — Small / One-time (45%)</option>
+        </select>
+        <div class="hint">Set by the account; drives every disposal price.</div>
+      </div>
+      <div class="fld"><label>Service type</label>
+        <select id="h-service">
+          <option>Lab Pack</option><option>Profiled Waste</option><option>Mixed Load</option><option>Emergency Response</option>
+        </select></div>
+      <div class="fld"><label>Generator / site</label><input id="h-site" placeholder="EPA site — address" /></div>
+      <div class="fld"><label>Contact</label><input id="h-contact" placeholder="Name at the client" /></div>
+      <div class="fld"><label>Carrier (generator → yard leg)</label>
+        <select id="h-carrier">
+          <option>Red Arc Environmental (transporter 1 — default)</option>
+          <option>Third-party LTL carrier</option>
+          <option>Customer self-transport / drop-off</option>
+          <option>Other (specify in notes)</option>
+        </select>
+        <div class="hint">RedArc hauls most waste; yard → TSDF leg is baked into disposal price.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINE ITEMS -->
+  <div class="card">
+    <h2>Line items — the work</h2>
+    <div class="addbar">
+      <button class="addbtn starter" onclick="labPackStarter()">✨ Lab-pack starter (transport + labor)</button>
+      <button class="addbtn" onclick="addLine('transport')">+ Transportation</button>
+      <button class="addbtn" onclick="addLine('labor')">+ Labor</button>
+      <button class="addbtn" onclick="addLine('disposal')">+ Disposal (waste)</button>
+      <button class="addbtn" onclick="addLine('supplies')">+ Supplies</button>
+    </div>
+    <table class="lines">
+      <thead><tr>
+        <th style="width:90px;">Type</th><th>Description</th><th style="width:150px;">Item code / facility</th>
+        <th style="width:90px;">Vendor</th><th style="width:55px;">Qty</th><th style="width:80px;">Unit $</th>
+        <th style="width:80px;" class="ext">Extended</th><th style="width:24px;"></th>
+      </tr></thead>
+      <tbody id="lines"></tbody>
+    </table>
+    <div class="empty" id="empty">No lines yet — click <strong>Lab-pack starter</strong> or add lines above. Disposal lines tap the item-code finder.</div>
+  </div>
+</div>
+
+<!-- TOTALS -->
+<div class="totbar"><div class="totinner">
+  <div class="spacer"></div>
+  <div><div class="label">Cost (RedArc)</div><div class="val" id="t-cost">$0</div></div>
+  <div><div class="label">Gross profit</div><div class="val" id="t-gp" style="color:var(--green);">$0</div></div>
+  <div><div class="label">Margin</div><div class="val" id="t-margin">—</div></div>
+  <div class="grand"><div class="label">Estimate total</div><div class="val" id="t-total">$0</div></div>
+</div></div>
+
+<script>
+let CATALOG=[], BY_BASE={};
+const FACILITIES=["Chemical Reclamation Services","Itasca Landfill TX","US Ecology Tulsa","US Ecology Texas",
+  "Tradebe Treatment & Recycling","VLS Houston","Valicor Environmental","Robstown Landfill","Lighting Resources TX"];
+const CONTAINERS=["5 gal","15 gal","30 gal","55 gal drum","275 gal tote","330 gal tote","Cubic yard box","Each","Pound"];
+const BANDPRICE={"$":150,"$$":400,"$$$":750,"":120};   // illustrative only
+
+fetch("../demo/demo_data.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
+  CATALOG=d.catalog;
+  d.catalog.forEach(e=>{(BY_BASE[e.base_code]=BY_BASE[e.base_code]||[]).push(e);});
+});
+
+let lines=[], seq=0;
+const DEFAULTS={
+  transport:{desc:"Class B Driver — Hourly", vendor:"Red Arc Environmental", qty:3.5, price:138, ro:false},
+  labor:    {desc:"Chemist Labor — Hourly", vendor:"Red Arc Environmental", qty:6, price:115, ro:false},
+  disposal: {desc:"", vendor:"(facility)", qty:1, price:0, code:"", facility:FACILITIES[0], container:"55 gal drum"},
+  supplies: {desc:"55-gal open-top drum", vendor:"Questar", qty:1, price:25, ro:false}
+};
+const TAG={transport:"Transport",labor:"Labor",disposal:"Disposal",supplies:"Supplies"};
+
+function addLine(type){
+  const id=++seq;
+  lines.push(Object.assign({id,type}, JSON.parse(JSON.stringify(DEFAULTS[type]))));
+  renderAll();
+}
+function labPackStarter(){ addLine("transport"); addLine("labor"); }
+function rmLine(id){ lines=lines.filter(l=>l.id!==id); renderAll(); }
+
+function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+function renderAll(){
+  const tb=document.getElementById("lines"); document.getElementById("empty").style.display=lines.length?"none":"block";
+  tb.innerHTML=lines.map(l=>rowHTML(l)).join("");
+  recalc();
+}
+function rowHTML(l){
+  const mid = l.type==="disposal"
+    ? `<div class="codewrap">
+         <input value="${esc(l.code)}" placeholder="search code…" oninput="codeSearch(${l.id},this.value)" onfocus="codeSearch(${l.id},this.value)" onblur="setTimeout(()=>closeDrop(${l.id}),150)">
+         <div class="codedrop" id="drop-${l.id}"></div>
+         <select style="margin-top:3px;" onchange="upd(${l.id},'facility',this.value)">${FACILITIES.map(f=>`<option ${f===l.facility?"selected":""}>${f}</option>`).join("")}</select>
+       </div>`
+    : `<span style="color:var(--gray-500);font-size:.78rem;">${l.type==="supplies"?"Questar":"—"}</span>`;
+  const qtyUnit = l.type==="disposal" ? `<select onchange="upd(${l.id},'container',this.value)" style="margin-bottom:2px;font-size:.72rem;">${CONTAINERS.map(c=>`<option ${c===l.container?"selected":""}>${c}</option>`).join("")}</select>` : "";
+  return `<tr>
+    <td><span class="ltag lt-${l.type}">${TAG[l.type]}</span></td>
+    <td><input value="${esc(l.desc)}" oninput="upd(${l.id},'desc',this.value)" placeholder="description"></td>
+    <td>${mid}</td>
+    <td><span style="font-size:.74rem;color:var(--gray-700);">${esc(l.vendor)}</span></td>
+    <td class="num">${qtyUnit}<input type="number" step="0.5" value="${l.qty}" oninput="upd(${l.id},'qty',this.value)"></td>
+    <td class="num"><input type="number" step="1" value="${l.price}" oninput="upd(${l.id},'price',this.value)"></td>
+    <td class="ext" id="ext-${l.id}">$0</td>
+    <td><button class="rm" onclick="rmLine(${l.id})" title="remove">✕</button></td>
+  </tr>`;
+}
+function upd(id,field,val){
+  const l=lines.find(x=>x.id===id); if(!l) return;
+  l[field]=(field==="qty"||field==="price")?parseFloat(val||0):val;
+  if(field==="facility") l.vendor=val;
+  recalc();
+}
+
+function codeSearch(id,q){
+  const drop=document.getElementById("drop-"+id); if(!drop) return;
+  q=(q||"").toLowerCase().trim();
+  if(q.length<2 || !CATALOG.length){ drop.classList.remove("open"); return; }
+  const hits=CATALOG.filter(e=>e.type.toLowerCase().startsWith("disposal") &&
+      (e.item_code.toLowerCase().includes(q) || (e.description||"").toLowerCase().includes(q) || (e.keywords||[]).some(k=>k.includes(q))))
+    .sort((a,b)=>(b.profile_uses||0)-(a.profile_uses||0)).slice(0,8);
+  if(!hits.length){ drop.classList.remove("open"); return; }
+  drop.innerHTML=hits.map(e=>`<div onmousedown="pickCode(${id},'${e.item_code}')"><span class="c">${esc(e.item_code)}</span> — ${esc((e.description||"").slice(0,38))}<div style="font-size:.66rem;color:var(--gray-500);">${e.price_band||""} · ${e.profile_uses||0}× billed</div></div>`).join("");
+  drop.classList.add("open");
+}
+function closeDrop(id){ const d=document.getElementById("drop-"+id); if(d) d.classList.remove("open"); }
+function pickCode(id,code){
+  const e=CATALOG.find(x=>x.item_code===code); const l=lines.find(x=>x.id===id); if(!e||!l) return;
+  l.code=code; l.desc=e.description||l.desc; l.price=BANDPRICE[e.price_band]||120;
+  if(e.facility){ const f=FACILITIES.find(x=>x.toUpperCase().includes(e.facility)) ; }
+  renderAll();
+}
+
+function recalc(){
+  const margin=parseFloat(document.getElementById("h-tier").value);
+  let total=0, cost=0;
+  lines.forEach(l=>{
+    const ext=(l.qty||0)*(l.price||0); total+=ext;
+    // illustrative cost: disposal & supplies carry margin; RedArc labor/transport are ~internal cost-plus
+    const c = (l.type==="disposal") ? ext*(1-margin) : ext*0.72;
+    cost+=c;
+    const cell=document.getElementById("ext-"+l.id); if(cell) cell.textContent="$"+ext.toLocaleString(undefined,{maximumFractionDigits:0});
+  });
+  const gp=total-cost; const m=total?gp/total:0;
+  document.getElementById("t-total").textContent="$"+total.toLocaleString(undefined,{maximumFractionDigits:0});
+  document.getElementById("t-cost").textContent="$"+cost.toLocaleString(undefined,{maximumFractionDigits:0});
+  document.getElementById("t-gp").textContent="$"+gp.toLocaleString(undefined,{maximumFractionDigits:0});
+  document.getElementById("t-margin").textContent=total?(m*100).toFixed(1)+"%":"—";
+}
+</script>
+</body>
+</html>
