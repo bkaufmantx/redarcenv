@@ -60,6 +60,15 @@
   .totinner .val{font-size:1.15rem;font-weight:700;}
   .totinner .grand .val{color:var(--red);font-size:1.4rem;}
   .totinner .spacer{flex:1;}
+  .pdfbtn{background:var(--red);color:#fff;border:none;border-radius:8px;padding:.5rem 1rem;font-size:.82rem;font-weight:600;cursor:pointer;}
+  .pdfbtn:hover{background:#a93226;}
+  #print-root{display:none;}
+  @page{size:A4;margin:14mm;}
+  @media print{
+    header,.wrap{display:none !important;}
+    #print-root{display:block !important;}
+    body{background:#fff !important;}
+  }
   /* finder modal */
   .overlay{display:none;margin:0 0 1.25rem;scroll-margin-top:80px;}
   .overlay.open{display:block;}
@@ -171,6 +180,7 @@
 
 <!-- TOTALS -->
 <div class="totbar"><div class="totinner">
+  <button class="pdfbtn" onclick="exportQuote()">📄 Client quote (PDF)</button>
   <div class="spacer"></div>
   <div><div class="label">Cost (RedArc)</div><div class="val" id="t-cost">$0</div></div>
   <div><div class="label">Gross profit</div><div class="val" id="t-gp" style="color:var(--green);">$0</div></div>
@@ -198,6 +208,8 @@
   </div>
 </div>
 </div>
+
+<div id="print-root"></div>
 
 <script>
 let CATALOG=[], PROFILES=[], ROUTING=[], BY_BASE={}, BY_CODE={};
@@ -339,6 +351,57 @@ function rowHTML(l){
   </tr>`;
 }
 function upd(id,field,val){const l=lines.find(x=>x.id===id);if(!l)return;l[field]=(field==="qty"||field==="price")?parseFloat(val||0):val;recalc();}
+/* ── Client-facing PDF export (no cost/margin shown) ── */
+const COMPANY={name:"RedArc Environmental, Inc.",addr:"[street address, city, TX zip]",contact:"[phone]  ·  quotes@redarcenv.com  ·  redarcenv.com"};
+function money(n){return "$"+Number(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+function carrierSummary(){
+  const v=document.getElementById("h-carrier").value, g=id=>{const e=document.getElementById(id);return e?e.value.trim():"";};
+  if(/Third-party/.test(v)){const n=g("h-carrier-name");return "Third-party carrier"+(n?" — "+n:"");}
+  if(/self-transport|drop-off/.test(v)){const d=g("h-carrier-dropoff");return "Customer drop-off"+(d?" — "+d:"");}
+  if(/Other/.test(v)){return g("h-carrier-note")||"Other";}
+  return "RedArc Environmental";
+}
+function exportQuote(){
+  if(!lines.length){alert("Add at least one line item before generating a client quote.");return;}
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():"";};
+  const client=g("h-client")||"—", contact=g("h-contact"), site=g("h-site")||"—", service=g("h-service");
+  const d=new Date(), pad=n=>String(n).padStart(2,"0");
+  const dateStr=d.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});
+  const quoteNo="Q-"+d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+"-"+pad(d.getHours())+pad(d.getMinutes());
+  let total=0;
+  const rows=lines.map(l=>{const ext=(l.qty||0)*(l.price||0);total+=ext;
+    return `<tr style="border-bottom:1px solid #e5e7eb;">`
+      +`<td style="padding:6px 8px;font-family:monospace;font-size:11px;">${esc(l.code||"")||"—"}</td>`
+      +`<td style="padding:6px 8px;">${esc(l.desc||"")}${(l.container&&l.type==="disposal")?`<div style="font-size:10px;color:#888;">${esc(l.container)}</div>`:""}</td>`
+      +`<td style="padding:6px 8px;text-align:right;">${l.qty||0}</td>`
+      +`<td style="padding:6px 8px;text-align:right;">${money(l.price)}</td>`
+      +`<td style="padding:6px 8px;text-align:right;">${money(ext)}</td></tr>`;}).join("");
+  const doc=`<div style="font-family:Arial,Helvetica,sans-serif;color:#1a202c;max-width:720px;margin:0 auto;padding:8px;">`
+    +`<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #c0392b;padding-bottom:12px;">`
+      +`<div><div style="font-size:20px;font-weight:700;color:#c0392b;">${esc(COMPANY.name)}</div>`
+        +`<div style="font-size:11px;color:#555;line-height:1.5;margin-top:2px;">${esc(COMPANY.addr)}<br>${esc(COMPANY.contact)}</div></div>`
+      +`<div style="text-align:right;"><div style="font-size:22px;font-weight:700;letter-spacing:.1em;">QUOTE</div>`
+        +`<div style="font-size:11px;color:#555;margin-top:2px;">No. ${quoteNo}<br>${dateStr}</div></div></div>`
+    +`<div style="display:flex;justify-content:space-between;margin-top:16px;font-size:12px;">`
+      +`<div><div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#888;font-weight:700;">Prepared for</div>`
+        +`<div style="font-weight:600;margin-top:2px;">${esc(client)}</div>${contact?`<div>${esc(contact)}</div>`:""}</div>`
+      +`<div style="text-align:right;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#888;font-weight:700;">Generator / Site</div>`
+        +`<div style="margin-top:2px;">${esc(site)}</div>`
+        +`<div style="margin-top:6px;color:#555;">Service: ${esc(service)}<br>Carrier: ${esc(carrierSummary())}</div></div></div>`
+    +`<table style="width:100%;border-collapse:collapse;margin-top:18px;font-size:12px;">`
+      +`<thead><tr style="background:#1a202c;color:#fff;">`
+        +`<th style="text-align:left;padding:6px 8px;">Item</th><th style="text-align:left;padding:6px 8px;">Description</th>`
+        +`<th style="text-align:right;padding:6px 8px;">Qty</th><th style="text-align:right;padding:6px 8px;">Unit</th>`
+        +`<th style="text-align:right;padding:6px 8px;">Amount</th></tr></thead><tbody>${rows}</tbody></table>`
+    +`<div style="display:flex;justify-content:flex-end;margin-top:12px;">`
+      +`<div style="min-width:230px;border-top:2px solid #1a202c;padding-top:8px;display:flex;justify-content:space-between;">`
+        +`<span style="font-weight:700;font-size:13px;">Total</span>`
+        +`<span style="font-weight:700;font-size:17px;color:#c0392b;">${money(total)}</span></div></div>`
+    +`<div style="margin-top:28px;font-size:10px;color:#777;border-top:1px solid #ddd;padding-top:10px;line-height:1.6;">`
+      +`Quote valid for 30 days from the date above. Disposal pricing is all-inclusive of the destination facility; transportation to RedArc's facility is billed as noted. Final pricing subject to waste profile approval and facility acceptance criteria. Taxes and regulatory fees applied as applicable.</div></div>`;
+  document.getElementById("print-root").innerHTML=doc;
+  window.print();
+}
 function recalc(){
   const margin=parseFloat(document.getElementById("h-tier").value);let total=0,cost=0;
   lines.forEach(l=>{const ext=(l.qty||0)*(l.price||0);total+=ext;const c=(l.type==="disposal")?ext*(1-margin):ext*0.72;cost+=c;
