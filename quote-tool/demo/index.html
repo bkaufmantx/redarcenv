@@ -145,6 +145,9 @@ fetch("demo_data.json").then(r=>r.json()).then(d=>{
   const params=new URLSearchParams(location.search);
   if(params.get("q")){ document.getElementById("q").value=params.get("q");
     if(params.get("sc")) document.getElementById("sc").value=params.get("sc"); run(); }
+}).catch(err=>{
+  const l=document.getElementById("loading");
+  if(l) l.outerHTML='<div class="rec none" style="padding:1rem 1.3rem;"><strong>Couldn\'t load the catalog.</strong><br><span class="desc">Refresh the page to try again. ('+esc(err.message)+')</span></div>';
 });
 
 function routingFor(query,desc){
@@ -175,12 +178,16 @@ function recommend(query,state){
 
 function esc(s){return (s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
 function run(){
-  if(!DATA) return;
-  const q=document.getElementById("q").value.trim(); if(!q) return;
+  const out=document.getElementById("result");
+  if(!DATA){ out.innerHTML='<div class="rec medium" style="padding:1rem 1.3rem;">Still loading the catalog — give it a second and click again.</div>'; out.scrollIntoView({behavior:'smooth',block:'nearest'}); return; }
+  const q=document.getElementById("q").value.trim();
+  if(!q){ out.innerHTML='<div class="rec medium" style="padding:1rem 1.3rem;">Type a waste description first, or tap an example below.</div>'; return; }
   const sc=document.getElementById("sc").value.trim();
-  const r=recommend(q,sc); const out=document.getElementById("result");
+  let r;
+  try { r=recommend(q,sc); }
+  catch(err){ out.innerHTML='<div class="rec none" style="padding:1rem 1.3rem;"><strong>Something went wrong.</strong><br><span class="desc">'+esc(err.message)+'</span></div>'; return; }
   if(r.conf==="none"){ out.innerHTML=`<div class="rec none"><b>No similar past waste found.</b><br>
-    <span class="desc">Too little to match on — add the shipping description or escalate to Zak.</span></div>`; return; }
+    <span class="desc">Too little to match on — add the shipping description or escalate to Zak.</span></div>`; out.scrollIntoView({behavior:'smooth',block:'nearest'}); return; }
   const cl={high:"✓ high confidence",medium:"~ medium — double-check",low:"⚑ low — confirm with Zak"}[r.conf];
   let h=`<div class="rec ${r.conf}"><span class="conf ${r.conf}">${cl}</span>
     <div class="code">${esc(r.top)}</div><div class="desc">${esc(r.desc)}</div>
@@ -204,8 +211,9 @@ function run(){
   if(r.runners.length) h+=`<div class="ev" style="color:var(--gray-500);margin-top:.5rem;">Also considered: ${r.runners.map(esc).join(", ")}</div>`;
   h+=`</div>`;
   out.innerHTML=h;
+  out.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
-document.getElementById("q").addEventListener("keydown",e=>{ if(e.key==="Enter"&&(e.metaKey||e.ctrlKey))run(); });
+document.getElementById("q").addEventListener("keydown",e=>{ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); run(); } });
 </script>
 </body>
 </html>
