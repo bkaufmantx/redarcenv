@@ -111,7 +111,8 @@
       </div>
       <button class="go" onclick="run()">Find item code →</button>
     </div>
-    <div class="chips" id="chips"></div>
+    <div style="font-size:.68rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:.07em;font-weight:700;margin-top:.95rem;">High volume examples</div>
+    <div class="chips" id="chips" style="margin-top:.45rem;"></div>
   </div>
 
   <div id="result"><div class="loading" id="loading">Loading catalog…</div></div>
@@ -153,10 +154,16 @@ fetch("demo_data.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
   d.catalog.forEach(e=>{ (BY_BASE[e.base_code]=BY_BASE[e.base_code]||[]).push(e); BY_CODE[e.item_code]=e; });
   buildSuggestions(d.profiles);
   document.getElementById("loading").remove();
-  ["UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII","aerosol paint cans",
-   "spent sulfuric acid, corrosive, 8","non-hazardous sludge for solidification"]
-   .forEach(ex=>{ const c=document.createElement("span"); c.className="chip"; c.textContent=ex;
-     c.onclick=()=>{document.getElementById("q").value=ex;run();}; document.getElementById("chips").appendChild(c); });
+  [
+    {label:"Flammable solvent", q:"UN1993, Waste Flammable liquids, n.o.s. (acetone), 3, PGII", sc:"0001219H"},
+    {label:"Non-haz solids (solidify)", q:"Non-RCRA non-DOT regulated material for solidification", sc:""},
+    {label:"Used oil / oily debris", q:"Used motor oil and oily debris for recycling", sc:""},
+    {label:"Non-RCRA landfill solids", q:"Non-RCRA solids and debris for landfill", sc:""},
+    {label:"Aerosol paint cans", q:"UN1950, Aerosols, flammable, 2.1", sc:"UNIV801H"},
+    {label:"Organic peroxide", q:"UN3105, Waste Organic peroxide type D, liquid (organic peroxide), 5.2", sc:"1007001H"}
+  ].forEach(ex=>{ const c=document.createElement("span"); c.className="chip"; c.textContent=ex.label;
+     c.onclick=()=>{ document.getElementById("q").value=ex.q; document.getElementById("sc").value=ex.sc||""; run(); };
+     document.getElementById("chips").appendChild(c); });
   const params=new URLSearchParams(location.search);
   if(params.get("q")){ document.getElementById("q").value=params.get("q");
     if(params.get("sc")) document.getElementById("sc").value=params.get("sc"); run(); }
