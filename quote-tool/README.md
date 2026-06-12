@@ -14,17 +14,33 @@ the item code we actually billed and the facility it went to.** That's an answer
 key. So instead of hand-encoding all of Zak's routing rules up front, we:
 
 1. **Build a catalog** that joins every source into one queryable file. *(Step 1 — done)*
-2. **Rank candidates** for a described waste stream, with price + facility + the
-   real profiles that match. *(Step 2 — prototype in `lookup.py`)*
-3. **Validate** against the 889 profiles: how often do we land the code that was
-   actually billed? Misses pinpoint where Zak's tacit knowledge is needed. *(Step 3)*
+2. **Recommend** a code for a described waste stream — ranked by what real
+   profiles were actually billed, with all-in price, cost-ranked facility
+   options, Zak's routing notes, and a confidence flag. *(Step 2 — `wizard.py`)*
+3. **Validate** against the 889 profiles, leave-one-out: how often do we land the
+   code that was actually billed? *(built into `wizard.py --validate`)*
+
+## v1 result (the proof)
+
+Leave-one-out replay of real profiles, recommending from the **description text
+alone** with a deliberately simple matcher:
+
+- **49%** overall land the actually-billed base code
+- **68%** on high-confidence calls (≈⅓ of cases) — the auto-fill candidates
+- Low-confidence calls are exactly where Zak's tribal approvals knowledge is
+  needed — the engine flags them instead of guessing.
+
+That's the starting line, not the ceiling: no chemistry/SDS logic, cost
+optimization, or acceptance-criteria layers yet. The number is here to be
+beaten, and now it's measurable.
 
 ## Scripts
 
 | File | What it does |
 |---|---|
 | `build_catalog.py` | Joins Zak's 5 exports → `data/catalog.json` + `data/profiles.json` + `data/DATA_QUALITY.md` |
-| `lookup.py` | Minimal lookup demo — `python3 lookup.py "spent sulfuric acid liquid"` |
+| `wizard.py` | The Step-2 recommendation engine — `python3 wizard.py "aerosol paint cans"` or `--validate` |
+| `lookup.py` | Earlier minimal keyword PoC (kept for reference) |
 
 ## Data sources (Zak's June 11 drop — read-only, never modified)
 
