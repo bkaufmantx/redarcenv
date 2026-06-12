@@ -60,8 +60,8 @@
   .totinner .val{font-size:1.15rem;font-weight:700;}
   .totinner .grand .val{color:var(--red);font-size:1.4rem;}
   .totinner .spacer{flex:1;}
-  .pdfbtn{background:var(--red);color:#fff;border:none;border-radius:8px;padding:.5rem 1rem;font-size:.82rem;font-weight:600;cursor:pointer;}
-  .pdfbtn:hover{background:#a93226;}
+  .pdfbtn{background:var(--green);color:#fff;border:none;border-radius:8px;padding:.5rem 1rem;font-size:.82rem;font-weight:600;cursor:pointer;}
+  .pdfbtn:hover{background:#1e8449;}
   #print-root{display:none;}
   @page{size:A4;margin:14mm;}
   @media print{
@@ -161,8 +161,8 @@
   <div class="card">
     <h2>Line items</h2>
     <div class="addbar">
-      <button class="addbtn find" onclick="openFinder(null)">🔎 Add waste (find item code)</button>
-      <button class="addbtn starter" onclick="labPackStarter()">✨ Lab-pack starter (transport + labor)</button>
+      <button class="addbtn find" onclick="openFinder(null)">+ Add waste (find item code)</button>
+      <button class="addbtn starter" onclick="labPackStarter()">Lab-pack starter (transport + labor)</button>
       <button class="addbtn" onclick="addLine('transport')">+ Transportation</button>
       <button class="addbtn" onclick="addLine('labor')">+ Labor</button>
       <button class="addbtn" onclick="addLine('supplies')">+ Supplies</button>
@@ -175,17 +175,17 @@
       </tr></thead>
       <tbody id="lines"></tbody>
     </table>
-    <div class="empty" id="empty">No lines yet — click <strong>🔎 Add waste</strong> to find a code, or <strong>Lab-pack starter</strong>.</div>
+    <div class="empty" id="empty">No lines yet — click <strong>Add waste</strong> to find a code, or <strong>Lab-pack starter</strong>.</div>
   </div>
 
 <!-- TOTALS -->
 <div class="totbar"><div class="totinner">
-  <button class="pdfbtn" onclick="exportQuote()">📄 Client quote (PDF)</button>
   <div class="spacer"></div>
   <div><div class="label">Cost (RedArc)</div><div class="val" id="t-cost">$0</div></div>
   <div><div class="label">Gross profit</div><div class="val" id="t-gp" style="color:var(--green);">$0</div></div>
   <div><div class="label">Margin</div><div class="val" id="t-margin">—</div></div>
   <div class="grand"><div class="label">Estimate total</div><div class="val" id="t-total">$0</div></div>
+  <button class="pdfbtn" onclick="exportQuote()">Client quote (PDF)</button>
 </div></div>
 
 <!-- FINDER MODAL -->
