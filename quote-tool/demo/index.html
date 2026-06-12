@@ -45,6 +45,13 @@
   .chip{background:var(--gray-100);border:1px solid var(--gray-300);border-radius:20px;padding:.3rem .8rem;
     font-size:.78rem;cursor:pointer;color:var(--gray-700);}
   .chip:hover{background:var(--blue-light);border-color:var(--blue);color:var(--blue);}
+  .suggest{position:absolute;left:0;right:0;top:100%;z-index:30;background:#fff;border:1px solid var(--gray-300);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:260px;overflow-y:auto;display:none;margin-top:3px;}
+  .suggest.open{display:block;}
+  .suggest-head{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);padding:.45rem .8rem;border-bottom:1px solid var(--gray-200);background:var(--gray-100);}
+  .suggest-item{padding:.5rem .8rem;cursor:pointer;border-bottom:1px solid var(--gray-200);font-size:.86rem;color:var(--gray-900);}
+  .suggest-item:last-child{border-bottom:none;}
+  .suggest-item:hover,.suggest-item.active{background:var(--blue-light);}
+  .suggest-item .meta{font-size:.72rem;color:var(--gray-500);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   #result:empty{display:none;}
   .rec{border-radius:10px;padding:1.1rem 1.3rem;margin-bottom:1rem;}
   .rec.high{background:var(--green-light);border:1.5px solid var(--green);}
@@ -92,8 +99,11 @@
   </div>
 
   <div class="panel">
-    <label for="q">Waste description (paste a shipping line, or describe it)</label>
-    <textarea id="q" placeholder="e.g. UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII"></textarea>
+    <label for="q">Waste description (start typing, or paste a shipping line)</label>
+    <div style="position:relative;">
+      <textarea id="q" autocomplete="off" placeholder="e.g. UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII"></textarea>
+      <div id="suggest" class="suggest"></div>
+    </div>
     <div class="row">
       <div>
         <label for="sc">State waste code(s) — optional</label>
@@ -141,6 +151,7 @@ fetch("demo_data.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
   DATA=d;
   d.profiles.forEach(p=>p._f=features(p.name,p.shipping_description,p.state_waste_codes));
   d.catalog.forEach(e=>{ (BY_BASE[e.base_code]=BY_BASE[e.base_code]||[]).push(e); BY_CODE[e.item_code]=e; });
+  buildSuggestions(d.profiles);
   document.getElementById("loading").remove();
   ["UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII","aerosol paint cans",
    "spent sulfuric acid, corrosive, 8","non-hazardous sludge for solidification"]
@@ -217,7 +228,64 @@ function run(){
   out.innerHTML=h;
   out.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
-document.getElementById("q").addEventListener("keydown",e=>{ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); run(); } });
+// ── Autocomplete: suggest real waste streams as you type ──
+let SUGG=[], SUGG_CUR=[], activeIdx=-1;
+function buildSuggestions(profiles){
+  const seen=new Map();
+  profiles.forEach(p=>{
+    const key=(p.name||"").toLowerCase().trim(); if(!key) return;
+    const cur=seen.get(key);
+    if(!cur || (p.shipping_description||"").length > (cur.shipping||"").length)
+      seen.set(key,{name:p.name, shipping:p.shipping_description||"", state:p.state_waste_codes||""});
+  });
+  SUGG=[...seen.values()];
+}
+function rankSug(s,q){ const n=s.name.toLowerCase(); return n.startsWith(q)?0:(n.includes(q)?1:2); }
+function suggestions(q){
+  q=q.toLowerCase().trim(); if(q.length<2) return [];
+  return SUGG.filter(s=>(s.name+" "+s.shipping).toLowerCase().includes(q))
+             .sort((a,b)=>rankSug(a,q)-rankSug(b,q)).slice(0,7);
+}
+function renderSuggest(list){
+  const box=document.getElementById("suggest");
+  if(!list.length){ box.classList.remove("open"); box.innerHTML=""; SUGG_CUR=[]; activeIdx=-1; return; }
+  SUGG_CUR=list; activeIdx=-1;
+  box.innerHTML='<div class="suggest-head">Similar real waste streams — click to use</div>'+
+    list.map((s,i)=>`<div class="suggest-item" data-i="${i}">${esc(s.name)}<div class="meta">${esc((s.shipping||"").slice(0,72))||"&nbsp;"}</div></div>`).join("");
+  [...box.querySelectorAll(".suggest-item")].forEach((el,i)=>{
+    el.addEventListener("mousedown",ev=>{ ev.preventDefault(); pickSuggest(SUGG_CUR[i]); });
+  });
+  box.classList.add("open");
+}
+function pickSuggest(s){
+  if(!s) return;
+  const useShip = s.shipping && /UN\s?\d|regulated|n\.o\.s/i.test(s.shipping);
+  document.getElementById("q").value = useShip ? s.shipping : s.name;
+  if(s.state) document.getElementById("sc").value = s.state;
+  document.getElementById("suggest").classList.remove("open");
+  run();
+}
+function highlightSuggest(){
+  [...document.getElementById("suggest").querySelectorAll(".suggest-item")]
+    .forEach((el,i)=>{ el.classList.toggle("active",i===activeIdx); if(i===activeIdx) el.scrollIntoView({block:"nearest"}); });
+}
+(function(){
+  const qEl=document.getElementById("q");
+  qEl.addEventListener("input",()=>renderSuggest(suggestions(qEl.value)));
+  qEl.addEventListener("keydown",e=>{
+    const box=document.getElementById("suggest"); const open=box.classList.contains("open");
+    const n=box.querySelectorAll(".suggest-item").length;
+    if(open && e.key==="ArrowDown"){ e.preventDefault(); activeIdx=Math.min(activeIdx+1,n-1); highlightSuggest(); return; }
+    if(open && e.key==="ArrowUp"){ e.preventDefault(); activeIdx=Math.max(activeIdx-1,0); highlightSuggest(); return; }
+    if(open && e.key==="Escape"){ box.classList.remove("open"); return; }
+    if(e.key==="Enter" && !e.shiftKey){
+      e.preventDefault();
+      if(open && activeIdx>=0) pickSuggest(SUGG_CUR[activeIdx]);
+      else { box.classList.remove("open"); run(); }
+    }
+  });
+  document.addEventListener("click",e=>{ if(e.target.id!=="q" && !e.target.closest("#suggest")) document.getElementById("suggest").classList.remove("open"); });
+})();
 </script>
 </body>
 </html>
