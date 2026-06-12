@@ -106,7 +106,7 @@
 </header>
 
 <div class="wrap">
-  <div class="proto"><strong>Prototype.</strong> One unified flow — build a quote, and the smart item-code finder is built in (it opens when you add a disposal line). Pricing is <strong>illustrative</strong> but uses RedArc's real A/B/C margin math.</div>
+  <div class="proto" id="protoBanner"><strong>Prototype.</strong> One unified flow — build a quote, and the smart item-code finder is built in (it opens when you add a disposal line). Pricing is <strong>illustrative</strong> but uses RedArc's real A/B/C margin math.</div>
 
   <!-- HEADER CONTEXT -->
   <div class="card">
@@ -213,6 +213,8 @@ fetch("sample_accounts.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{ACCO
 fetch("../demo/demo_data.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
   CATALOG=d.catalog; PROFILES=d.profiles; ROUTING=d.routing_rules||[];
   d.catalog.forEach(e=>{(BY_BASE[e.base_code]=BY_BASE[e.base_code]||[]).push(e); BY_CODE[e.item_code]=e;});
+  const _pb=document.getElementById("protoBanner");
+  if(_pb && CATALOG.some(e=>e.pricing&&e.pricing.length)) _pb.innerHTML='<strong>Prototype · real data.</strong> Disposal lines pull <strong>real per-container A/B/C pricing</strong> from RedArc\'s pricelist; margins are real (30 / 38 / 45%). Transport, labor &amp; supplies still start from placeholder defaults you edit per quote.';
   PROFILES.forEach(p=>p._f=features(p.name,p.shipping_description,p.state_waste_codes));
   buildFSuggest();
   ["UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII","aerosol paint cans","spent sulfuric acid, corrosive, 8"]
