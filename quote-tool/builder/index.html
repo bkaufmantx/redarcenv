@@ -117,7 +117,6 @@
           <input id="h-client" autocomplete="off" placeholder="start typing a client…" oninput="acAccount(this.value)" onfocus="acAccount(this.value)" onblur="setTimeout(()=>closeAc('ac-client'),150)" />
           <div class="codedrop" id="ac-client"></div>
         </div>
-        <div class="hint">Sample accounts — pick one to auto-fill tier, contact &amp; site.</div>
       </div>
       <div class="fld"><label>Pricing tier</label>
         <select id="h-tier" onchange="recalc()">
@@ -125,7 +124,6 @@
           <option value="0.38" selected>B — Standard (38%) · default</option>
           <option value="0.45">C — Small / One-time (45%)</option>
         </select>
-        <div class="hint">Set by the account; drives every disposal price.</div>
       </div>
       <div class="fld"><label>Service type</label>
         <select id="h-service"><option>Lab Pack</option><option>Profiled Waste</option><option>Mixed Load</option><option>Emergency Response</option></select></div>
@@ -137,13 +135,13 @@
       </div>
       <div class="fld"><label>Contact</label><input id="h-contact" placeholder="Name at the client" /></div>
       <div class="fld"><label>Carrier (generator → yard leg)</label>
-        <select id="h-carrier">
+        <select id="h-carrier" onchange="carrierChange()">
           <option>Red Arc Environmental (transporter 1 — default)</option>
           <option>Third-party LTL carrier</option>
           <option>Customer self-transport / drop-off</option>
           <option>Other (specify in notes)</option>
         </select>
-        <div class="hint">RedArc hauls most waste; yard → TSDF leg is baked into disposal price.</div>
+        <div id="carrier-sub"></div>
       </div>
     </div>
   </div>
@@ -290,6 +288,20 @@ function runFinder(){
   out.innerHTML=h;
 }
 function facLabel(abbrev,full){if(abbrev&&FACMAP[abbrev])return FACMAP[abbrev];return full||abbrev||"";}
+function carrierChange(){
+  const v=document.getElementById("h-carrier").value, box=document.getElementById("carrier-sub");
+  let h="";
+  if(/Third-party/.test(v)){
+    h='<div class="fld" style="margin-top:.5rem;"><label>Carrier name</label><input id="h-carrier-name" placeholder="3rd-party carrier (company)"></div>'
+     +'<div class="fld" style="margin-top:.5rem;"><label>Freight billed to</label><select id="h-carrier-bill"><option>RedArc (pass-through line)</option><option>Customer pays carrier direct</option></select></div>';
+  }else if(/self-transport|drop-off/.test(v)){
+    h='<div class="fld" style="margin-top:.5rem;"><label>Drop-off location (yard)</label><input id="h-carrier-dropoff" placeholder="which RedArc yard / facility"></div>'
+     +'<div class="hint" style="color:var(--green);margin-top:.3rem;">No generator&rarr;yard transport charge — customer delivers.</div>';
+  }else if(/Other/.test(v)){
+    h='<div class="fld" style="margin-top:.5rem;"><label>Carrier note</label><input id="h-carrier-note" placeholder="describe the transport arrangement"></div>';
+  }
+  box.innerHTML=h;
+}
 function tierPrice(e){const m=parseFloat(document.getElementById("h-tier").value);const key=m<=0.30?"tier_a":(m>=0.45?"tier_c":"tier_b");const ps=e.pricing||[];if(!ps.length)return null;const p=ps.find(x=>/55/.test(x.container||""))||ps[0];return p[key]||p.tier_b||null;}
 function addFromFinder(code,facAbbrev,band){
   const fac=facLabel(facAbbrev,"");const e=BY_CODE[code]||{};const desc=e.description||code;const price=tierPrice(e)||BANDPRICE[band]||120;
