@@ -59,9 +59,9 @@
   .totinner .grand .val{color:var(--red);font-size:1.4rem;}
   .totinner .spacer{flex:1;}
   /* finder modal */
-  .overlay{position:fixed;inset:0;background:rgba(26,32,44,.45);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:3rem 1rem;overflow:auto;}
-  .overlay.open{display:flex;}
-  .modal{background:#fff;border-radius:14px;max-width:680px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+  .overlay{display:none;margin:0 0 1.25rem;scroll-margin-top:80px;}
+  .overlay.open{display:block;}
+  .modal{background:#fff;border-radius:12px;width:100%;box-shadow:0 1px 4px rgba(0,0,0,.06);border:1.5px solid var(--gray-300);}
   .modal-head{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.4rem;border-bottom:1px solid var(--gray-200);}
   .modal-head h3{font-size:1.05rem;}
   .modal-head .x{cursor:pointer;border:none;background:none;font-size:1.3rem;color:var(--gray-500);}
@@ -178,7 +178,7 @@
 </div></div>
 
 <!-- FINDER MODAL -->
-<div class="overlay" id="finder" onclick="if(event.target===this)closeFinder()">
+<div class="overlay" id="finder">
   <div class="modal">
     <div class="modal-head"><h3>🔎 Find item code</h3><button class="x" onclick="closeFinder()">✕</button></div>
     <div class="modal-body">
@@ -266,7 +266,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 /* ── Finder modal ── */
 let finderTarget=null;
-function openFinder(lineId){finderTarget=lineId;document.getElementById("finder").classList.add("open");document.getElementById("f-results").innerHTML="";if(lineId===null){document.getElementById("f-q").value="";document.getElementById("f-sc").value="";}setTimeout(()=>document.getElementById("f-q").focus(),50);}
+function openFinder(lineId){finderTarget=lineId;const fn=document.getElementById("finder");fn.classList.add("open");document.getElementById("f-results").innerHTML="";if(lineId===null){document.getElementById("f-q").value="";document.getElementById("f-sc").value="";}setTimeout(()=>{document.getElementById("f-q").focus();fn.scrollIntoView({behavior:"smooth",block:"start"});},50);}
 function closeFinder(){document.getElementById("finder").classList.remove("open");document.getElementById("f-suggest").classList.remove("open");}
 function runFinder(){
   if(!PROFILES.length)return;
