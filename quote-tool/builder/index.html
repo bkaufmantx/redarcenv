@@ -36,6 +36,8 @@
   table.lines td{padding:.3rem .4rem;border-bottom:1px solid var(--gray-200);vertical-align:top;}
   table.lines input,table.lines select{width:100%;font-family:var(--font);font-size:.8rem;border:1px solid var(--gray-300);border-radius:5px;padding:.3rem .4rem;background:#fff;}
   td.num input{text-align:right;}
+  table.lines input[type=number]{-moz-appearance:textfield;}
+  table.lines input[type=number]::-webkit-outer-spin-button,table.lines input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
   .ltag{display:inline-block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-radius:4px;padding:1px 5px;}
   .lt-transport{background:#e8f1fb;color:var(--blue);} .lt-labor{background:#f3eafc;color:#7b3fb5;}
   .lt-disposal{background:var(--green-light);color:#1e7e45;} .lt-supplies{background:#fdf0e6;color:#b7770d;}
@@ -159,7 +161,7 @@
     <table class="lines">
       <thead><tr>
         <th style="width:88px;">Type</th><th>Description</th><th style="width:165px;">Item code / facility</th>
-        <th style="width:55px;">Qty</th><th style="width:75px;">Unit $</th>
+        <th style="width:62px;">Qty</th><th style="width:94px;">Unit $</th>
         <th style="width:80px;" class="ext">Extended</th><th style="width:24px;"></th>
       </tr></thead>
       <tbody id="lines"></tbody>
