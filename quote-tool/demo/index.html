@@ -71,7 +71,10 @@
 <body>
 <header>
   <div class="logo"><span class="logo-badge">REDARC</span> Quote Tool · v1 Demo</div>
-  <div class="header-meta"><a href="../../">← Dashboard</a></div>
+  <div class="header-meta" style="display:flex;align-items:center;gap:.7rem;">
+    <button onclick="hardRefresh()" title="Reload the latest version (bypasses cache)" style="background:transparent;color:#cbd5e0;border:1px solid #4a5568;border-radius:6px;padding:5px 11px;font-size:.74rem;font-weight:600;cursor:pointer;">↻ Hard refresh</button>
+    <a href="../../">← Dashboard</a>
+  </div>
 </header>
 
 <div class="wrap">
@@ -111,6 +114,7 @@
 </div>
 
 <script>
+function hardRefresh(){ location.replace(location.pathname + "?cb=" + Date.now()); }
 const STOP = new Set(["for","and","the","with","non","of","to","in","or","per","a","waste"]);
 function toks(t){return new Set((t||"").toLowerCase().split(/[^a-z0-9]+/).filter(w=>w.length>2&&!STOP.has(w)));}
 
@@ -133,7 +137,7 @@ function wsim(a,b){
 }
 
 let DATA=null, BY_BASE={}, BY_CODE={};
-fetch("demo_data.json").then(r=>r.json()).then(d=>{
+fetch("demo_data.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
   DATA=d;
   d.profiles.forEach(p=>p._f=features(p.name,p.shipping_description,p.state_waste_codes));
   d.catalog.forEach(e=>{ (BY_BASE[e.base_code]=BY_BASE[e.base_code]||[]).push(e); BY_CODE[e.item_code]=e; });
