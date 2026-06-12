@@ -1,0 +1,44 @@
+RedArc Video Screenshot Tool
+============================
+
+Turn a screen-recording into a timestamped transcript, then pull the exact
+screenshots you need on demand. Runs entirely on your Mac — no accounts, no
+keys, no per-video cost.
+
+
+SETUP (one time)
+----------------
+1. Double-click  setup.command
+      - If macOS says it "cannot be opened," right-click it -> Open -> Open.
+      - It installs what's needed and builds the app. Leave it until it says
+        "Setup complete."
+
+   (Setup needs ffmpeg. If you don't have Homebrew, it will point you to
+    https://brew.sh — install that, then run setup.command again.)
+
+
+USING IT
+--------
+2. Drag a video file (.mp4 or .mov) onto  "RedArc Video Tool.app"
+      - A Terminal window shows progress. The FIRST video downloads the
+        transcription model once (a minute or two); after that it's quick.
+      - When it finishes, the "output" folder opens.
+
+3. Inside output/<your-video>/ you'll find:
+      transcript.txt   - readable transcript with timestamps
+      transcript.json  - same, machine-readable
+      manifest.json    - the index
+      frames/          - screenshots, created on demand
+
+   To pull a specific screenshot yourself, in Terminal (in this folder):
+      ./venv/bin/python ./grab.py output/<your-video> 4:22
+   ...grabs the frame at 4 minutes 22 seconds. Use seconds, MM:SS, or HH:MM:SS.
+
+
+FULL GUIDE
+----------
+See  RedArc_Video_Tool_Guide.pdf  for the complete walkthrough, settings, and
+tips (including how to handle stretches of the video with no narration).
+
+
+Questions: Brian Kaufman — brian@someassemblyrequired.coach
