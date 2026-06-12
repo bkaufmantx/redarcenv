@@ -40,6 +40,46 @@ def toks(text):
     return {w for w in re.split(r"[^a-z0-9]+", (text or "").lower()) if len(w) > 2 and w not in STOP}
 
 
+def features(name="", shipping="", state_codes="", extra=""):
+    """Parse a waste stream into WEIGHTED features. The structured DOT/state
+    signals are far more discriminating than free text, so they're weighted up:
+      UN number  ×6  (same UN ≈ same material ≈ same code)
+      hazard cls ×3   state code ×2   PG ×1   text token ×1
+    """
+    f = {}
+    def add(k, w):
+        f[k] = max(f.get(k, 0), w)
+    blob = f"{name} {shipping} {extra}"
+    for un in re.findall(r"\bUN\s?(\d{4})\b", blob, re.I):
+        add(f"un:{un}", 6)
+    ship_clean = re.sub(r"\bUN\s?\d{4}\b", "", shipping, flags=re.I)
+    for hz in re.findall(r"(?<![\d.])([1-9](?:\.\d)?)(?![\d.])", ship_clean):
+        add(f"hz:{hz}", 3)
+    for pg in re.findall(r"\bPG\s?(I{1,3}|[123])\b", blob, re.I):
+        add(f"pg:{pg.upper()}", 1)
+    for sc in re.split(r"[,\s]+", state_codes or ""):
+        sc = sc.strip().lower()
+        if sc:
+            add(f"sw:{sc}", 2)
+    for w in toks(blob):
+        if not re.match(r"^un\d", w):
+            add(w, 1)
+    return f
+
+
+def wsim(fa, fb):
+    """Weighted Jaccard over feature dicts."""
+    shared = sum(min(fa[k], fb[k]) for k in fa.keys() & fb.keys())
+    if not shared:
+        return 0.0
+    return shared / (sum(fa.values()) + sum(fb.values()) - shared)
+
+
+# Precompute features for every profile once.
+for _p in PROFILES:
+    _p["_feat"] = features(_p["name"], _p["shipping_description"], _p["state_waste_codes"])
+
+
 def tier_b_55(entry):
     for p in entry["pricing"]:
         if "55" in (p["container"] or "") and p["tier_b"]:
@@ -50,17 +90,14 @@ def tier_b_55(entry):
     return entry.get("default_customer_price")
 
 
-def nearest_profiles(query, k=15, exclude_profile_no=None):
-    q = toks(query)
+def nearest_profiles(qfeat, k=15, exclude_profile_no=None):
     scored = []
     for p in PROFILES:
         if exclude_profile_no and p["profile_no"] == exclude_profile_no:
             continue
-        pt = toks(p["name"] + " " + p["shipping_description"])
-        inter = len(q & pt)
-        if inter:
-            sim = inter / (len(q | pt) or 1)          # Jaccard
-            scored.append((sim, inter, p))
+        sim = wsim(qfeat, p["_feat"])
+        if sim:
+            scored.append((sim, len(qfeat.keys() & p["_feat"].keys()), p))
     scored.sort(key=lambda x: (-x[0], -x[1]))
     return scored[:k]
 
@@ -76,8 +113,9 @@ def routing_for(query, candidate):
     return hits
 
 
-def recommend(query, exclude_profile_no=None, quiet=False):
-    near = nearest_profiles(query, exclude_profile_no=exclude_profile_no)
+def recommend(query, state_codes="", exclude_profile_no=None, quiet=False):
+    qfeat = features(shipping=query, state_codes=state_codes)
+    near = nearest_profiles(qfeat, exclude_profile_no=exclude_profile_no)
     # Vote on the billed base code, weighted by similarity.
     votes = defaultdict(float)
     evidence = defaultdict(list)
@@ -85,7 +123,7 @@ def recommend(query, exclude_profile_no=None, quiet=False):
         b = p["base_code"]
         if not b:
             continue
-        votes[b] += sim
+        votes[b] += sim               # weight each neighbor by similarity
         evidence[b].append((sim, p))
     ranked = sorted(votes.items(), key=lambda x: -x[1])
 
@@ -117,6 +155,7 @@ def recommend(query, exclude_profile_no=None, quiet=False):
         "evidence": [(round(s, 2), p["name"], p["item_code"], p["destination_facility"][:24])
                      for s, p in evidence[top_base][:4]],
         "runners_up": [b for b, _ in ranked[1:4]],
+        "top_bases": [b for b, _ in ranked[:5]],
     }
     if not quiet:
         _print(rec)
@@ -152,30 +191,40 @@ def validate(sample=200):
     """Replay real profiles through the engine (leave-one-out): does the
     recommended base code match what was actually billed?"""
     import itertools
-    hits = total = 0
+    top1 = top3 = top5 = total = 0
     by_conf = defaultdict(lambda: [0, 0])
     step = max(1, len(PROFILES) // sample)
     for p in itertools.islice(PROFILES, 0, None, step):
         q = p["name"] + " " + p["shipping_description"]
         if not p["base_code"] or not toks(q):
             continue
-        rec = recommend(q, exclude_profile_no=p["profile_no"], quiet=True)
+        rec = recommend(q, state_codes=p["state_waste_codes"],
+                        exclude_profile_no=p["profile_no"], quiet=True)
         if rec["confidence"] == "none":
             continue
         total += 1
-        ok = rec["recommended_base"] == p["base_code"]
-        hits += ok
-        by_conf[rec["confidence"]][0] += ok
+        bases = rec["top_bases"]
+        t1 = rec["recommended_base"] == p["base_code"]
+        top1 += t1
+        top3 += p["base_code"] in bases[:3]
+        top5 += p["base_code"] in bases[:5]
+        by_conf[rec["confidence"]][0] += t1
         by_conf[rec["confidence"]][1] += 1
-    print("\nVALIDATION — leave-one-out replay of real profiles")
-    print("=" * 70)
-    print(f"  Overall: {hits}/{total} recommended the actually-billed base code = {hits*100//max(total,1)}%")
+    pct = lambda h: f"{h*100//max(total,1)}%"
+    print("\nVALIDATION — leave-one-out replay of real profiles (the billed code is the truth)")
+    print("=" * 72)
+    print(f"  Recommended code is the actually-billed code:")
+    print(f"    Top-1 (single best guess):     {top1}/{total} = {pct(top1)}")
+    print(f"    Top-3 (in the shortlist):      {top3}/{total} = {pct(top3)}   ← the 'narrow it down' metric")
+    print(f"    Top-5 (in the shortlist):      {top5}/{total} = {pct(top5)}")
+    print(f"\n  Top-1 by confidence (the auto-suggest tier):")
     for c in ("high", "medium", "low"):
         h, t = by_conf[c]
         if t:
-            print(f"    {c:<7}: {h}/{t} = {h*100//t}%   ({t*100//total}% of cases)")
-    print("\n  Read: high-confidence calls are the auto-fill candidates; low-confidence")
-    print("  ones are exactly where Zak's review (the tribal approvals knowledge) is needed.")
+            print(f"    {c:<7}: {h}/{t} = {h*100//t}%   ({t*100//total}% of all cases)")
+    print("\n  Read: 'narrow 760 codes to a shortlist of 3' is the actual job — that's the")
+    print("  top-3 number. High-confidence top-1 calls are the ones safe to auto-fill;")
+    print("  the rest still hand Kristin a short list instead of the whole catalog.")
 
 
 if __name__ == "__main__":

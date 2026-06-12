@@ -22,17 +22,21 @@ key. So instead of hand-encoding all of Zak's routing rules up front, we:
 
 ## v1 result (the proof)
 
-Leave-one-out replay of real profiles, recommending from the **description text
-alone** with a deliberately simple matcher:
+Leave-one-out replay of real profiles — the billed code is the truth. Matching
+uses the **DOT shipping line** (UN number, hazard class, packing group) + state
+waste codes + description, weighted toward the most discriminating signals.
 
-- **49%** overall land the actually-billed base code
-- **68%** on high-confidence calls (≈⅓ of cases) — the auto-fill candidates
-- Low-confidence calls are exactly where Zak's tribal approvals knowledge is
-  needed — the engine flags them instead of guessing.
+The tool's job is to **narrow 760 codes to a shortlist**, so top-3 is the metric:
 
-That's the starting line, not the ceiling: no chemistry/SDS logic, cost
-optimization, or acceptance-criteria layers yet. The number is here to be
-beaten, and now it's measurable.
+- **Top-3: 72%** — the actually-billed code is in the shortlist of 3
+- **Top-1: 51%** — single best guess
+- **High-confidence top-1: 74%** (≈⅖ of cases) — the auto-fill tier
+- Low-confidence calls are flagged for Zak's review, not guessed — that's
+  exactly where the tribal approvals knowledge belongs.
+
+Starting line, not ceiling — no SDS/chemistry reasoning, cost optimization, or
+facility acceptance-criteria layers yet. Every future gain is measurable against
+this with `--validate`.
 
 ## Scripts
 
