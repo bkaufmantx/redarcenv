@@ -37,7 +37,7 @@
   <div class="header">
     <span class="badge">REDARC × SAR</span>
     <div><h1>Quote Tool — v1 Companion Guide</h1>
-    <div class="sub">A first proof-of-concept of the profiled-waste item-code finder — what it does, what to trust, and what's next.</div></div>
+    <div class="sub">A first proof-of-concept — one unified quote tool with a smart item-code finder built in. What it does, what to trust, and what's next.</div></div>
   </div>
 
   <div class="lead"><strong>The problem we're attacking.</strong> Today, to quote a profiled (non-lab-pack)
@@ -71,19 +71,25 @@
   a short list instead of the whole catalog. <strong>This is a baseline to beat, and every future improvement is
   measurable against it.</strong></p>
 
-  <h2>Reading the demo</h2>
-  <p>Paste a waste description (or click an example). You'll see the recommended item code, a confidence badge,
-  the facility options (cheapest first, as relative <code>$ / $$ / $$$</code> bands), Zak's routing notes, and
-  the real waste streams it matched on. Try a manifest shipping line like
-  <code>UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII</code>.</p>
+  <h2>Using the tool</h2>
+  <p>It's now <strong>one unified quote tool</strong>, not two pages. You start a quote (client, A/B/C tier,
+  service, generator, carrier), then click <strong>Add waste</strong> — the finder opens right there. Paste a waste
+  description (or click an example) and you'll see the recommended item code, a confidence badge, the facility
+  options ranked by cost, Zak's routing notes, and the real waste streams it matched on. Pick a facility and it
+  drops a priced disposal line; add transport, labor and supplies and the totals update live at your tier. Try a
+  manifest shipping line like <code>UN1993, Waste Flammable liquids n.o.s. (acetone), 3, PGII</code>.</p>
+  <p><strong>Two ways to open it:</strong> a <strong>secured link</strong> (RedArc email sign-in) that runs on real
+  prices and your real accounts, or a <strong>public preview</strong> (no login) that's de-identified with relative
+  price bands. Both are linked from the project dashboard.</p>
 
   <h2>Caveats — please read before judging</h2>
   <div class="caveat"><b>It's v1 on raw data.</b> Item-code descriptions are inconsistent (generated from vendor
   rate sheets, never cleaned). We did <em>not</em> clean them first — cleanup is a later step. The number above is
   despite the mess, not because the data is tidy.</div>
-  <div class="caveat"><b>The demo is de-identified.</b> No customer/generator names, and prices are shown as
-  relative bands ($ = cheapest), not real rates — the public dashboard isn't a place for RedArc's pricing. The
-  full-dollar version runs locally on Brian's machine.</div>
+  <div class="caveat"><b>Two versions, by design.</b> The <b>public preview</b> is de-identified — no customer
+  names, prices as relative bands ($ = cheapest) — because the public dashboard isn't a place for RedArc's pricing.
+  The <b>secured link</b> (behind a RedArc email sign-in) runs the real per-container A/B/C prices and real account
+  names. Real data never touches the public site.</div>
   <div class="caveat"><b>The hardest layer isn't in yet.</b> No SDS/chemistry reasoning, cost-optimization, or
   facility acceptance-criteria (e.g. Tulsa's 500&nbsp;ppm VOC limit) — and the approvals-department conservatism
   that lives only in Zak's head is deliberately left as a "low-confidence → confirm" flag, not a guess.</div>
@@ -98,8 +104,9 @@
   to VAL — master-list error or a rogue profile?</div>
   <div class="q"><strong>3. Where should it live?</strong> A Claude skill Kristin invokes (like the lab-pack
   sorter), or a small internal web tool? Either is easy.</div>
-  <div class="q"><strong>4. Secured setup?</strong> To run on the full real data (live prices, customer-specific
-  rates) it needs a private/secured home. Worth setting up — or keep proving it locally first?</div>
+  <div class="q"><strong>4. Does the end-to-end flow fit?</strong> Now that it's on a secured link with real prices
+  and real accounts, does building a quote this way (header &rarr; add waste &rarr; transport, labor &amp; supplies
+  &rarr; live totals) match how you'd actually put one together?</div>
 
   <h2>What's next</h2>
   <p>The accuracy levers we haven't pulled yet, each measurable against the 72%: (1) match on hazard class +

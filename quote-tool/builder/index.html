@@ -288,8 +288,9 @@ function runFinder(){
   out.innerHTML=h;
 }
 function facLabel(abbrev,full){if(abbrev&&FACMAP[abbrev])return FACMAP[abbrev];return full||abbrev||"";}
+function tierPrice(e){const m=parseFloat(document.getElementById("h-tier").value);const key=m<=0.30?"tier_a":(m>=0.45?"tier_c":"tier_b");const ps=e.pricing||[];if(!ps.length)return null;const p=ps.find(x=>/55/.test(x.container||""))||ps[0];return p[key]||p.tier_b||null;}
 function addFromFinder(code,facAbbrev,band){
-  const fac=facLabel(facAbbrev,"");const desc=(BY_CODE[code]||{}).description||code;const price=BANDPRICE[band]||120;
+  const fac=facLabel(facAbbrev,"");const e=BY_CODE[code]||{};const desc=e.description||code;const price=tierPrice(e)||BANDPRICE[band]||120;
   if(finderTarget!==null){const l=lines.find(x=>x.id===finderTarget);if(l){l.code=code;l.facility=fac||l.facility;l.vendor=fac||l.vendor;l.desc=desc;l.price=price;}}
   else{const id=++seq;lines.push({id,type:"disposal",desc,vendor:fac||"(facility)",qty:1,price,code,facility:fac,container:"55 gal drum"});}
   closeFinder();renderAll();

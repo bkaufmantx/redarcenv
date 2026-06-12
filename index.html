@@ -164,11 +164,11 @@
     <div class="progress-wrap">
       <div class="progress-label">
         <span>Overall progress</span>
-        <span>Phase 1 complete · quote tool v1 live in preview — ~80%</span>
+        <span>Phase 1 complete · unified quote tool live on secured real-data link — ~84%</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width: 80%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 84%"></div></div>
     </div>
-    <div class="updated">📅 Last updated: June 12, 2026 &nbsp;·&nbsp; Now building: the profiled-waste item-code finder (v1 is live below). Next milestone: Zak's read on the demo + a few accuracy upgrades.</div>
+    <div class="updated">📅 Last updated: June 12, 2026 &nbsp;·&nbsp; Now live: one unified quote tool (smart finder built in) on a secured, access-gated link running real prices + real accounts. Next milestone: Zak's read on the end-to-end flow + a few accuracy upgrades.</div>
   </div>
 
   <!-- ── ACTION FOR ZAK ── -->
@@ -181,12 +181,15 @@
       </svg>
     </div>
     <div class="zak-body">
-      <h3 style="color:var(--blue);">Try the v1 quote-tool demo — and tell us if the direction feels right</h3>
-      <p>The first build is live. Describe a waste stream the way it reads on a manifest, and it narrows ~760 item
-         codes to a shortlist — with the cheaper facility options and the reasoning. We'd value your gut read before
-         we invest in the next layer.</p>
+      <h3 style="color:var(--blue);">Try the v1 Quote Tool — now on a secured, real-data link</h3>
+      <p>The first build is live as <strong>one unified tool</strong>: start a quote, add a waste stream the way it
+         reads on a manifest, and the built-in finder narrows ~760 item codes to a shortlist — with the cheaper
+         facility options, the reasoning, and live totals at your A/B/C tier. The secured link runs on <strong>real
+         prices and your real accounts</strong> (RedArc email sign-in). We'd value your gut read before we invest in
+         the next layer.</p>
       <div style="margin-top:.9rem;display:flex;gap:.6rem;flex-wrap:wrap;">
-        <a href="quote-tool/demo/" target="_blank" rel="noopener" class="btn btn-red">▶ Try the live demo</a>
+        <a href="https://redarc-quote-tool.pages.dev" target="_blank" rel="noopener" class="btn btn-red">🔒 Open the secured Quote Tool</a>
+        <a href="quote-tool/demo/" target="_blank" rel="noopener" class="btn btn-white">▶ Public preview (no login)</a>
         <a href="quote-tool/RedArc_Quote_Tool_v1_Guide.pdf" target="_blank" rel="noopener" class="btn btn-white">📄 Companion guide (PDF)</a>
       </div>
       <div class="zak-steps">
@@ -197,8 +200,8 @@
           <div><button class="task-comment-btn" style="margin-top:.3rem;" onclick="toggleTaskComment(this,'routing-corrections')">💬 Comment</button><div class="task-comments-area"></div></div></div></div>
         <div class="zak-step"><div class="step-badge" style="background:var(--blue);">3</div><div><strong>Where should it live?</strong> A Claude skill Kristin invokes (like the lab-pack sorter), or a small internal web tool?
           <div><button class="task-comment-btn" style="margin-top:.3rem;" onclick="toggleTaskComment(this,'where-tool-lives')">💬 Comment</button><div class="task-comments-area"></div></div></div></div>
-        <div class="zak-step"><div class="step-badge" style="background:var(--blue);">4</div><div><strong>Secured setup?</strong> To run on the full real data (live prices, customer-specific rates) it needs a private/secured home — worth setting up now, or keep proving it locally first?
-          <div><button class="task-comment-btn" style="margin-top:.3rem;" onclick="toggleTaskComment(this,'secured-setup')">💬 Comment</button><div class="task-comments-area"></div></div></div></div>
+        <div class="zak-step"><div class="step-badge" style="background:var(--blue);">4</div><div><strong>Does the end-to-end flow fit?</strong> Now that it's on a secured link with real prices and real accounts — does building a quote this way (header → add waste → transport, labor &amp; supplies → live totals) match how you'd actually put one together?
+          <div><button class="task-comment-btn" style="margin-top:.3rem;" onclick="toggleTaskComment(this,'end-to-end-fit')">💬 Comment</button><div class="task-comments-area"></div></div></div></div>
       </div>
     </div>
   </div>
@@ -224,30 +227,36 @@
         <div style="background:var(--green-light);border:1.5px solid var(--green);border-radius:8px;padding:1rem 1.25rem;margin-top:1rem;">
           <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#1e7e45;margin-bottom:.35rem;">🎯 v1 is live — try it</div>
           <div style="font-size:.85rem;color:var(--gray-700);">
-            The <strong>profiled-waste item-code finder</strong>: describe a waste stream → a shortlist of likely item
-            codes with the cheaper facility options and the reasoning. Validated against 889 real profiles —
-            the right code is in the top-3 shortlist <strong>72%</strong> of the time (74% top-1 on high-confidence calls).
+            One unified <strong>RedArc Quote Tool</strong>: build a quote end-to-end — client &amp; tier, then add a
+            waste stream and the <strong>built-in finder</strong> narrows ~760 item codes to a shortlist with the
+            cheaper facility options and the reasoning, drops a priced disposal line, and adds transport, labor &amp;
+            supplies with live A/B/C totals. Matching validated against 889 real profiles — right code in the
+            top-3 <strong>72%</strong> of the time (74% top-1 on high-confidence calls).
           </div>
           <div style="margin-top:.85rem;display:flex;gap:.6rem;flex-wrap:wrap;">
-            <a href="quote-tool/demo/" target="_blank" rel="noopener" class="btn btn-red">▶ Try the live demo</a>
-            <a href="quote-tool/builder/" target="_blank" rel="noopener" class="btn btn-white">🧱 Full quote builder (prototype)</a>
+            <a href="https://redarc-quote-tool.pages.dev" target="_blank" rel="noopener" class="btn btn-red">🔒 Secured Quote Tool (real data)</a>
+            <a href="quote-tool/demo/" target="_blank" rel="noopener" class="btn btn-white">▶ Public preview (no login)</a>
             <a href="quote-tool/RedArc_Quote_Tool_v1_Guide.pdf" target="_blank" rel="noopener" class="btn btn-white">📄 Companion guide (PDF)</a>
           </div>
-          <div style="font-size:.72rem;color:var(--gray-500);margin-top:.55rem;">De-identified demo · relative price bands, not real rates · v1 proof of concept, not production quoting yet.</div>
+          <div style="font-size:.72rem;color:var(--gray-500);margin-top:.55rem;">Secured link runs on real prices + real accounts (RedArc email sign-in). Public preview is de-identified (relative price bands). v1 proof of concept, not production quoting yet.</div>
         </div>
 
         <div style="margin-top:1.25rem;"><div class="section-title">Done</div></div>
         <ul class="task-list">
           <li><span class="task-icon">✅</span><div class="task-text"><strong>Unified data catalog built</strong><div class="task-note">Joined Zak's 5 exports into one queryable catalog — 761 item codes (with A/B/C × container pricing + routing facility) and 889 real labeled profiles. 100% of profile codes match the catalog.</div></div></li>
           <li><span class="task-icon">✅</span><div class="task-text"><strong>Recommendation engine — measured</strong><div class="task-note">Ranks codes by what real profiles were actually billed (not just keywords), adds cost-ranked facility options + Zak's routing notes + a confidence flag. Top-3 = 72%, high-confidence top-1 = 74%, on description alone.</div></div></li>
-          <li><span class="task-icon">✅</span><div class="task-text"><strong>Interactive demo + companion guide — published</strong><div class="task-note">A live web demo (de-identified) and a PDF guide with caveats and the four questions above. Linked at the top of this board.</div></div></li>
+          <li><span class="task-icon">✅</span><div class="task-text"><strong>Finder + builder unified into one tool</strong><div class="task-note">The smart item-code finder is now built into the quote builder as a modal — one continuous flow from client &amp; tier → add waste → priced disposal line → transport, labor &amp; supplies → live totals. No more jumping between two pages.</div></div></li>
+          <li><span class="task-icon">✅</span><div class="task-text"><strong>Secured, access-gated link — live</strong><div class="task-note">Deployed to a private URL gated by Cloudflare Access (email allowlist, RedArc sign-in). Free tier, no app to install. Linked at the top of this board.</div></div></li>
+          <li><span class="task-icon">✅</span><div class="task-text"><strong>Real data wired in (secured site only)</strong><div class="task-note">The gated version now runs on real per-container A/B/C prices and real account names — disposal lines auto-fill the real customer price at the selected tier. Real data stays behind the login; the public preview remains de-identified.</div></div></li>
+          <li><span class="task-icon">✅</span><div class="task-text"><strong>Interactive tool + companion guide — published</strong><div class="task-note">A public de-identified preview, the secured real-data link, and a PDF guide with caveats and the questions above. Linked at the top of this board.</div></div></li>
         </ul>
 
         <div style="margin-top:1.25rem;"><div class="section-title">Next</div></div>
         <ul class="task-list">
           <li><span class="task-icon">🔲</span><div class="task-text"><strong>Push accuracy past the 72% baseline</strong><div class="task-note">Add Claude's SDS/chemistry reasoning, the cost-optimization layer, and facility acceptance-criteria (e.g. Tulsa's 500 ppm VOC limit). Every gain is measurable against the current baseline.</div><button class="task-comment-btn" onclick="toggleTaskComment(this,'push-accuracy')">💬 Comment</button><div class="task-comments-area"></div></div></li>
           <li><span class="task-icon">🔲</span><div class="task-text"><strong>Fold in Zak's demo feedback + routing corrections</strong><div class="task-note">Whatever the demo gets wrong, plus the two Operational Color corrections, get encoded. The approvals-conservatism layer is captured incrementally as Zak reviews outputs.</div><button class="task-comment-btn" onclick="toggleTaskComment(this,'fold-feedback')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Decide where it lives + secured setup</strong><div class="task-note">Claude skill vs. internal web tool (Zak's call), and a private/secured home so it can run on the full live data instead of de-identified samples.</div><button class="task-comment-btn" onclick="toggleTaskComment(this,'productionize')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Decide its final form</strong><div class="task-note">A Claude skill Kristin invokes (like the lab-pack sorter) vs. the internal web tool — Zak's call. The secured home + real-data run is already done; this is just the form factor for daily use.</div><button class="task-comment-btn" onclick="toggleTaskComment(this,'productionize')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Fill the account → tier / contact gap</strong><div class="task-note">Real account <em>names</em> autofill now, but tier + contact aren't in any export yet (CRM is empty) — so accounts default to B tier. A one-column tier export from Zak closes this.</div><button class="task-comment-btn" onclick="toggleTaskComment(this,'account-tier-gap')">💬 Comment</button><div class="task-comments-area"></div></div></li>
           <li><span class="task-icon">🔲</span><div class="task-text"><strong>Unify with the lab-pack skill</strong><div class="task-note">Lab packs are already solved by Zak's existing skill. Wire both into one flow so an inventory or a profiled stream both end in a draft quote that matches Platform's Estimate structure (recon in Reference below).</div><button class="task-comment-btn" onclick="toggleTaskComment(this,'unify-labpack')">💬 Comment</button><div class="task-comments-area"></div></div></li>
         </ul>
       </div>
