@@ -634,50 +634,49 @@
 
         <!-- Key finding callout -->
         <div style="background:#fff8e1;border:1.5px solid #f39c12;border-radius:8px;padding:.85rem 1.1rem;margin-top:1rem;font-size:.82rem;color:var(--gray-700);">
-          <strong style="color:#b7770d;">⚑ Import design note:</strong> The CRM has zero records — all data lives in Platform. The Phase 1 dedup audit (see above) identified 8 duplicate pairs in Platform before any import happens. When data moves into CRM, <code>Platform_Generator_ID</code> and <code>Platform_Record_ID</code> must be used as the match keys — if a Platform ID already exists in CRM, it's an update, not a new record. See open questions below before starting the import.
+          <strong style="color:#b7770d;">⚑ Import design note:</strong> The CRM has zero records — all data lives in Platform. The Phase 1 dedup audit (see above) identified 8 duplicate pairs in Platform before any import happens. When data moves into CRM, <code>Platform_Generator_ID</code> and <code>Platform_Record_ID</code> must be used as the match keys — if a Platform ID already exists in CRM, it's an update, not a new record. The architecture that governs this is settled (see below).
         </div>
 
-        <!-- Assumptions / Open Questions -->
+        <!-- Architecture — settled on the June 11 call -->
         <div style="margin-top:1.25rem;">
-          <div onclick="toggleFindings('phase2-questions')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
-            <span class="section-title" style="margin:0;">Assumptions &amp; Open Questions</span>
-            <span style="background:#fef9e7;color:#b7770d;font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;border:1px solid #f7ca6a;">4 need answers</span>
-            <span id="phase2-questions-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
+          <div onclick="toggleFindings('phase2-architecture')" style="display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none;margin-bottom:.75rem;">
+            <span class="section-title" style="margin:0;">Architecture — Settled on the June 11 Call</span>
+            <span style="background:var(--green-light);color:var(--green);font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 7px;">decided</span>
+            <span id="phase2-architecture-chevron" style="margin-left:auto;font-size:.8rem;color:var(--gray-500);transition:transform .2s;">▶</span>
           </div>
-          <div id="phase2-questions" style="display:none;">
+          <div id="phase2-architecture" style="display:none;">
+            <div style="background:var(--green-light);border-radius:8px;padding:.75rem 1rem;font-size:.8rem;color:var(--gray-700);margin-bottom:1rem;border-left:3px solid var(--green);">
+              The questions that used to gate Phase 2 were answered on the June 11 call. The model is decided — what's left is execution, sequenced after the first build. No decisions pending from Zak here.
+            </div>
             <div class="findings-grid" style="margin-top:0;">
-              <div class="finding-card" style="background:#fffbf0;border-left:3px solid #f39c12;">
-                <h4>❓ Is Platform the system of record for clients?</h4>
-                CRM is empty; Platform has all the data. Before importing anything, we need Zak to confirm: is Platform the authoritative source, or is there data elsewhere (spreadsheets, another tool) that should come in too?
-                <div style="margin-top:.5rem;"><button class="task-comment-btn" onclick="toggleTaskComment(this, 'platform-as-system-of-record')">💬 Comment</button><div class="task-comments-area"></div></div>
+              <div class="finding-card info">
+                <h4>✅ Hybrid model — CRM + Platform, split by domain</h4>
+                Zak's words: CRM is the system of record for <strong>accounts &amp; contacts</strong>; Platform for <strong>generators, item codes, and estimates/ops</strong>. All live data currently sits in Platform only because CRM was never populated — that's the gap Phase 2 closes, not an open question.
               </div>
-              <div class="finding-card" style="background:#fffbf0;border-left:3px solid #f39c12;">
-                <h4>❓ What's the import strategy — one-time or live sync?</h4>
-                Option A: one-time bulk import of Platform records into CRM, then maintain both going forward. Option B: live two-way sync between Platform and CRM. Option C: CRM becomes primary and Platform becomes read-only downstream. Zak's call.
-                <div style="margin-top:.5rem;"><button class="task-comment-btn" onclick="toggleTaskComment(this, 'import-strategy-onetime-vs-sync')">💬 Comment</button><div class="task-comments-area"></div></div>
+              <div class="finding-card info">
+                <h4>✅ Sync direction — create in place, flow outward</h4>
+                Not a one-time bulk dump. Zak is building <strong>Zoho Flows</strong> so an account created in CRM propagates to Platform, while generators are created in Platform (EPA "Gnosis" pull). CRM = entry point for client data; Platform = entry point for operational data.
               </div>
-              <div class="finding-card" style="background:#fffbf0;border-left:3px solid #f39c12;">
-                <h4>❓ Which duplicate CRM modules stay?</h4>
-                Sales Orders, POs, Invoices each exist twice; two Generators×Contacts linking tables. Before importing any data we need to know which version of each module is the "real" one so records land in the right place.
-                <div style="margin-top:.5rem;"><button class="task-comment-btn" onclick="toggleTaskComment(this, 'clarify-duplicate-module-situation')">💬 Comment</button><div class="task-comments-area"></div></div>
+              <div class="finding-card info">
+                <h4>✅ No hidden write-back to guard against</h4>
+                The CRM↔Platform sync <em>is</em> the Flow logic Zak is actively building himself (and wants help with). An import won't collide with a mystery integration — we coordinate with Zak's flows rather than work around them.
               </div>
-              <div class="finding-card" style="background:#fffbf0;border-left:3px solid #f39c12;">
-                <h4>❓ Does Larry's app write back to CRM, or only read?</h4>
-                If Platform already writes data into CRM (or is supposed to), an import could create duplicates. We need to understand whether any existing integration is active before we move a single record.
-                <div style="margin-top:.5rem;"><button class="task-comment-btn" onclick="toggleTaskComment(this, 'platform-crm-write-back-check')">💬 Comment</button><div class="task-comments-area"></div></div>
+              <div class="finding-card info">
+                <h4>↪ One minor leftover — low priority</h4>
+                The duplicate CRM modules (Sales Orders / POs / Invoices ×2; two Generators×Contacts tables) weren't covered on the call, but are likely <strong>moot</strong> under the hybrid model (invoices/estimates live in Platform). We'll surface the "which to keep" call in context only if CRM cleanup ever touches those modules.
               </div>
             </div>
           </div>
         </div>
 
         <!-- Tasks -->
-        <div style="margin-top:1.25rem;"><div class="section-title">Tasks (pending answers above)</div></div>
+        <div style="margin-top:1.25rem;"><div class="section-title">Tasks (queued — execution starts after the first build)</div></div>
         <ul class="task-list">
           <li><span class="task-icon">🔲</span><div class="task-text"><strong>Design Platform → CRM import with built-in dedup</strong><div class="task-note">Using <code>Platform_Generator_ID</code> and <code>Platform_Record_ID</code> as sync keys — match on ID first, fall back to name+address. No record created without a Platform ID anchor. Review every unmatched record with Zak before committing.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'surface-duplicate-contacts-accounts')">💬 Comment</button><div class="task-comments-area"></div></div></li>
           <li><span class="task-icon">🔲</span><div class="task-text"><strong>Add Generator lookup to Quotes</strong><div class="task-note">One custom field to close the Quote ↔ Generator gap. Needs Zak's approval before changing CRM structure.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'add-generator-lookup-to-quotes')">💬 Comment</button><div class="task-comments-area"></div></div></li>
           <li><span class="task-icon">🔲</span><div class="task-text"><strong>Rebuild Carrier picklist with real hazmat carriers</strong><div class="task-note">Replace FedEx/UPS/DHL with RedArc's actual carrier list (to be confirmed in Platform walkthrough).</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'rebuild-carrier-picklist')">💬 Comment</button><div class="task-comments-area"></div></div></li>
           <li><span class="task-icon">🔲</span><div class="task-text"><strong>Resolve duplicate CRM modules</strong><div class="task-note">Once we know which versions to keep — archive or remove the redundant Sales Orders, POs, Invoices, and Generators×Contacts modules.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'clarify-duplicate-module-situation')">💬 Comment</button><div class="task-comments-area"></div></div></li>
-          <li><span class="task-icon">🔲</span><div class="task-text"><strong>Fix Zoho Desk / Generators module access gap</strong><div class="task-note">Desk can't see the custom Generators module. Likely a profile/permission config fix — no code required.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'fix-zoho-desk-custom-module-access-gap')">💬 Comment</button><div class="task-comments-area"></div></div></li>
+          <li><span class="task-icon">⏸️</span><div class="task-text"><strong>Fix Zoho Desk / Generators module access gap — on hold</strong><div class="task-note">Deprioritized on the June 11 call: Desk's intended job (the job-setup Kanban — profile creation → price review → ready to schedule) is being built natively in Platform "planning mode." If that lands, Desk may not be needed at all. No work here until Zak confirms Desk is still wanted.</div><button class="task-comment-btn" onclick="toggleTaskComment(this, 'fix-zoho-desk-custom-module-access-gap')">💬 Comment</button><div class="task-comments-area"></div></div></li>
         </ul>
       </div>
     </div>
