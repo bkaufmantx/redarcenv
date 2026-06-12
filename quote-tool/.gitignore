@@ -1,0 +1,5 @@
+# Confidential — RedArc pricing, margins, and customer/profile names.
+# This repo is PUBLIC (GitHub Pages). Do NOT commit the built data files until
+# the public-vs-private decision is made. Code + the aggregate quality summary
+# are safe; the actual catalog/profiles are not.
+data/*.json
